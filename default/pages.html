@@ -1,0 +1,116 @@
+<link rel="import" href="components/font-roboto/roboto.html">
+<link rel="import" href="components/core-header-panel/core-header-panel.html">
+<link rel="import" href="components/core-toolbar/core-toolbar.html">
+<link rel="import" href="components/paper-tabs/paper-tabs.html">
+<link rel="import" href="components/core-animated-pages/core-animated-pages.html">
+<link rel="import" href="components/core-animated-pages/transitions/slide-from-right.html">
+
+<link rel="import" href="catalog1.html">
+<link rel="import" href="catalog2.html">
+<link rel="import" href="story.html">
+<link rel="import" href="home.html">
+<link rel="import" href="footer.html">
+<link rel="import" href="contact.html">
+
+<polymer-element name="my-pages">
+
+    <template>
+
+        <style>
+
+            :host {font-family: 'RobotoDraft', sans-serif;}
+
+            core-toolbar{
+                /*background:white;*/
+                background:white url('img/sis2.png') center no-repeat;
+                background-position:center 9px;
+                border-bottom:5px solid white;
+                box-sizing: border-box;
+            }
+
+            paper-tabs {
+                /*height:100%;*/
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                text-transform: uppercase;
+                background:white;
+                color:black;
+            }
+
+            paper-tabs.blue::shadow #selectionBar {
+                background-color: #38d2d7;
+            }
+
+            .blue paper-tab::shadow #ink {
+                color: #38d2d7;
+            }
+
+        </style>
+
+        <core-header-panel fit mode="waterfall-tall" id="core_panel">
+
+            <core-toolbar layout horizontal center center-justified class="animate" id="core_bar" on-tap="{{home}}">
+
+                <paper-tabs class="blue bottom fit" id="paper_tabs" selected="{{activePage}}"  self-end>
+                    <paper-tab>about us</paper-tab>
+                    <paper-tab>the beanies</paper-tab>
+                    <paper-tab>the people</paper-tab>
+                </paper-tabs>
+
+            </core-toolbar>
+
+            <core-animated-pages fit transitions="slide-from-right" selected="{{activePage}}" id="core_pages">
+
+                <section>
+                    <my-story></my-story>
+                    <my-footer></my-footer>
+                </section>
+
+                <section>
+                    <catalog-1 page="{{page}}" muts="{{muts}}"></catalog-1>
+                </section>
+
+                <section>
+                    <catalog-2></catalog-2>
+                </section>
+
+                <section>
+                    <my-home selected="{{activePage}}" page={{page}} muts={{muts}}></my-home>
+                </section>
+
+            </core-animated-pages>
+
+        </core-header-panel>
+
+    </template>
+
+    <script>
+        Polymer('my-pages', {
+
+            /*ready: function() {
+                var panel = this.$.core_panel
+                var tabs = this.$.paper_tabs
+                //var pages = this.$.core_pages
+                tabs.addEventListener('core-select', function() {
+                    //pages.removeAttribute("hidden");
+                    //panel.mode = "waterfall"
+                    //var tall=panel.querySelector('.tall')
+                    //if (tall){tall.classList.remove('tall')}
+                });
+            }*/
+
+            activePage: 3,
+			page: 0,
+			muts: 0,
+            home: function(e) {
+              if (e.target.localName === 'core-toolbar') {
+                this.activePage = 3;
+              }
+            }
+
+        });
+    </script>
+
+</polymer-element>

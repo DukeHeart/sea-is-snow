@@ -1,0 +1,115 @@
+<link rel="import" href="components/core-icons/communication-icons.html">
+<link rel="import" href="components/core-icons/hardware-icons.html">
+<link rel="import" href="components/core-icons/social-icons.html">
+<link rel="import" href="components/core-icons/device-icons.html">
+<link rel="import" href="components/core-icons/maps-icons.html">
+<link rel="import" href="components/core-icons/core-icons.html">
+<link rel="import" href="components/paper-ripple/paper-ripple.html">
+
+<polymer-element name="my-footer" attributes="selectedItem">
+    <template>
+
+        <link rel="stylesheet" href="css/hover.css">
+
+        <style>
+            :host {font-family: 'RobotoDraft', sans-serif;}
+            .icon {color:#38D4D9; width: 48px; height:48px;}
+            a:link {text-decoration:none;}
+            a:visited {text-decoration:none;}
+            a:hover {text-decoration:none;}
+            paper-ripple {color: #38D4D9;}
+        </style>
+
+        <section layout vertical center end-justified>
+
+            <div style="line-height: 400%; margin-bottom:10px;">
+
+<a href="http://facebook.com">
+                <div class="float-shadow">
+                    <core-icon class="float-shadow icon" icon="social:post-facebook"></core-icon>
+                    <paper-ripple fit></paper-ripple>
+                </div>
+</a>
+
+<a href="http://instagram.com">
+                <div class="float-shadow">
+                    <core-icon class="float-shadow icon" icon="social:post-instagram"></core-icon>
+                    <paper-ripple fit></paper-ripple>
+                </div>
+</a>
+
+<a href="mailto:info@seaissnow.nl">
+                <div class="float-shadow">
+                    <core-icon class="float-shadow icon" icon="mail"></core-icon>
+                    <paper-ripple fit></paper-ripple>
+                </div>
+</a>
+
+            </div>
+
+        </section>
+
+    </template>
+    <script>
+        Polymer('my-footer', {});
+    </script>
+</polymer-element>
+
+<!--
+communication:email
+
+a href="mailto:info@seaissnow.nl">
+                <div class="float-shadow">
+                    <core-icon icon="mail"></core-icon>
+                    <paper-ripple fit></paper-ripple>
+                </div>
+</a>
+
+                <div class="float-shadow">
+                    <core-icon class="float-shadow" icon="communication:phone"></core-icon>
+                    <paper-ripple fit></paper-ripple>
+                </div>
+                <div class="float-shadow">
+                    <core-icon class="float-shadow" icon="communication:location-on"></core-icon>
+                    <paper-ripple fit></paper-ripple>
+                </div>
+                <div class="float-shadow">
+                    <core-icon class="float-shadow" icon="hardware:phone-android"></core-icon>
+                    <paper-ripple fit></paper-ripple>
+                </div>
+                <div class="float-shadow">
+                    <core-icon class="float-shadow" icon="hardware:phone-iphone"></core-icon>
+                    <paper-ripple fit></paper-ripple>
+                </div>
+                <div class="float-shadow">
+                    <core-icon class="float-shadow" icon="hardware:smartphone"></core-icon>
+                    <paper-ripple fit></paper-ripple>
+                </div>
+                <div class="float-shadow">
+                    <core-icon class="float-shadow" icon="social:post-twitter"></core-icon>
+                    <paper-ripple fit></paper-ripple>
+                </div>
+                <div class="float-shadow">
+                    <core-icon class="float-shadow" icon="social:location-city"></core-icon>
+                    <paper-ripple fit></paper-ripple>
+                </div>
+                <div class="float-shadow">
+                    <core-icon class="float-shadow" icon="social:person"></core-icon>
+                    <paper-ripple fit></paper-ripple>
+                </div>
+                <div class="float-shadow">
+                    <core-icon iclass="float-shadow"icon="maps:my-location"></core-icon>
+                    <paper-ripple fit></paper-ripple>
+                </div>
+                <div class="float-shadow">
+                    <core-icon class="float-shadow" icon="maps:navigation"></core-icon>
+                    <paper-ripple fit></paper-ripple>
+                </div>
+                <div class="float-shadow">
+                    <core-icon class="float-shadow" icon="maps:place"></core-icon>
+                    <paper-ripple fit></paper-ripple>
+                </div>
+                <div class="float-shadow">
+                    <core-icon class="float-shadow" src="icon/vimeo.svg"></core-icon>
+                    <paper-ripple fit></paper-ripple>
+                </div-->

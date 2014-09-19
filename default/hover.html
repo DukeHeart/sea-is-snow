@@ -1,0 +1,30 @@
+<link href="components/core-transition/core-transition-css.html" rel="import">
+
+<polymer-element name="my-hover" extends="core-transition">
+    <script>
+        Polymer('my-hover', {
+            /*go: function (node, state) {
+                var x = (state.opened ? 0 : 1);
+                node.style.transition = 'opacity 1s ease-out';
+                node.style.opacity = x;
+            }*/
+				
+	        go: function (node, state) {
+	             var x = (state.opened ? 0 : 1);
+	             node.style.transition = 'opacity 0.1s ease-out';
+	             node.style.opacity = 0;
+				 setTimeout(function(){node.style.opacity = 1},100);
+				 setTimeout(function(){node.style.opacity = 0},200);
+				 setTimeout(function(){
+					 node.src="home/"+node.id+"b.png"
+					 //if (x==0) {node.src="home/"+node.id+"b.png"}
+					 //else {node.src="home/"+node.id+".png"}
+					 node.style.opacity = 1
+				 },300);
+	         }
+				
+        })
+    </script>
+</polymer-element>
+
+<my-hover id="my-hover"></my-hover>

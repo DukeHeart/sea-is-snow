@@ -1,0 +1,44 @@
+application: sea-is-snow
+module: default
+version: v0
+runtime: go
+api_version: go1
+threadsafe: true
+
+handlers:
+
+- url: /
+  static_files: default/index.html
+  upload: default/index.html
+  #secure: always
+  #login: admin
+
+- url: /(.*\.go)
+  script: _go_app
+  #http_headers:
+  # Access-Control-Allow-Origin: https://accounts.google.com
+
+- url: /(.*\.map)
+  mime_type: application/javascript
+  static_files: default/\1
+  upload: default/(.*\.map)
+
+- url: /(.*\.(.+))
+  static_files: default/\1
+  upload: default/(.*\.(.+))
+
+- url: /(.+)/
+  static_files: default/\1/index.html
+  upload: default/(.+)/index.html
+
+- url: /(.+)
+  static_files: default/\1/index.html
+  upload: default/(.+)/index.html
+
+skip_files:
+- ^(.*/)?\.git$
+- ^(.*/)?\.idea$
+- ^(.*/)?\.DS_Store$
+- ^(.*/)?.*\.md$
+- ^(.*/)?.*\.yaml$
+- ^(.*/)?.*\.iml$

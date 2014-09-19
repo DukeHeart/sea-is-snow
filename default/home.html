@@ -1,0 +1,140 @@
+<link href="components/core-transition/core-transition-css.html" rel="import">
+<link href="footer.html" rel="import">
+<link href="hover.html" rel="import">
+
+<polymer-element name="my-home" attributes="selected page muts">
+
+    <template>
+
+        <style>
+            :host {font-family: 'RobotoDraft', sans-serif;}
+
+            @media (max-width: 1199px) {
+                img {width:50%;}
+            }
+
+            @media (min-width: 1200px) {
+                img {width:33%;}
+            }
+
+            img {
+                float:left;
+                box-sizing: border-box;
+                border-left: 5px solid #ffffff;
+                border-bottom: 5px solid #ffffff;
+            }
+
+            .l {float:left;}
+            .r {float:right;}
+
+            img:hover{opacity:0;}
+
+            section {
+                box-sizing: border-box;
+                border-right: 5px solid #ffffff;
+            }
+
+        </style>
+
+        <!--section horizontal layout wrap center-justified>
+
+            <img style="width:500px; height:300px;" src="img/grey.png">
+
+            <div style="width:500px; height:300px;" horizontal layout wrap>
+                <img style="width:50%;"  src="img/grey.png">
+                <img style="width:50%;"  src="img/grey.png">
+                <img style="width:100%;"  src="img/grey.png">
+            </div>
+
+            <div style="width:500px; height:300px;" horizontal layout wrap>
+                <img style="width:50%;"  src="img/grey.png">
+                <img style="width:50%;"  src="img/grey.png">
+                <img style="width:50%;"  src="img/grey.png">
+                <img style="width:50%;"  src="img/grey.png">
+            </div>
+
+            <img style="width:500px; height:300px;" src="img/grey.png">
+
+        </section-->
+
+        <section>
+            <img hidden src="home/1b.png">
+			<img hidden src="home/2b.png">
+			<img hidden src="home/3b.png">
+			<img hidden src="home/4b.png">
+			<img hidden src="home/5b.png">
+			<img hidden src="home/6b.png">
+			<img hidden src="home/7b.png">
+			<img hidden src="home/8b.png">
+			<img hidden src="home/9b.png">
+			<img hidden src="home/10b.png">
+          	
+            <img id="1"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="l" src="home/1.png">
+            <img id="2"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="r" src="home/2.png">
+            <img id="3"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="l" src="home/3.png">
+            <img id="4"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="r" src="home/4.png">
+            <img id="5"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="l" src="home/5.png">
+            <img id="6"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="r" src="home/6.png">
+            <img id="7"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="l" src="home/7.png">
+            <img id="8"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="r" src="home/8.png">
+            <img id="9"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="l" src="home/9.png">
+            <img id="10" on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="r" src="home/10.png">
+        </section>
+		
+    </template>
+
+    <script>
+        Polymer('my-home', {
+			
+			selected:0,
+			page:0,
+			muts:0,
+
+            created: function() {
+                var meta = document.createElement('core-meta');
+                meta.type = 'transition';
+                this.transition = meta.byId('my-hover');
+            },
+			
+            ani: function(s) {
+                //console.log(s.getAttribute('data-state'))
+
+                var state = {}
+                state.opened= (s.getAttribute('data-state') == 'open' ? true : false)
+
+                var meta = document.createElement('core-meta');
+                meta.type = 'transition';
+
+                this.transition.setup(s);
+                this.transition.go(s, state);
+                this.transition.teardown(s);
+
+                var close = (state.opened ? 'close':'open')
+                s.setAttribute('data-state',close);
+            },
+
+			over: function (e,d,s){
+				this.ani(s)
+			},
+			
+			out: function (e,d,s){
+				s.src="home/"+s.id+".png"
+			},
+			
+			link: function (e,d,s) {
+				switch(s.id) {
+				    case 4:
+				        document.location="http://instagram.com/annelous"
+				        break;
+				    default:
+						this.selected='1'
+						this.page='1'
+						/*if(document.body.clientWidth<431){this.page='0'}*/
+						this.muts={album:'Classic', artist:'Blue', color:'#59D6F9', bg:'muts/Classic-Blue.png'}			
+				}
+			}
+			
+        });
+    </script>
+
+</polymer-element>

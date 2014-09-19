@@ -1,0 +1,145 @@
+<link rel="import" href="components/core-animated-pages/core-animated-pages.html">
+
+<polymer-element name="catalog-1" attributes="page muts">
+    <template>
+
+        <style>
+            :host {font-family: 'RobotoDraft', sans-serif;}
+
+            @media (max-width: 431px) {
+                .chip img {width: 290px;}
+                .chip{box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 1); margin: 0px 2px 15px 2px;}
+            }
+
+            @media (min-width: 431px) {
+                .chip img {width: 200px;}
+                .chip{box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16); margin: 0px 2px 10px 2px;}
+            }
+				
+            .chip-container {text-align: center;}
+
+            .chip {
+                display: inline-block;
+                border-radius: 3px;
+                text-align: start;
+                background-color: #fff;
+				box-sizing: border-box;
+            }
+
+            .chip:hover {box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 1);}
+            .chip-bottom {padding: 8px; line-height: 1.5;}
+            .chip-album-title {font-weight: bold;}
+			
+			.big {width:300px;}
+
+            .card {
+                height: 400px;
+                border-radius: 3px;
+                text-align: start;
+                background: #fff;
+                box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            }
+
+            .card:hover {box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 1);}
+            .card-left {width: 300px;}
+            .card-right {padding: 24px;}
+            .card-album-title {font-size: 2em;}
+				
+			section {padding-top:5px;}
+        </style>
+
+        <core-animated-pages fit selected="{{page}}" transitions="hero-transition" >
+
+            <section layout vertical center center-justified>
+                <div class="chip-container" hero-p on-tap="{{transition}}">
+                    <template repeat="{{items as item}}">
+                        <div class="chip" hero-id="{{item.artist}}-{{item.album}}" hero?="{{muts === item }}">
+                            <div class="chip-top" hero-id="{{item.artist}}-{{item.album}}-art" hero?="{{muts === item}}">
+                            	<img src="{{item.bg}}">
+                            </div>
+                            <div class="chip-bottom">
+                                <div class="chip-album-title">{{item.album}}</div>
+                                <div class="chip-artist">{{item.artist}}</div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </section>
+
+            <section layout vertical center center-justified>
+				
+				<!--img hero
+				class="big"
+				hero-id="{{muts.artist}}-{{muts.album}}" 
+				on-tap="{{transition}}" 
+				src="{{muts.bg}}"-->
+			
+                <div layout horizontal class="card" hero-id="{{muts.artist}}-{{muts.album}}" hero on-tap="{{transition}}">
+                    <div class="card-left" hero-id="{{muts.artist}}-{{muts.album}}-art" hero>
+                    	<img class="big" src="{{muts.bg}}">
+                    </div>
+                    <div class="card-right" flex>
+                        <div layout horizontal center>
+                            <div flex>
+                                <div class="card-album-title">{{muts.album}}</div>
+                                <div class="card-album-artist">{{muts.artist}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+					
+            </section>
+
+        </core-animated-pages>
+
+    </template>
+
+    <script>
+
+        Polymer('catalog-1', {
+
+            page: 0,
+			muts: {album:'Classic', artist:'Blue', color:'#59D6F9', bg:'muts/Classic-Blue.png'},
+
+            items: [
+                { album: 'Classic', artist: 'Blue', color: '#59D6F9', bg: 'muts/Classic-Blue.png' },
+                { album: 'Classic', artist: 'Coral', color: '#972ff8', bg: 'muts/Classic-Coral.png' },
+                { album: 'Classic', artist: 'Purple', color: '#7dd6fe', bg: 'muts/Classic-Purple.png' },
+                { album: 'Original', artist: 'Blue Orange Green', color: '#dc3c84', bg: 'muts/Original-Blue-Orange-Green.png' },
+                { album: 'Original', artist: 'Brown Pink Orange', color: '#f4db33', bg: 'muts/Original-Brown-Pink-Orange.png' },
+                { album: 'Original', artist: 'Sand Blue', color: '#972ff8', bg: 'muts/Original-Sand-Blue.png' },
+                { artist: 'Special', album: 'Schell', color: '#7dd6fe', bg: 'muts/Shell.png' },
+                { artist: 'Special', album: 'Stone', color: '#dc3c84', bg: 'muts/Stone.png' },
+                { artist: 'Limited edition', album: 'Sunrise', color: '#f4db33', bg: 'muts/Sunrise.png' },
+                { artist: 'Limited edition', album: 'Sunset', color: '#972ff8', bg: 'muts/Sunset.png' }
+            ],
+
+            muts: null,
+
+            transition: function(e) {
+                if(document.body.clientWidth<431){return 0}
+                if (this.page === 0 && e.target.templateInstance.model.item) {
+					this.page = 1;
+                    this.muts = e.target.templateInstance.model.item;
+                } else {
+                    this.page = 0;
+                }
+            }
+        });
+
+    </script>
+
+</polymer-element>
+
+        <!--
+
+            .card-icon {
+                border-radius: 50%;
+                width: 60px;
+                height: 60px;
+                margin-right: 16px;
+            }
+
+        div>
+            <div class="card-icon" style="background:{{muts.color}};"></div>
+        </div-->

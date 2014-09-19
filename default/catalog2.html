@@ -1,0 +1,148 @@
+<link href="components/core-icons/av-icons.html" rel="import">
+<link href="components/paper-fab/paper-fab.html" rel="import">
+<link href="components/core-animated-pages/core-animated-pages.html" rel="import">
+
+<polymer-element name="catalog-2">
+<template>
+
+    <style>
+
+        :host {font-family: 'RobotoDraft', sans-serif;}
+
+        @media (max-width: 640px) {
+			.tile {width:100%;
+				   margin:0px 15px 15px 15px;
+			} 
+			img{ width:100px;
+                 margin: 5px 0px 0px 5px;
+                 float:left;
+			 }
+		}
+		
+        @media (min-width: 641px) {
+			.tile {width:45%;
+                /*box-sizing: border-box;
+                border-left: 5px solid #ffffff;
+                border-bottom: 5px solid #ffffff;*/
+				margin:10px;
+				
+			} 
+			img{display:block;
+                margin:5px auto 0px auto;
+            }
+		}
+		
+        @media (min-width: 1166px) {
+			.tile {width:45%;}
+			img{float:left;
+                margin: 5px 0px 60px 5px;
+			}
+		}
+		
+
+        .tile {
+			background:#abecee;
+			box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 1);
+			box-sizing: border-box;
+		}
+
+        /*.tile:hover {opacity:0.5}*/
+        /*h1 {line-height: 0px;}*/
+
+        .tile-top {
+            padding: 0px 5px;
+            text-align: justify;
+            color:black;
+        }
+
+        /*img {
+            float:left;
+            margin:5px 0px 0px 5px;
+        }*/
+		section {padding-top:5px;}
+
+    </style>
+
+    <core-animated-pages fit selected="{{page}}" transitions="hero-transition">
+
+        <section horizontal layout wrap around-justified style="border-right:0px solid white;">
+
+                <div class="tile" hero-id="annelous" hero>
+                    <img src="img/annelous.png">
+                    <div class="tile-top">
+                        <h1>Annelous Lammerts</h1>
+                        <p>After becoming European Freestyle Champion, Annelous has now put her focus on the world championship. Currently ranked 4th in her first year competing in the world tour she has proven to be part of the best female kiteboarders at the moment. With already a few podium places this year she is now dreaming of standing on top of the podium, your purchase will support her in realizing this dream. </p>
+                    </div>
+                </div>
+
+                <div class="tile" hero-id="isabelle" hero>
+                    <img src="img/isabelle.png">
+                    <div class="tile-top">
+                        <h1>Isabelle Schipper</h1>
+                        <p>This young girl, who we also call ‘Belle’, is full of energy! She is always ready to go out for a session, and when she is training she will stay on the water for hours untill she nails that new trick. With here motivation and smile it is always fun to share a session with this talented girl, who is definitely on here way to become one of the best! Your purchase will support Belle on her way to the top. </p>
+                    </div>
+                </div>
+
+                <div class="tile" hero-id="yorrick" hero>
+                    <img src="img/yorrick.png">
+                    <div class="tile-top">
+                        <h1>Yorrick Schipper</h1>
+                        <p>Yor is our business man. Don’t underestimate his skill of collaboration and managment, a good business plan needs a lot of thought and perperation. Thanks to Yorrick we dont have to worry much about contracts and sales, he takes care of all of this, so we can concentrate on our riding and producing the beanies. Besides all this, Yorrick is a great brother and friend who has overcome some mayor setbacks. We can all learn from his motivation to never give up, even when things are extremely difficult.</p>
+                    </div>
+                </div>
+
+                <div class="tile" hero-id="katja" hero>
+                    <img src="img/katja.png">
+                    <div class="tile-top">
+                        <h1>Katja Schipper</h1>
+                        <p>Katja is the one keeping us four together. We couldn’t have started this brand without her creativity and positivity. She turns our crazy ideas into a realistic plans and she will work untill way after normal working hours to get the things done. If Katja is not putting her time in ‘Sea is Snow’ you will find her on the beach filming and supporting Belle and Annelous. When the girls come across some obstacles in their kiteboarding, Katja is there to help them. </p>
+                    </div>
+               </div>
+
+        </section>
+
+        <section layout vertical>
+            <div hero-id="annelous" hero flex layout horizontal center center-justified style="min-height: 500px; background:#ffff8d url('img/4.png') no-repeat center center; background-size:cover;" on-tap="{{home}}"></div>
+        </section>
+
+        <section layout vertical style="min-height: 500px;">
+            <div hero-id="isabelle" hero flex layout horizontal center center-justified style="background:#ffff8d url('img/isabel.png') no-repeat center center; background-size:cover;" on-tap="{{home}}"></div>
+        </section>
+
+    </core-animated-pages>
+
+</template>
+<script>
+
+    Polymer('catalog-2', {
+        page: 0,
+        home: function() {this.page=0},
+        annelous: function() {this.page=1},
+        isabelle: function() {this.page=2}
+    });
+
+</script>
+</polymer-element>
+
+ <!--div class="tile-bottom" hero-id="isabelle-footer" hero style="background-color:#abecee;">Team rider</div-->
+
+ <!--div class="tile-bottom" style="background-color:#FFEB3B;" hero-id="annelous-footer" hero>Annelous Lammerts
+
+        .tile-bottom {
+            padding: 8px;
+            color: black;
+        }
+
+/*
+        .tile {
+            box-sizing: border-box;
+            height: 330px;
+            width:640px;
+            min-width:640px;
+            border-left: 5px solid #ffffff;
+            border-bottom: 5px solid #ffffff;
+        }
+*/
+
+ </div-->
+
