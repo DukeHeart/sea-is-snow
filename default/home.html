@@ -16,10 +16,6 @@
             @media (min-width: 641px) {
 				.size {width:50%;}
             }
-
-            /*@media (min-width: 1200px) {
-   			 	.size {width:33%;}
-            }*/
 				
             img {
 				float:left;
@@ -43,22 +39,21 @@
 
         <section>
     
-
-            <img class="size" id="9"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" src="home/9.png">
+            <img class="size" id="h09" on-tap="{{link}}" src="home/9.png">
 
 			<div class="size">
-		    	<img class="box" id="6"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" src="home/6.png">
-            	<img class="box" id="1"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" src="home/1.png">
-            	<img class="box" id="10" on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" src="home/10.png">
-            	<img class="box" id="7"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" src="home/7.png">
+		    	<img class="box" id="h06" on-tap="{{link}}" src="home/6.png">
+            	<img class="box" id="h01" on-tap="{{link}}" src="home/1.png">
+            	<img class="box" id="h10" on-tap="{{link}}" src="home/10.png">
+            	<img class="box" id="h07" on-tap="{{link}}" src="home/7.png">
             </div>
 			
 			<div class="size">
-				<img class="box" id="5"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" src="home/5.png">
-            	<img class="box" id="4"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" src="home/4.png">
+				<img class="box" id="h05" on-tap="{{link}}" src="home/5.png">
+            	<img class="box" id="h04" on-tap="{{link}}" src="home/4.png">
 			</div>
 
-			<img class="size" id="2"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" src="home/2.png">
+			<img class="size" id="h02" on-tap="{{link}}" src="home/2.png">
 
 	       </section>
 		
@@ -77,6 +72,53 @@
                 this.transition = meta.byId('my-hover');
             },
 			
+			link: function (e,d,s) {
+				this.selected='1'
+				this.page='1'
+				if(document.body.clientWidth<431){this.page='0'}
+				this.muts=this.items[s.id]
+			},
+			
+            items: {
+                h01: { id: 'm01', album: 'Classic', artist: 'Blue', color: '#59D6F9', bg: 'muts/Classic-Blue.png' },
+                h02: { id: 'm02', album: 'Classic', artist: 'Coral', color: '#972ff8', bg: 'muts/Classic-Coral.png' },
+                h03: { id: 'm03', album: 'Classic', artist: 'Purple', color: '#7dd6fe', bg: 'muts/Classic-Purple.png' },
+                h04: { id: 'm04', album: 'Original', artist: 'Blue Orange Green', color: '#dc3c84', bg: 'muts/Original-Blue-Orange-Green.png' },
+                h05: { id: 'm05', album: 'Original', artist: 'Brown Pink Orange', color: '#f4db33', bg: 'muts/Original-Brown-Pink-Orange.png' },
+                h06: { id: 'm06', album: 'Original', artist: 'Sand Blue', color: '#972ff8', bg: 'muts/Original-Sand-Blue.png' },
+                h07: { id: 'm07', artist: 'Special', album: 'Schell', color: '#7dd6fe', bg: 'muts/Shell.png' },
+                h08: { id: 'm08', artist: 'Special', album: 'Stone', color: '#dc3c84', bg: 'muts/Stone.png' },
+                h09: { id: 'm09', artist: 'Limited edition', album: 'Sunrise', color: '#f4db33', bg: 'muts/Sunrise.png' },
+                h10: { id: 'm10', artist: 'Limited edition', album: 'Sunset', color: '#972ff8', bg: 'muts/Sunset.png' }
+            },
+			
+        });
+    </script>
+
+</polymer-element>
+
+            <!--img hidden src="home/1b.png">
+			<img hidden src="home/2b.png">
+			<img hidden src="home/3b.png">
+			<img hidden src="home/4b.png">
+			<img hidden src="home/5b.png">
+			<img hidden src="home/6b.png">
+			<img hidden src="home/7b.png">
+			<img hidden src="home/8b.png">
+			<img hidden src="home/9b.png">
+			<img hidden src="home/10b.png"-->				
+
+        <!--section horizontal layout wrap center-justified>
+			
+			/*switch(s.id) {
+				//Fb Annelous: www.facebook.com/annelousl
+				//Fb Isabelle: www.facebook.com/belleschipperkiteboarding 
+			    case "4":
+			        document.location="http://instagram.com/annelous"
+			        break;
+			    default:
+			}*/
+			
             ani: function(s) {
                 //console.log(s.getAttribute('data-state'))
 
@@ -93,61 +135,14 @@
                 var close = (state.opened ? 'close':'open')
                 s.setAttribute('data-state',close);
             },
-
-			over: function (e,d,s){
+			
+			/*over: function (e,d,s){
 				//this.ani(s)
 			},
 			
 			out: function (e,d,s){
 				//s.src="home/"+s.id+".png"
-			},
-			
-			link: function (e,d,s) {
-				switch(s.id) {
-					//Fb Annelous: www.facebook.com/annelousl
-					//Fb Isabelle: www.facebook.com/belleschipperkiteboarding 
-				    case "4":
-				        document.location="http://instagram.com/annelous"
-				        break;
-				    default:
-						this.selected='1'
-						this.page='1'
-						if(document.body.clientWidth<431){this.page='0'}
-						this.muts=this.items[7]
-				}
-			},
-			
-            items: [
-                { album: 'Classic', artist: 'Blue', color: '#59D6F9', bg: 'muts/Classic-Blue.png' },
-                { album: 'Classic', artist: 'Coral', color: '#972ff8', bg: 'muts/Classic-Coral.png' },
-                { album: 'Classic', artist: 'Purple', color: '#7dd6fe', bg: 'muts/Classic-Purple.png' },
-                { album: 'Original', artist: 'Blue Orange Green', color: '#dc3c84', bg: 'muts/Original-Blue-Orange-Green.png' },
-                { album: 'Original', artist: 'Brown Pink Orange', color: '#f4db33', bg: 'muts/Original-Brown-Pink-Orange.png' },
-                { album: 'Original', artist: 'Sand Blue', color: '#972ff8', bg: 'muts/Original-Sand-Blue.png' },
-                { artist: 'Special', album: 'Schell', color: '#7dd6fe', bg: 'muts/Shell.png' },
-                { artist: 'Special', album: 'Stone', color: '#dc3c84', bg: 'muts/Stone.png' },
-                { artist: 'Limited edition', album: 'Sunrise', color: '#f4db33', bg: 'muts/Sunrise.png' },
-                { artist: 'Limited edition', album: 'Sunset', color: '#972ff8', bg: 'muts/Sunset.png' }
-            ]
-			
-        });
-    </script>
-
-</polymer-element>
-
-            <!--img hidden src="home/1b.png">
-			<img hidden src="home/2b.png">
-			<img hidden src="home/3b.png">
-			<img hidden src="home/4b.png">
-			<img hidden src="home/5b.png">
-			<img hidden src="home/6b.png">
-			<img hidden src="home/7b.png">
-			<img hidden src="home/8b.png">
-			<img hidden src="home/9b.png">
-			<img hidden src="home/10b.png"-->
-
-        <!--section horizontal layout wrap center-justified>
-			
+			},*/
 			
           	<div>
             	<img id="9"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="l" src="home/9.png">
