@@ -8,66 +8,59 @@
 
         <style>
             :host {font-family: 'RobotoDraft', sans-serif;}
-
-            @media (max-width: 1199px) {
-                img {width:50%;}
+			
+            @media (max-width: 640px) {
+				.size {width:100%;}
             }
 
-            @media (min-width: 1200px) {
-                img {width:33%;}
+            @media (min-width: 641px) {
+				.size {width:50%;}
             }
 
+            /*@media (min-width: 1200px) {
+   			 	.size {width:33%;}
+            }*/
+				
             img {
-                float:left;
+				float:left;
                 box-sizing: border-box;
                 border-left: 5px solid #ffffff;
                 border-bottom: 5px solid #ffffff;
             }
-
-            .l {float:left;}
-            .r {float:right;}
-
-            img:hover{opacity:0.5;}
-
+			
+			img:hover{opacity:0.9;}
+			
+			div{float:left;}
+			
+			.box {width:50%;}
+           
             section {
                 box-sizing: border-box;
                 border-right: 5px solid #ffffff;
             }
 			
-			#9{}
-			#6{}
-			#1{}
-		    #10{}
-			#7{}
-			#5{}
-			#4{}
-			#2{}
-
         </style>
 
         <section>
-            <!--img hidden src="home/1b.png">
-			<img hidden src="home/2b.png">
-			<img hidden src="home/3b.png">
-			<img hidden src="home/4b.png">
-			<img hidden src="home/5b.png">
-			<img hidden src="home/6b.png">
-			<img hidden src="home/7b.png">
-			<img hidden src="home/8b.png">
-			<img hidden src="home/9b.png">
-			<img hidden src="home/10b.png"-->
-          	
-            <img id="9"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="l" src="home/9.png">
-            <img id="6"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="r" src="home/6.png">
-            <img id="1"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="r" src="home/1.png">
-            <img id="10" on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="r" src="home/10.png">
-            <img id="7"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="r" src="home/7.png">
-            <img id="5"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="l" src="home/5.png">
-            <img id="4"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="l" src="home/4.png">
-			<img id="2"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="r" src="home/2.png">
-            <!--img id="3"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="l" src="home/3.png"-->
-            <!--img id="8"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="r" src="home/8.png"-->
-        </section>
+    
+
+            <img class="size" id="9"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" src="home/9.png">
+
+			<div class="size">
+		    	<img class="box" id="6"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" src="home/6.png">
+            	<img class="box" id="1"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" src="home/1.png">
+            	<img class="box" id="10" on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" src="home/10.png">
+            	<img class="box" id="7"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" src="home/7.png">
+            </div>
+			
+			<div class="size">
+				<img class="box" id="5"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" src="home/5.png">
+            	<img class="box" id="4"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" src="home/4.png">
+			</div>
+
+			<img class="size" id="2"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" src="home/2.png">
+
+	       </section>
 		
     </template>
 
@@ -130,7 +123,49 @@
 
 </polymer-element>
 
+            <!--img hidden src="home/1b.png">
+			<img hidden src="home/2b.png">
+			<img hidden src="home/3b.png">
+			<img hidden src="home/4b.png">
+			<img hidden src="home/5b.png">
+			<img hidden src="home/6b.png">
+			<img hidden src="home/7b.png">
+			<img hidden src="home/8b.png">
+			<img hidden src="home/9b.png">
+			<img hidden src="home/10b.png"-->
+
         <!--section horizontal layout wrap center-justified>
+			
+			
+          	<div>
+            	<img id="9"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="l" src="home/9.png">
+            </div>
+			<div>
+		    	<img id="6"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="r" src="home/6.png">
+            	<img id="1"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="r" src="home/1.png">
+            	<img id="10" on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="r" src="home/10.png">
+            	<img id="7"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="r" src="home/7.png">
+            </div>
+			<div>
+				<img id="5"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="l" src="home/5.png">
+            	<img id="4"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="l" src="home/4.png">
+			</div>
+			<div>
+				<img id="2"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="r" src="home/2.png">
+            </div>
+			<img id="3"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="l" src="home/3.png">
+            <img id="8"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="r" src="home/8.png">
+			
+			
+			
+			#9{width:50%;}
+			#6{width:33%;}
+			#1{width:33%;}
+		    #10{width:33%;}
+			#7{width:33%;}
+			#5{}
+			#4{}
+			#2{width:50%;}
 
             <img style="width:500px; height:300px;" src="img/grey.png">
 
@@ -150,4 +185,6 @@
             <img style="width:500px; height:300px;" src="img/grey.png">
 
         </section-->
+			
+			
 
