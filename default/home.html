@@ -1,6 +1,4 @@
-<link href="components/core-transition/core-transition-css.html" rel="import">
 <link href="footer.html" rel="import">
-<link href="hover.html" rel="import">
 
 <polymer-element name="my-home" attributes="selected page muts">
 
@@ -93,105 +91,13 @@
             },
 			
         });
+		//Fb Annelous: www.facebook.com/annelousl
+		//Fb Isabelle: www.facebook.com/belleschipperkiteboarding 
     </script>
 
 </polymer-element>
 
-            <!--img hidden src="home/1b.png">
-			<img hidden src="home/2b.png">
-			<img hidden src="home/3b.png">
-			<img hidden src="home/4b.png">
-			<img hidden src="home/5b.png">
-			<img hidden src="home/6b.png">
-			<img hidden src="home/7b.png">
-			<img hidden src="home/8b.png">
-			<img hidden src="home/9b.png">
-			<img hidden src="home/10b.png"-->				
-
-        <!--section horizontal layout wrap center-justified>
-			
-			/*switch(s.id) {
-				//Fb Annelous: www.facebook.com/annelousl
-				//Fb Isabelle: www.facebook.com/belleschipperkiteboarding 
-			    case "4":
-			        document.location="http://instagram.com/annelous"
-			        break;
-			    default:
-			}*/
-			
-            ani: function(s) {
-                //console.log(s.getAttribute('data-state'))
-
-                var state = {}
-                state.opened= (s.getAttribute('data-state') == 'open' ? true : false)
-
-                var meta = document.createElement('core-meta');
-                meta.type = 'transition';
-
-                this.transition.setup(s);
-                this.transition.go(s, state);
-                this.transition.teardown(s);
-
-                var close = (state.opened ? 'close':'open')
-                s.setAttribute('data-state',close);
-            },
-			
-			/*over: function (e,d,s){
-				//this.ani(s)
-			},
-			
-			out: function (e,d,s){
-				//s.src="home/"+s.id+".png"
-			},*/
-			
-          	<div>
-            	<img id="9"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="l" src="home/9.png">
-            </div>
-			<div>
-		    	<img id="6"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="r" src="home/6.png">
-            	<img id="1"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="r" src="home/1.png">
-            	<img id="10" on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="r" src="home/10.png">
-            	<img id="7"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="r" src="home/7.png">
-            </div>
-			<div>
-				<img id="5"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="l" src="home/5.png">
-            	<img id="4"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="l" src="home/4.png">
-			</div>
-			<div>
-				<img id="2"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="r" src="home/2.png">
-            </div>
-			<img id="3"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="l" src="home/3.png">
-            <img id="8"  on-tap="{{link}}" data-state="open" on-mouseout="{{out}}" on-mouseover="{{over}}" class="r" src="home/8.png">
-			
-			
-			
-			#9{width:50%;}
-			#6{width:33%;}
-			#1{width:33%;}
-		    #10{width:33%;}
-			#7{width:33%;}
-			#5{}
-			#4{}
-			#2{width:50%;}
-
-            <img style="width:500px; height:300px;" src="img/grey.png">
-
-            <div style="width:500px; height:300px;" horizontal layout wrap>
-                <img style="width:50%;"  src="img/grey.png">
-                <img style="width:50%;"  src="img/grey.png">
-                <img style="width:100%;"  src="img/grey.png">
-            </div>
-
-            <div style="width:500px; height:300px;" horizontal layout wrap>
-                <img style="width:50%;"  src="img/grey.png">
-                <img style="width:50%;"  src="img/grey.png">
-                <img style="width:50%;"  src="img/grey.png">
-                <img style="width:50%;"  src="img/grey.png">
-            </div>
-
-            <img style="width:500px; height:300px;" src="img/grey.png">
-
-        </section-->
+				
 			
 			
 
