@@ -110,13 +110,25 @@
 				        document.location="http://instagram.com/annelous"
 				        break;
 				    default:
-						console.log(this.parentNode)
 						this.selected='1'
 						this.page='1'
-						if(document.body.clientWidth<431){this.page='0';/*setTimeout(this.parentNode.scrollTo(0,500))*/}
-						this.muts={album:'Classic', artist:'Blue', color:'#59D6F9', bg:'muts/Classic-Blue.png'}			
+						if(document.body.clientWidth<431){this.page='0'}
+						this.muts=this.items[7]
 				}
-			}
+			},
+			
+            items: [
+                { album: 'Classic', artist: 'Blue', color: '#59D6F9', bg: 'muts/Classic-Blue.png' },
+                { album: 'Classic', artist: 'Coral', color: '#972ff8', bg: 'muts/Classic-Coral.png' },
+                { album: 'Classic', artist: 'Purple', color: '#7dd6fe', bg: 'muts/Classic-Purple.png' },
+                { album: 'Original', artist: 'Blue Orange Green', color: '#dc3c84', bg: 'muts/Original-Blue-Orange-Green.png' },
+                { album: 'Original', artist: 'Brown Pink Orange', color: '#f4db33', bg: 'muts/Original-Brown-Pink-Orange.png' },
+                { album: 'Original', artist: 'Sand Blue', color: '#972ff8', bg: 'muts/Original-Sand-Blue.png' },
+                { artist: 'Special', album: 'Schell', color: '#7dd6fe', bg: 'muts/Shell.png' },
+                { artist: 'Special', album: 'Stone', color: '#dc3c84', bg: 'muts/Stone.png' },
+                { artist: 'Limited edition', album: 'Sunrise', color: '#f4db33', bg: 'muts/Sunrise.png' },
+                { artist: 'Limited edition', album: 'Sunset', color: '#972ff8', bg: 'muts/Sunset.png' }
+            ]
 			
         });
     </script>
