@@ -48,7 +48,7 @@
 			section {padding-top:5px;}
         </style>
 
-        <core-animated-pages fit selected="{{page}}">
+        <core-animated-pages fit selected="{{page}}" id="core_page">
 		<!--core-animated-pages fit selected="{{page}}" transitions="hero-transition"-->
 
             <section layout vertical center center-justified>
@@ -92,6 +92,17 @@
     <script>
 
         Polymer('catalog-1', {
+			
+			/*
+			ready: function(){
+				this.$.core_page.addEventListener("core-animated-pages-transition-end", function(e) {
+				        console.log('done')
+						if(document.body.clientWidth>430){return 0}
+						var x=this.shadowRoot.querySelector("#"+this.muts.id)
+						if (x){setTimeout(function(){x.scrollIntoView()},1000)}
+				 })
+			},
+			*/
 			
             mutsChanged: function(){
 				if(document.body.clientWidth>430){return 0}

@@ -16,44 +16,84 @@
             }
 				
             img {
+				width:100%;
 				float:left;
                 box-sizing: border-box;
                 border-left: 5px solid #ffffff;
                 border-bottom: 5px solid #ffffff;
             }
 			
-			img:hover{opacity:0.9;}
-			
-			div{float:left;}
+			.h:hover > img {opacity:0.5;}
+			.h:hover > span {display:inline;}
+		
+			div{position:relative; float:left;}
 			
 			.box {width:50%;}
+			.big {width:100%;}
            
             section {
                 box-sizing: border-box;
                 border-right: 5px solid #ffffff;
             }
 			
+			span {
+				position:absolute;
+				top:0;
+				left:0;
+				display:none;
+				font-size: 250%;
+				margin:5px 10px;
+			}
+			
+			span::before {
+				content:url('icon/favicon.png')
+			}
+			
         </style>
 
         <section>
-    
-            <img class="size" id="h09" on-tap="{{link}}" src="home/9.png">
-
+			
+			<div class="size h">
+            	<img id="h09" on-tap="{{link}}" src="home/9.png">
+				<span id="t09">text 1<span>
+			</div>
+			
 			<div class="size">
-		    	<img class="box" id="h06" on-tap="{{link}}" src="home/6.png">
-            	<img class="box" id="h01" on-tap="{{link}}" src="home/1.png">
-            	<img class="box" id="h10" on-tap="{{link}}" src="home/10.png">
-            	<img class="box" id="h07" on-tap="{{link}}" src="home/7.png">
+				<div class="box h">
+		    		<img id="h06" on-tap="{{link}}" src="home/6.png">
+            	    <span id="t06">text 2<span>
+				</div>
+				<div class="box h">
+					<img id="h01" on-tap="{{link}}" src="home/1.png">
+            	    <span id="t01">text 3<span>
+				</div>
+				<div class="box h">
+					<img id="h10" on-tap="{{link}}" src="home/10.png">
+            	    <span id="t10">text 4<span>
+				</div>
+				<div class="box h">
+					<img id="h07" on-tap="{{link}}" src="home/7.png">
+					<span id="t07">text 5<span>
+				</div>
             </div>
 			
 			<div class="size">
-				<img class="box" id="h05" on-tap="{{link}}" src="home/5.png">
-            	<img class="box" id="h04" on-tap="{{link}}" src="home/4.png">
+				<div class="box h">
+					<img id="h05" on-tap="{{link}}" src="home/5.png">
+					<span id="t05">text 6<span>
+            	</div>
+				<div class="box h">	
+					<img id="h04" on-tap="{{link}}" src="home/4.png">
+					<span id="t04">text 7<span>
+				</div>
 			</div>
-
-			<img class="size" id="h02" on-tap="{{link}}" src="home/2.png">
-
-	       </section>
+			
+			<div class="size h">
+				<img id="h02" on-tap="{{link}}" src="home/2.png">
+				<span id="t02">text 8<span>
+			</div>
+			
+		</section>
 		
     </template>
 
