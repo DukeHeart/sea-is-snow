@@ -48,7 +48,7 @@
 			section {padding-top:5px;}
         </style>
 
-        <core-animated-pages fit selected="{{page}}" id="core_page">
+        <core-animated-pages fit selected="{{page}}">
 		<!--core-animated-pages fit selected="{{page}}" transitions="hero-transition"-->
 
             <section layout vertical center center-justified>
@@ -86,31 +86,16 @@
             </section>
 
         </core-animated-pages>
-
+		
     </template>
 
     <script>
 
         Polymer('catalog-1', {
 			
-			/*
-			ready: function(){
-				this.$.core_page.addEventListener("core-animated-pages-transition-end", function(e) {
-				        console.log('done')
-						if(document.body.clientWidth>430){return 0}
-						var x=this.shadowRoot.querySelector("#"+this.muts.id)
-						if (x){setTimeout(function(){x.scrollIntoView()},1000)}
-				 })
-			},
-			*/
-			
-            mutsChanged: function(){
-				if(document.body.clientWidth>430){return 0}
-				var x=this.shadowRoot.querySelector("#"+this.muts.id)
-				if (x){setTimeout(function(){x.scrollIntoView()},1000)}
-			},
-			
             page: 0,
+			
+			muts: null,
 
             items: [
                 { id: 'm01', album: 'Classic', artist: 'Blue', color: '#59D6F9', bg: 'muts/Classic-Blue.png' },
@@ -125,8 +110,6 @@
                 { id: 'm10', artist: 'Limited edition', album: 'Sunset', color: '#972ff8', bg: 'muts/Sunset.png' }
             ],
 
-            muts: null,
-
             transition: function(e) {
                 if(document.body.clientWidth<431){return 0}
                 if (this.page === 0 && e.target.templateInstance.model.item) {
@@ -135,7 +118,14 @@
                 } else {
                     this.page = 0;
                 }
-            }
+            },
+			
+			mutsChanged: function(e){
+				if(document.body.clientWidth>430){return 0}
+				var x=this.shadowRoot.querySelector("#"+this.muts.id)
+				if (x){setTimeout(function(){x.scrollIntoView()},1000)}
+			}
+			
         });
 
     </script>
