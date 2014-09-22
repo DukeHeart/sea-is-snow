@@ -7,9 +7,10 @@
         <style>
             :host {font-family: 'RobotoDraft', sans-serif;}
 
-            @media (max-width: 640px) {.size {width:100%;}}
-            @media (min-width: 641px) {.size {width:50%;}}
-				
+            @media (max-width: 640px) {.size {width:100%;} .smb, .fb {font-size: 150%;} }
+            @media (min-width: 641px) {.size {width:50%;} .smb, .fb {font-size: 150%;} }
+            @media (min-width: 1024px) {.smb, .fb {font-size: 200%;}}
+			
             img {
 				width:100%;
                 box-sizing: border-box;
@@ -28,6 +29,7 @@
             section {
                 box-sizing: border-box;
                 border-right: 5px solid #ffffff;
+				/*padding:0px 15px;*/
             }
 			
 			.text {
@@ -39,11 +41,11 @@
 				height:100%;
 			}
 			
-			.smb {font-size: 200%; margin-left:57px;}
+			.smb {margin-left:57px;}
 			.smb::before {content:' '; background:url('icon/sis.png') no-repeat; width:47px; height:40px; position:absolute; margin-left:-50px;}
-			.fb {font-size: 200%; margin-left:50px;}
+			.fb {margin-left:50px;}
 			.fb::before{content:' '; background:url('icon/fb.png')  no-repeat; width:40px; height:40px; position:absolute; margin-left:-45px;}
-			.sml {font-size: 100%;}
+			.sml {margin-left:57px;}
 			
         </style>
 
@@ -60,28 +62,28 @@
 				<div class="box h" id="m07" on-tap="{{link}}">
 		    		<img src="home/6.png">
 					<div class="text" layout vertical center center-justified>
-            	    	<span class="smb">Shell</span><br/>
+            	    	<span class="smb">Shell</span>
 						<span class="sml">Special</span>
 					</div>
 				</div>
 				<div class="box h" id="m01" on-tap="{{link}}">
 					<img src="home/1.png">
 					<div class="text" layout vertical center center-justified>
-            	    	<span class="smb">Classic</span><br/>
+            	    	<span class="smb">Classic</span>
 						<span class="sml">Blue</span>
 					</div>
 				</div>
 				<div class="box h" id="m04" on-tap="{{link}}">
 					<img src="home/10.png">
 					<div class="text" layout vertical center center-justified>
-            	    	<span class="smb">Original</span><br/>
+            	    	<span class="smb">Original</span>
 						<span class="sml">Blue Orange Green</span>
 					</div>
 				</div>
 				<div class="box h" id="m10" on-tap="{{link}}">
 					<img src="home/7.png">
 					<div class="text" layout vertical center center-justified>
-						<span class="smb">Limited Edition</span><br/>
+						<span class="smb">Limited Edition</span>
 						<span class="sml">Sunset</span>
 					</div>
 				</div>
@@ -91,15 +93,15 @@
 				<div class="box h" id="h05" on-tap="{{link}}">
 					<img src="home/5.png">
 					<div class="text" layout vertical center center-justified>
-						<span class="fb">Isabelle&nbsp;</span>
-						<span>Schipper</span>
+						<span class="fb">Isabelle</span>
+						<span class="sml">Schipper</span>
 					</div>
             	</div>
 				<div class="box h" id="h04" on-tap="{{link}}">	
 					<img src="home/4.png">
 					<div class="text" layout vertical center center-justified>
 						<span class="fb">Annelous</span>
-						<span>Lammerts</span>
+						<span class="sml">Lammerts</span>
 					</div>
 				</div>
 			</div>
