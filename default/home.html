@@ -57,28 +57,28 @@
 			</div>
 			
 			<div class="size">
-				<div class="box h" id="h06" on-tap="{{link}}">
+				<div class="box h" id="m07" on-tap="{{link}}">
 		    		<img src="home/6.png">
 					<div class="text" layout vertical center center-justified>
             	    	<span class="smb">Shell</span><br/>
 						<span class="sml">Special</span>
 					</div>
 				</div>
-				<div class="box h" id="h01" on-tap="{{link}}">
+				<div class="box h" id="m01" on-tap="{{link}}">
 					<img src="home/1.png">
 					<div class="text" layout vertical center center-justified>
             	    	<span class="smb">Classic</span><br/>
 						<span class="sml">Blue</span>
 					</div>
 				</div>
-				<div class="box h" id="h10" on-tap="{{link}}">
+				<div class="box h" id="m04" on-tap="{{link}}">
 					<img src="home/10.png">
 					<div class="text" layout vertical center center-justified>
             	    	<span class="smb">Original</span><br/>
 						<span class="sml">Blue Orange Green</span>
 					</div>
 				</div>
-				<div class="box h" id="h07" on-tap="{{link}}">
+				<div class="box h" id="m10" on-tap="{{link}}">
 					<img src="home/7.png">
 					<div class="text" layout vertical center center-justified>
 						<span class="smb">Limited Edition</span><br/>
@@ -129,28 +129,35 @@
             },
 			
 			link: function (e,d,s) {
-				this.selected='1'
-				this.page='1'
-				if(document.body.clientWidth<431){this.page='0'}
-				this.muts=this.items[s.id]
+				switch (s.id){
+					case "h09": this.selected='0'; break;
+					case "h04": document.location = 'http://facebook.com/annelousl'; break;
+					case "h05": document.location = 'http://facebook.com/belleschipperkiteboarding'; break;
+					case "h02": this.selected='2'; break;
+					default:
+						this.selected='1'
+						this.page='1'
+						if(document.body.clientWidth<431){this.page='0'}
+						this.muts=this.items[s.id]
+				}
 			},
 			
             items: {
-                h01: { id: 'm01', album: 'Classic', artist: 'Blue', color: '#59D6F9', bg: 'muts/Classic-Blue.png' },
-                h02: { id: 'm02', album: 'Classic', artist: 'Coral', color: '#972ff8', bg: 'muts/Classic-Coral.png' },
-                h03: { id: 'm03', album: 'Classic', artist: 'Purple', color: '#7dd6fe', bg: 'muts/Classic-Purple.png' },
-                h04: { id: 'm04', album: 'Original', artist: 'Blue Orange Green', color: '#dc3c84', bg: 'muts/Original-Blue-Orange-Green.png' },
-                h05: { id: 'm05', album: 'Original', artist: 'Brown Pink Orange', color: '#f4db33', bg: 'muts/Original-Brown-Pink-Orange.png' },
-                h06: { id: 'm06', album: 'Original', artist: 'Sand Blue', color: '#972ff8', bg: 'muts/Original-Sand-Blue.png' },
-                h07: { id: 'm07', artist: 'Special', album: 'Schell', color: '#7dd6fe', bg: 'muts/Shell.png' },
-                h08: { id: 'm08', artist: 'Special', album: 'Stone', color: '#dc3c84', bg: 'muts/Stone.png' },
-                h09: { id: 'm09', artist: 'Limited edition', album: 'Sunrise', color: '#f4db33', bg: 'muts/Sunrise.png' },
-                h10: { id: 'm10', artist: 'Limited edition', album: 'Sunset', color: '#972ff8', bg: 'muts/Sunset.png' }
+                m01: { id: 'm01', album: 'Classic', artist: 'Blue', color: '#59D6F9', bg: 'muts/Classic-Blue.png' },
+                m02: { id: 'm02', album: 'Classic', artist: 'Coral', color: '#972ff8', bg: 'muts/Classic-Coral.png' },
+                m03: { id: 'm03', album: 'Classic', artist: 'Purple', color: '#7dd6fe', bg: 'muts/Classic-Purple.png' },
+                m04: { id: 'm04', album: 'Original', artist: 'Blue Orange Green', color: '#dc3c84', bg: 'muts/Original-Blue-Orange-Green.png' },
+                m05: { id: 'm05', album: 'Original', artist: 'Brown Pink Orange', color: '#f4db33', bg: 'muts/Original-Brown-Pink-Orange.png' },
+                m06: { id: 'm06', album: 'Original', artist: 'Sand Blue', color: '#972ff8', bg: 'muts/Original-Sand-Blue.png' },
+                m07: { id: 'm07', artist: 'Special', album: 'Schell', color: '#7dd6fe', bg: 'muts/Shell.png' },
+                m08: { id: 'm08', artist: 'Special', album: 'Stone', color: '#dc3c84', bg: 'muts/Stone.png' },
+                m09: { id: 'm09', artist: 'Limited edition', album: 'Sunrise', color: '#f4db33', bg: 'muts/Sunrise.png' },
+                m10: { id: 'm10', artist: 'Limited edition', album: 'Sunset', color: '#972ff8', bg: 'muts/Sunset.png' }
             },
 			
         });
-		//Fb Annelous: www.facebook.com/annelousl
-		//Fb Isabelle: www.facebook.com/belleschipperkiteboarding 
+
+		//Fb Isabelle: www.
     </script>
 
 </polymer-element>
