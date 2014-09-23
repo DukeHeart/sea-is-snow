@@ -9,7 +9,7 @@ handlers:
 
 - url: /
   static_files: default/index.html
-  upload: default/index.html
+  upload: default/build.html
   #secure: always
   #login: admin
 
