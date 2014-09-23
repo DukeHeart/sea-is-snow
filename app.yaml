@@ -9,7 +9,7 @@ handlers:
 
 - url: /
   static_files: default/index.html
-  upload: default/build.html
+  upload: default/index.html
   #secure: always
   #login: admin
 
@@ -37,6 +37,7 @@ handlers:
 
 skip_files:
 - ^(.*/)?\.git$
+- ^(.*/)?\.gitignore$
 - ^(.*/)?\.idea$
 - ^(.*/)?\.DS_Store$
 - ^(.*/)?.*\.md$
