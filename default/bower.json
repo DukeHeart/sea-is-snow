@@ -1,0 +1,21 @@
+{
+  "name": "sea-is-snow",
+  "version": "v0",
+  "homepage": "https://github.com/gertcuykens/sea-is-snow",
+  "authors": [
+    "Gert Cuykens <gert.cuykens@gmail.com>"
+  ],
+  "description": "website",
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "~0.4.1"
+  }
+}
