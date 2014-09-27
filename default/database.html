@@ -1,0 +1,23 @@
+<polymer-element name="my-database">
+    <template>
+    </template>
+    <script>
+        Polymer('my-database', {
+            db:null,
+            ready:function(){
+                var request = indexedDB.open("library");
+                request.onupgradeneeded = function() {
+                    var db = request.result;
+                    var store = db.createObjectStore("order", {keyPath: "muts"});
+                    var index = store.createIndex("by_order", "order", {unique: true});
+                };
+                request.onsuccess = function() {
+                    this.db = request.result;
+                };
+            },
+            set:function(key, value){this.shop[key]=value},
+            get:function(key){return this.shop[key]},
+            del:function(key){delete this.shop[key]}
+        })
+    </script>
+</polymer-element>

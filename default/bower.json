@@ -15,6 +15,7 @@
     "tests"
   ],
   "dependencies": {
-    "polymer": "~0.4.1"
+    "polymer": "~0.4.1",
+    "core-localstorage": "Polymer/core-localstorage#~0.4.1"
   }
 }

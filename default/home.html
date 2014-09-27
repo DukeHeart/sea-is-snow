@@ -5,9 +5,9 @@
         <style>
             :host {font-family: 'RobotoDraft', sans-serif;}
 
-            @media (max-width: 640px) {.size {width:100%;} .smb, .fb {font-size: 150%;} }
-            @media (min-width: 641px) {.size {width:50%;} .smb, .fb {font-size: 150%;} }
-            @media (min-width: 1024px) {.smb, .fb {font-size: 200%;}}
+            @media (max-width: 640px) {.size {width:100%;} .smb, .fb, .fb2, .instagram {font-size: 150%;} .fb2::before, .instagram::before{margin-top:5px;} }
+            @media (min-width: 641px) {.size {width:50%;} .smb, .fb, .fb2, .instagram {font-size: 150%;} .fb2::before, .instagram::before{margin-top:-5px;} }
+            @media (min-width: 1024px) {.smb, .fb, .fb2, .instagram {font-size: 200%;}}
 			
             img {
 				width:100%;
@@ -20,7 +20,8 @@
 			.h:hover > div {visibility: visible;}
 		
 			div{position:relative; float:left;}
-			
+
+            .box3 {width:33%;}
 			.box {width:50%;}
 			.big {width:100%;}
            
@@ -40,11 +41,16 @@
 			}
 			
 			.smb {margin-left:57px;}
-			.smb::before {content:' '; background:url('icon/sis.png') no-repeat; width:47px; height:40px; position:absolute; margin-left:-50px;}
+			.smb::before {content:' '; background:url('icon/sis.png') no-repeat; width:47px; height:40px; position:absolute; margin-left:-50px; margin-top:-5px;}
 			.fb {margin-left:50px;}
 			.fb::before{content:' '; background:url('icon/fb.png')  no-repeat; width:40px; height:40px; position:absolute; margin-left:-45px;}
-			.sml {margin-left:57px;}
-			
+            .fb2 {margin-left:50px;}
+            .fb2::before{content:' '; background:url('icon/fb.png')  no-repeat; width:40px; height:40px; position:absolute; margin-left:-45px; }
+            .sml {margin-left:57px;}
+            .instagram {margin-left:50px;}
+            .instagram::before{content:' '; background:url('icon/instagram.png')  no-repeat; width:40px; height:40px; position:absolute; margin-left:-45px;}
+
+
         </style>
 
         <section>
@@ -57,11 +63,11 @@
 			</div>
 			
 			<div class="size">
-				<div class="box h" id="m07" on-tap="{{link}}">
+				<div class="box h" id="m09" on-tap="{{link}}">
 		    		<img src="home/6.png">
 					<div class="text" layout vertical center center-justified>
-            	    	<span class="smb">Shell</span>
-						<span class="sml">Special</span>
+            	    	<span class="smb">Limited Edition</span>
+						<span class="sml">Shell</span>
 					</div>
 				</div>
 				<div class="box h" id="m01" on-tap="{{link}}">
@@ -78,10 +84,10 @@
 						<span class="sml">Blue Orange Green</span>
 					</div>
 				</div>
-				<div class="box h" id="m10" on-tap="{{link}}">
+				<div class="box h" id="m08" on-tap="{{link}}">
 					<img src="home/7.png">
 					<div class="text" layout vertical center center-justified>
-						<span class="smb">Limited Edition</span>
+						<span class="smb">Special</span>
 						<span class="sml">Sunset</span>
 					</div>
 				</div>
@@ -110,6 +116,27 @@
 					<span class="smb">The People</span>
 				</div>
 			</div>
+
+            <div style="width:100%">
+                <div class="box3 h" id="h11" on-tap="{{link}}">
+                    <img src="home/11.png">
+                    <div class="text" layout vertical center center-justified>
+                        <span class="instagram">Sea is Snow</span>
+                    </div>
+                </div>
+                <div class="box3 h" id="h12" on-tap="{{link}}">
+                    <img src="home/12.png">
+                    <div class="text" layout vertical center center-justified>
+                        <span class="smb">Our Logo</span>
+                    </div>
+                </div>
+                <div class="box3 h" id="h13" on-tap="{{link}}">
+                    <img src="home/13.png">
+                    <div class="text" layout vertical center center-justified>
+                        <span class="fb2">Sea is Snow</span>
+                    </div>
+                </div>
+            </div>
 			
 		</section>
 		
@@ -121,19 +148,22 @@
 			selected:0,
 			page:0,
 			muts:0,
-
+            /*
             created: function() {
                 var meta = document.createElement('core-meta');
                 meta.type = 'transition';
                 this.transition = meta.byId('my-hover');
             },
-			
+	        */
 			link: function (e,d,s) {
 				switch (s.id){
 					case "h09": this.selected='0'; break;
+                    case "h12": this.selected='0'; break;
 					case "h04": document.location = 'http://facebook.com/annelousl'; break;
 					case "h05": document.location = 'http://facebook.com/belleschipperkiteboarding'; break;
-					case "h02": this.selected='2'; break;
+                    case "h11": document.location = 'http://instagram.com/seaissnow'; break;
+                    case "h13": document.location = 'http://facebook.com/seaissnow'; break;
+                    case "h02": this.selected='2'; break;
 					default:
 						this.selected='1'
 						this.page='1'
@@ -149,10 +179,10 @@
                 m04: { id: 'm04', album: 'Original', artist: 'Blue Orange Green', color: '#dc3c84', bg: 'muts/Original-Blue-Orange-Green.png' },
                 m05: { id: 'm05', album: 'Original', artist: 'Brown Pink Orange', color: '#f4db33', bg: 'muts/Original-Brown-Pink-Orange.png' },
                 m06: { id: 'm06', album: 'Original', artist: 'Sand Blue', color: '#972ff8', bg: 'muts/Original-Sand-Blue.png' },
-                m07: { id: 'm07', album: 'Special', artist: 'Shell', color: '#7dd6fe', bg: 'muts/Shell.png' },
-                m08: { id: 'm08', album: 'Special', artist: 'Stone', color: '#dc3c84', bg: 'muts/Stone.png' },
-                m09: { id: 'm09', album: 'Limited edition', artist: 'Sunrise', color: '#f4db33', bg: 'muts/Sunrise.png' },
-                m10: { id: 'm10', album: 'Limited edition', artist: 'Sunset', color: '#972ff8', bg: 'muts/Sunset.png' }
+                m07: { id: 'm07', album: 'Special', artist: 'Sunrise', color: '#f4db33', bg: 'muts/Sunrise.png' },
+                m08: { id: 'm08', album: 'Special', artist: 'Sunset', color: '#972ff8', bg: 'muts/Sunset.png' },
+                m09: { id: 'm09', album: 'Limited edition', artist: 'Shell', color: '#7dd6fe', bg: 'muts/Shell.png' },
+                m10: { id: 'm10', album: 'Limited edition', artist: 'Stone', color: '#dc3c84', bg: 'muts/Stone.png' }
             }
 			
         });

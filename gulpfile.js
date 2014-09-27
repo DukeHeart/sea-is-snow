@@ -4,7 +4,7 @@ var watch = require('gulp-watch');
 var livereload = require('gulp-livereload');
 gulp.task('watch', function() {
   livereload.listen();
-  gulp.watch('default/**\.*').on('change', livereload.changed);
+  gulp.watch('default/**.*').on('change', livereload.changed);
 });
 
 var shell = require('gulp-shell')
@@ -14,6 +14,7 @@ gulp.task('appserver', shell.task([
 
 var shell = require('gulp-shell')
 gulp.task('update', shell.task([
+  'vulcanize -o default/build.html default/index.html --inline --strip',
   'appcfg.py --oauth2 update app.yaml'
 ]));
 
