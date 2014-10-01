@@ -1,23 +1,43 @@
-<polymer-element name="my-database">
-    <template>
-    </template>
+<polymer-element name="my-database" attributes="iDB iLoad">
     <script>
         Polymer('my-database', {
-            db:null,
+            iDB:null,
+            iLoad:false,
             ready:function(){
-                var request = indexedDB.open("library");
-                request.onupgradeneeded = function() {
-                    var db = request.result;
-                    var store = db.createObjectStore("order", {keyPath: "muts"});
-                    var index = store.createIndex("by_order", "order", {unique: true});
-                };
-                request.onsuccess = function() {
-                    this.db = request.result;
-                };
+                var load=function(){
+                    this.iLoad=true
+                    console.log('iLoad',this.iLoad)
+                }.bind(this)
+                var request = indexedDB.open("my-database",1);
+                request.onupgradeneeded = function(e) {
+                    var db = e.currentTarget.result
+                    var store = db.createObjectStore("store", {keyPath: "muts", autoIncrement:false})
+                    //store.createIndex("by_submit", "submit", {unique: false})
+                    console.log('db upgrade', 'v'+db.version)
+                }
+                request.onerror = function(e) {
+                    //var db = e.currentTarget.result;
+                    //db.close()
+                    console.error('db error ',e)
+                }
+                request.onsuccess = function(e) {
+                    var db = e.currentTarget.result
+                    db.onversionchange = function(e) {
+                        db.close()
+                        console.log('db changed', 'v'+db.version, 'CLOSED')
+                    }
+                    console.log('db setup', 'v'+db.version, 'OK')
+                    load()
+                }
+                this.iDB=request
             },
-            set:function(key, value){this.shop[key]=value},
-            get:function(key){return this.shop[key]},
-            del:function(key){delete this.shop[key]}
+            drop: function () {
+                this.iDB.result.close()
+                var req = indexedDB.deleteDatabase(this.iDB.result.name);
+                req.onsuccess = function() {console.log("Deleted database successfully")}
+                req.onerror = function() {console.log("Couldn't delete database")}
+                req.onblocked = function() {console.log("Couldn't delete database due to the operation being blocked")}
+            }
         })
     </script>
 </polymer-element>

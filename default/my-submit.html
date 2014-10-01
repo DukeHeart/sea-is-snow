@@ -1,0 +1,78 @@
+<polymer-element name="my-submit">
+    <template>
+        <style>:host {font-family: 'RobotoDraft', sans-serif;}</style>
+
+        <form name="store" action="submit.go" method="POST">
+            Name: <input type="text" name="name"><br/>
+            Email: <input type="text" name="email"><br/>
+            Subject: <input type="text" name="subject"><br/>
+            Code: <input type="text" name="code" value="1234"><br/>
+            <textarea name="message"></textarea>
+            <input type="submit" value="Submit">
+        </form>
+
+        <p>Loading...</p>
+
+        <my-database iLoad="{{load}}" iDB="{{db}}"></my-database>
+
+    </template>
+    <script>
+        Polymer('my-submit', {
+
+            load:false,
+            db:null,
+            out:null,
+
+            write:function(tx){
+
+                var customerData = [
+                    {muts: "Bill", qty: "1"},
+                    {muts: "Donna", qty: "1"},
+                    {muts: "Donna2", qty: "1"}
+                ]
+
+                for (var i in customerData){tx.put(customerData[i])}
+            },
+
+            remove:function(k){
+                var tx=this.db.result.transaction(["store"], "readwrite").objectStore("store")
+                tx.delete(k)
+                this.read(tx)
+            },
+
+            read:function(tx){
+                var f =function(e) {
+                    var cursor = e.currentTarget.result;
+                    if (cursor) {
+                        var br=document.createElement('br')
+                        var span=document.createElement('span')
+                        span.innerHTML=cursor.key
+                        span.id=cursor.key
+                        span.onclick=function(e){this.remove(e.currentTarget.id)}.bind(this)
+                        this.out.appendChild(span)
+                        this.out.appendChild(br)
+                        cursor.continue()
+                    }
+                }.bind(this)
+                this.out.innerHTML=""
+                var req = tx.openCursor()
+                req.onsuccess = f
+            },
+
+            ready:function(){
+                this.out=this.shadowRoot.querySelector('p')
+            },
+
+            loadChanged:function(){
+                var tx=this.db.result.transaction(["store"], "readwrite").objectStore("store");
+                this.write(tx)
+                this.read(tx)
+            }
+
+            //drop:function(){document.querySelector('my\-database').drop()}
+            //var db=document.querySelector('my\-database').iRead=read
+        })
+    </script>
+</polymer-element>
+
+
