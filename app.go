@@ -29,11 +29,12 @@ func submit(w http.ResponseWriter, r *http.Request) {
             },
     }
     if code := r.FormValue("code"); code != "1234" {
-        fmt.Fprint(w, "<a href='/?store'>Code invalid! Try again</a>")
+        c.Errorf("Wrong code: %v", code)
+        fmt.Fprintf(w, fmt.Sprintf("{\"status\":\"Code invalid! %s Try again\"}", code))
     }else if err := mail.Send(c, msg); err != nil {
         c.Errorf("Couldn't send email: %v", err)
-        fmt.Fprint(w, "<a href='/?store'>Mail NOT send! Error</a>")
+        fmt.Fprint(w, "{\"status\":\"Mail NOT send! Error\"}")
     }else{
-        fmt.Fprint(w, "<a href='/?clear'>Mail send.</a>")
+        fmt.Fprint(w, "{\"status\":\"Mail send.\"}")
     }
 }

@@ -2,11 +2,11 @@
     <template>
         <style>:host {font-family: 'RobotoDraft', sans-serif;}</style>
 
-        <form name="store" action="submit.go" method="POST">
+        <form>
             Name: <input type="text" name="name"><br/>
-            Email: <input type="text" name="email"><br/>
+            Email: <input type="email" name="email"><br/>
             Subject: <input type="text" name="subject"><br/>
-            Code: <input type="text" name="code" value="1234"><br/>
+            Code: <input type="text" name="code" value="12345"><br/>
             <textarea name="message"></textarea>
             <input type="submit" value="Submit">
         </form>
@@ -23,19 +23,42 @@
             db:null,
             out:null,
 
-            write:function(tx){
+            ready:function(){
+                this.out=this.shadowRoot.querySelector('p')
+                var form = this.shadowRoot.querySelector('form')
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault()
+                    var data = new FormData(e.target);
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "submit.go", true);
+                    xhr.onload = function(oEvent) {
+                        if (xhr.status == 200) {
+                            var result=JSON.parse(xhr.responseText)
+                            console.debug(result)
+                        } else {console.debug("Error ",xhr)}
+                    };
+                    xhr.send(data);
+                })
+            },
 
+            response:function(e){console.debug(e.target)},
+
+            loadChanged:function(){
+                var tx=this.db.result.transaction(["store"], "readwrite").objectStore("store");
+                this.write(tx)
+                this.read(tx)
+            },
+
+            write:function(tx){
                 var customerData = [
                     {muts: "Bill", qty: "1"},
                     {muts: "Donna", qty: "1"},
                     {muts: "Donna2", qty: "1"}
                 ]
-
                 for (var i in customerData){tx.put(customerData[i])}
             },
 
-            remove:function(k){
-                var tx=this.db.result.transaction(["store"], "readwrite").objectStore("store")
+            remove:function(tx, k){
                 tx.delete(k)
                 this.read(tx)
             },
@@ -48,7 +71,10 @@
                         var span=document.createElement('span')
                         span.innerHTML=cursor.key
                         span.id=cursor.key
-                        span.onclick=function(e){this.remove(e.currentTarget.id)}.bind(this)
+                        span.onclick=function(e){
+                            var x=this.db.result.transaction(["store"], "readwrite").objectStore("store")
+                            this.remove(x, e.currentTarget.id)
+                        }.bind(this)
                         this.out.appendChild(span)
                         this.out.appendChild(br)
                         cursor.continue()
@@ -59,18 +85,8 @@
                 req.onsuccess = f
             },
 
-            ready:function(){
-                this.out=this.shadowRoot.querySelector('p')
-            },
+            drop:function(){document.querySelector('my\-database').drop()}
 
-            loadChanged:function(){
-                var tx=this.db.result.transaction(["store"], "readwrite").objectStore("store");
-                this.write(tx)
-                this.read(tx)
-            }
-
-            //drop:function(){document.querySelector('my\-database').drop()}
-            //var db=document.querySelector('my\-database').iRead=read
         })
     </script>
 </polymer-element>
