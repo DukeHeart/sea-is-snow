@@ -8,12 +8,13 @@
                 margin-top:55px;
                 color: #FFF;
                 background: #e09111;
+                float:right
             }
             #error:before {content:'* '}
             #error {
                 display:inline-block;
                 text-align:justify;
-                width:235px;
+                width:230px;
                 margin:0px;
             }
         </style>
@@ -30,9 +31,9 @@
             <p></p>
             <div id="error">This is  the list of items you have
                 selected from <a href="">the beanie page</a>. Click the item to remove it from your order.
-                When the list is complete you can press the submit
+                When the list and is complete you can press the submit
                 arrow.</div>
-            <paper-fab icon="arrow-forward" on-tap="{{submit}}" style="float:right"></paper-fab>
+            <paper-fab icon="arrow-forward" on-tap="{{submit}}"></paper-fab>
         </section>
         <my-database iLoad="{{load}}" iDB="{{db}}"></my-database>
     </template>
