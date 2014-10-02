@@ -1,20 +1,28 @@
 <polymer-element name="my-submit">
     <template>
-        <style>:host {font-family: 'RobotoDraft', sans-serif;}</style>
-
-        <form>
-            Name: <input type="text" name="name"><br/>
-            Email: <input type="email" name="email"><br/>
-            Subject: <input type="text" name="subject"><br/>
-            Code: <input type="text" name="code" value="12345"><br/>
-            <textarea name="message"></textarea>
-            <input type="submit" value="Submit">
-        </form>
-
-        <p>Loading...</p>
-
+        <style>
+            :host {font-family: 'RobotoDraft', sans-serif;}
+            paper-input {width:300px;}
+            paper-fab {
+                color: #FFF;
+                background: #259b24;
+            }
+        </style>
+        <section style="width:300px; margin:auto">
+            <h3 style="margin-bottom:0px;">Contact:</h3>
+            <form>
+                <paper-input label="Name" name="name"></paper-input>
+                <paper-input label="Email" name="email" type="email"></paper-input>
+                <paper-input label="Phone" name="phone" type="tel"></paper-input>
+                <paper-input label="Message" name="message" multiline></paper-input>
+                <input name="code" value="12345" hidden>
+            </form>
+            <h3 style="margin-bottom:0px;">Order:</h3>
+            <p>* no items in this order, go to beanie page to add them</p>
+            <p>* click a item to remove it from this order</p>
+            <paper-fab icon="arrow-forward" on-tap="{{submit}}" style="float:right"></paper-fab>
+        </section>
         <my-database iLoad="{{load}}" iDB="{{db}}"></my-database>
-
     </template>
     <script>
         Polymer('my-submit', {
@@ -23,22 +31,31 @@
             db:null,
             out:null,
 
+            submit:function(){
+                var event = new CustomEvent("submit", {"detail":{"code":100}});
+                var form = this.shadowRoot.querySelector('form')
+                form.dispatchEvent(event);
+            },
+
             ready:function(){
+                //CoreStyle.g.paperInput.focusedColor
+                //CoreStyle.g.paperInput.invalidColor
                 this.out=this.shadowRoot.querySelector('p')
                 var form = this.shadowRoot.querySelector('form')
                 form.addEventListener('submit', function(e) {
                     e.preventDefault()
                     var data = new FormData(e.target);
+                    data.append("order",this.out.innerHTML)
                     var xhr = new XMLHttpRequest();
                     xhr.open("POST", "submit.go", true);
-                    xhr.onload = function(oEvent) {
+                    xhr.onload = function(e) {
                         if (xhr.status == 200) {
                             var result=JSON.parse(xhr.responseText)
                             console.debug(result)
                         } else {console.debug("Error ",xhr)}
                     };
                     xhr.send(data);
-                })
+                }.bind(this))
             },
 
             response:function(e){console.debug(e.target)},
@@ -51,9 +68,9 @@
 
             write:function(tx){
                 var customerData = [
-                    {muts: "Bill", qty: "1"},
-                    {muts: "Donna", qty: "1"},
-                    {muts: "Donna2", qty: "1"}
+                    {muts: "Classic Blue", qty: "1"},
+                    {muts: "Classic Coral", qty: "1"},
+                    {muts: "Special Sunrise", qty: "2"}
                 ]
                 for (var i in customerData){tx.put(customerData[i])}
             },
@@ -65,11 +82,11 @@
 
             read:function(tx){
                 var f =function(e) {
+                    var br=document.createElement('br')
                     var cursor = e.currentTarget.result;
                     if (cursor) {
-                        var br=document.createElement('br')
                         var span=document.createElement('span')
-                        span.innerHTML=cursor.key
+                        span.innerHTML=" - "+cursor.value.muts+" (x"+cursor.value.qty+")"
                         span.id=cursor.key
                         span.onclick=function(e){
                             var x=this.db.result.transaction(["store"], "readwrite").objectStore("store")

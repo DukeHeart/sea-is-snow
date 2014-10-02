@@ -15,6 +15,9 @@
     "tests"
   ],
   "dependencies": {
-    "polymer": "~0.4.1"
+    "polymer": "~0.4.1",
+    "core-input": "Polymer/core-input#~0.4.1",
+    "paper-input": "Polymer/paper-input#~0.4.1",
+    "paper-fab": "Polymer/paper-fab#~0.4.1"
   }
 }
