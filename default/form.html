@@ -1,31 +1,30 @@
-<polymer-element name="my-submit">
+<polymer-element name="my-form">
     <template>
         <style>
             :host {font-family: 'RobotoDraft', sans-serif;}
             paper-input {width:300px;}
             paper-fab {
                 color: #FFF;
-                background: #259b24;
+                background: #e09111;
             }
         </style>
         <section style="width:300px; margin:auto">
             <h3 style="margin-bottom:0px;">Contact:</h3>
             <form>
                 <paper-input label="Name" name="name"></paper-input>
-                <paper-input label="Email" name="email" type="email"></paper-input>
+                <paper-input label="Email" name="email" type="email" required></paper-input>
                 <paper-input label="Phone" name="phone" type="tel"></paper-input>
                 <paper-input label="Message" name="message" multiline></paper-input>
-                <input name="code" value="12345" hidden>
+                <input name="code" value="12345" hidden required>
             </form>
             <h3 style="margin-bottom:0px;">Order:</h3>
             <p>* no items in this order, go to beanie page to add them</p>
-            <p>* click a item to remove it from this order</p>
-            <paper-fab icon="arrow-forward" on-tap="{{submit}}" style="float:right"></paper-fab>
+            <span id="error">* click item above to remove it</span><paper-fab icon="arrow-forward" on-tap="{{submit}}" style="float:right"></paper-fab>
         </section>
         <my-database iLoad="{{load}}" iDB="{{db}}"></my-database>
     </template>
     <script>
-        Polymer('my-submit', {
+        Polymer('my-form', {
 
             load:false,
             db:null,
@@ -34,7 +33,15 @@
             submit:function(){
                 var event = new CustomEvent("submit", {"detail":{"code":100}});
                 var form = this.shadowRoot.querySelector('form')
+                var isValid = form.checkValidity();
+                console.debug(isValid)
+                //this.$.error.innerHTML="* No valid email"
                 form.dispatchEvent(event);
+            },
+
+            back:function(e){
+                this.$.error.innerHTML="* back to home page not done yet"
+                console.debug("back")
             },
 
             ready:function(){
@@ -49,16 +56,26 @@
                     var xhr = new XMLHttpRequest();
                     xhr.open("POST", "submit.go", true);
                     xhr.onload = function(e) {
+                        var fab=this.shadowRoot.querySelector('paper-fab')
                         if (xhr.status == 200) {
                             var result=JSON.parse(xhr.responseText)
+                            this.$.error.innerHTML="* "+result.status
+                            this.shadowRoot.querySelector('my-database').iDrop()
+                            fab.icon="done"
+                            fab.style.background='#259b24'
+                            this.submit=this.back
                             console.debug(result)
-                        } else {console.debug("Error ",xhr)}
-                    };
+                        } else {
+                            fab.icon="close"
+                            fab.style.background='#d30000'
+                            var result=JSON.parse(xhr.responseText)
+                            this.$.error.innerHTML="* "+result.status
+                            console.debug(result)
+                        }
+                    }.bind(this);
                     xhr.send(data);
                 }.bind(this))
             },
-
-            response:function(e){console.debug(e.target)},
 
             loadChanged:function(){
                 var tx=this.db.result.transaction(["store"], "readwrite").objectStore("store");
@@ -68,41 +85,49 @@
 
             write:function(tx){
                 var customerData = [
-                    {muts: "Classic Blue", qty: "1"},
-                    {muts: "Classic Coral", qty: "1"},
-                    {muts: "Special Sunrise", qty: "2"}
+                    {muts: "Classic Blue", qty: "1", price:"40"},
+                    {muts: "Classic Coral", qty: "1", price:"40"},
+                    {muts: "Special Sunrise", qty: "2", price:"40"}
                 ]
                 for (var i in customerData){tx.put(customerData[i])}
             },
 
             remove:function(tx, k){
-                tx.delete(k)
-                this.read(tx)
+                var req = tx.delete(k.id)
+                req.onsuccess = function(e) {
+                    k.parentNode.removeChild(k)
+                    this.read(tx)
+                }.bind(this)
             },
 
             read:function(tx){
+                var total=0
                 var f =function(e) {
                     var br=document.createElement('br')
                     var cursor = e.currentTarget.result;
                     if (cursor) {
+                        total=total+(cursor.value.qty*cursor.value.price)
                         var span=document.createElement('span')
-                        span.innerHTML=" - "+cursor.value.muts+" (x"+cursor.value.qty+")"
+                        span.innerHTML="- "+cursor.value.muts+" (x"+cursor.value.qty+")"  //"="+cursor.value.qty*cursor.value.price+")"
                         span.id=cursor.key
                         span.onclick=function(e){
                             var x=this.db.result.transaction(["store"], "readwrite").objectStore("store")
-                            this.remove(x, e.currentTarget.id)
+                            this.remove(x, e.currentTarget)
                         }.bind(this)
                         this.out.appendChild(span)
                         this.out.appendChild(br)
                         cursor.continue()
+                    }else{
+                        var span=document.createElement('span')
+                        span.innerHTML="= total "+total+"&#8364;"
+                        this.out.appendChild(br)
+                        this.out.appendChild(span)
                     }
                 }.bind(this)
                 this.out.innerHTML=""
                 var req = tx.openCursor()
                 req.onsuccess = f
-            },
-
-            drop:function(){document.querySelector('my\-database').drop()}
+            }
 
         })
     </script>

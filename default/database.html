@@ -1,4 +1,4 @@
-<polymer-element name="my-database" attributes="iDB iLoad">
+<polymer-element name="my-database" attributes="iDB iLoad iDrop">
     <script>
         Polymer('my-database', {
             iDB:null,
@@ -31,7 +31,7 @@
                 }
                 this.iDB=request
             },
-            drop: function () {
+            iDrop: function () {
                 this.iDB.result.close()
                 var req = indexedDB.deleteDatabase(this.iDB.result.name);
                 req.onsuccess = function() {console.log("Deleted database successfully")}
