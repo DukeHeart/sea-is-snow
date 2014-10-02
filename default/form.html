@@ -4,8 +4,17 @@
             :host {font-family: 'RobotoDraft', sans-serif;}
             paper-input {width:300px;}
             paper-fab {
+                display:inline-block;
+                margin-top:55px;
                 color: #FFF;
                 background: #e09111;
+            }
+            #error:before {content:'* '}
+            #error {
+                display:inline-block;
+                text-align:justify;
+                width:235px;
+                margin:0px;
             }
         </style>
         <section style="width:300px; margin:auto">
@@ -18,8 +27,12 @@
                 <input name="code" value="12345" hidden required>
             </form>
             <h3 style="margin-bottom:0px;">Order:</h3>
-            <p>* no items in this order, go to beanie page to add them</p>
-            <span id="error">* click item above to remove it</span><paper-fab icon="arrow-forward" on-tap="{{submit}}" style="float:right"></paper-fab>
+            <p></p>
+            <div id="error">This is  the list of items you have
+                selected from <a href="">the beanie page</a>. Click the item to remove it from your order.
+                When the list is complete you can press the submit
+                arrow.</div>
+            <paper-fab icon="arrow-forward" on-tap="{{submit}}" style="float:right"></paper-fab>
         </section>
         <my-database iLoad="{{load}}" iDB="{{db}}"></my-database>
     </template>
@@ -35,12 +48,12 @@
                 var form = this.shadowRoot.querySelector('form')
                 var isValid = form.checkValidity();
                 console.debug(isValid)
-                //this.$.error.innerHTML="* No valid email"
+                //this.$.error.innerHTML="No valid email"
                 form.dispatchEvent(event);
             },
 
             back:function(e){
-                this.$.error.innerHTML="* back to home page not done yet"
+                this.$.error.innerHTML="back to home page not done yet"
                 console.debug("back")
             },
 
@@ -59,7 +72,7 @@
                         var fab=this.shadowRoot.querySelector('paper-fab')
                         if (xhr.status == 200) {
                             var result=JSON.parse(xhr.responseText)
-                            this.$.error.innerHTML="* "+result.status
+                            this.$.error.innerHTML="We wil contact you as soon as possible. Thank you!"
                             this.shadowRoot.querySelector('my-database').iDrop()
                             fab.icon="done"
                             fab.style.background='#259b24'
@@ -69,7 +82,7 @@
                             fab.icon="close"
                             fab.style.background='#d30000'
                             var result=JSON.parse(xhr.responseText)
-                            this.$.error.innerHTML="* "+result.status
+                            this.$.error.innerHTML=result.status
                             console.debug(result)
                         }
                     }.bind(this);
