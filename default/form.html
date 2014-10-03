@@ -10,6 +10,7 @@
             }
             #error:before {content:'* '}
             #error {
+                width:240px;
                 text-align:justify;
             }
 
@@ -18,16 +19,16 @@
             <h3 style="margin-bottom:0px;">Customer:</h3>
             <form>
                 <paper-input label="Name" name="name"></paper-input>
-                <paper-input label="Email" name="email" type="email" required></paper-input>
-                <paper-input label="Phone" name="phone" type="tel"></paper-input>
+                <paper-input label="Email" name="email" type="email" value="{{email}}"></paper-input>
+                <paper-input label="Phone" name="phone" type="tel" value="{{phone}}"></paper-input>
                 <paper-input label="Message" name="message" multiline></paper-input>
-                <input name="code" value="12345" hidden required>
+                <input name="code" value="12345" hidden>
             </form>
             <h3 style="margin-bottom:0px;">Order:</h3>
             <p style="margin-bottom:5px;"></p>
             <div id="error">This is  the list of items you have
                 selected. Click the item to remove it from your order.
-                When the list and is complete you can press the submit button.</div>
+                When complete you can press the submit button.</div>
             <paper-fab icon="shopping-cart" on-tap="{{submit}}"></paper-fab>
         </section>
         <my-database iLoad="{{load}}" iDB="{{db}}"></my-database>
@@ -38,13 +39,23 @@
             load:false,
             db:null,
             out:null,
+            email:null,
+            phone:null,
+
+            validate:function() {
+                var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                if (this.email) return re.test(this.email)
+                re = /\d/
+                return re.test(this.phone)
+            },
 
             submit:function(){
+                if (!this.validate()) {
+                    this.$.error.innerHTML="No valid email or phone number"
+                    return false
+                }
                 var event = new CustomEvent("submit", {"detail":{"code":200}});
                 var form = this.shadowRoot.querySelector('form')
-                var isValid = form.checkValidity();
-                console.debug(isValid)
-                //this.$.error.innerHTML="No valid email"
                 form.dispatchEvent(event);
             },
 
