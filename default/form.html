@@ -2,24 +2,20 @@
     <template>
         <style>
             :host {font-family: 'RobotoDraft', sans-serif;}
-            paper-input {width:300px;}
+            paper-input, h3, p, section {width:240px;}
             paper-fab {
-                display:inline-block;
-                margin-top:55px;
                 color: #FFF;
                 background: #e09111;
-                float:right
+                margin-top: 10px;
             }
             #error:before {content:'* '}
             #error {
-                display:inline-block;
                 text-align:justify;
-                width:230px;
-                margin:0px;
             }
+
         </style>
-        <section style="width:300px; margin:auto">
-            <h3 style="margin-bottom:0px;">Contact:</h3>
+        <section layout vertical center style="margin:0px auto">
+            <h3 style="margin-bottom:0px;">Customer:</h3>
             <form>
                 <paper-input label="Name" name="name"></paper-input>
                 <paper-input label="Email" name="email" type="email" required></paper-input>
@@ -28,12 +24,11 @@
                 <input name="code" value="12345" hidden required>
             </form>
             <h3 style="margin-bottom:0px;">Order:</h3>
-            <p></p>
+            <p style="margin-bottom:5px;"></p>
             <div id="error">This is  the list of items you have
-                selected from <a href="">the beanie page</a>. Click the item to remove it from your order.
-                When the list and is complete you can press the submit
-                arrow.</div>
-            <paper-fab icon="arrow-forward" on-tap="{{submit}}"></paper-fab>
+                selected. Click the item to remove it from your order.
+                When the list and is complete you can press the submit button.</div>
+            <paper-fab icon="shopping-cart" on-tap="{{submit}}"></paper-fab>
         </section>
         <my-database iLoad="{{load}}" iDB="{{db}}"></my-database>
     </template>
@@ -59,8 +54,8 @@
             },
 
             ready:function(){
-                //CoreStyle.g.paperInput.focusedColor
-                //CoreStyle.g.paperInput.invalidColor
+                //CoreStyle.g.paperInput.focusedColor=
+                //CoreStyle.g.paperInput.invalidColor=
                 this.out=this.shadowRoot.querySelector('p')
                 var form = this.shadowRoot.querySelector('form')
                 form.addEventListener('submit', function(e) {
@@ -133,8 +128,8 @@
                         cursor.continue()
                     }else{
                         var span=document.createElement('span')
+                        span.style.lineHeight="30px"
                         span.innerHTML="= total "+total+"&#8364;"
-                        this.out.appendChild(br)
                         this.out.appendChild(span)
                     }
                 }.bind(this)
