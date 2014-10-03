@@ -40,7 +40,7 @@
             out:null,
 
             submit:function(){
-                var event = new CustomEvent("submit", {"detail":{"code":100}});
+                var event = new CustomEvent("submit", {"detail":{"code":200}});
                 var form = this.shadowRoot.querySelector('form')
                 var isValid = form.checkValidity();
                 console.debug(isValid)
