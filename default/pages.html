@@ -2,7 +2,7 @@
 
     <template>
 
-    <style>
+        <style>
 
         :host {font-family: 'RobotoDraft', sans-serif;}
 
@@ -35,48 +35,48 @@
 
     </style>
 
-    <my-database iDB="{{iDB}}" iLoad="{{iLoad}}"></my-database>
+        <my-database iDB="{{iDB}}" iLoad="{{iLoad}}"></my-database>
 
         <core-drawer-panel responsiveWidth="5000px">
 
             <my-form drawer iDB="{{iDB}}" iLoad="{{iLoad}}"></my-form>
 
-    <core-header-panel main fit mode="waterfall-tall">
+            <core-header-panel main fit mode="waterfall-tall">
 
-        <core-toolbar layout vertical class="animate" on-tap="{{home}}">
+                <core-toolbar layout vertical class="animate" on-tap="{{home}}">
 
-            <core-icon-button icon="shopping-cart" on-tap="{{drawer}}"></core-icon-button>
+                    <core-icon-button icon="shopping-cart" on-tap="{{drawer}}"></core-icon-button>
 
-            <paper-tabs class="blue bottom fit" selected="{{activePage}}">
-                <paper-tab>about us</paper-tab>
-                <paper-tab>the beanies</paper-tab>
-                <paper-tab>the people</paper-tab>
-            </paper-tabs>
+                    <paper-tabs class="blue bottom fit" selected="{{activePage}}">
+                        <paper-tab>about us</paper-tab>
+                        <paper-tab>the beanies</paper-tab>
+                        <paper-tab>the people</paper-tab>
+                    </paper-tabs>
 
-        </core-toolbar>
+                </core-toolbar>
 
-        <core-animated-pages fit transitions="slide-from-right" selected="{{activePage}}">
+                <core-animated-pages fit transitions="slide-from-right" selected="{{activePage}}">
 
-            <section>
-                <my-story></my-story>
-                <my-footer></my-footer>
-            </section>
+                    <section>
+                        <my-story></my-story>
+                        <my-footer></my-footer>
+                    </section>
 
-            <section>
-                <catalog-1 iDB="{{iDB}}" iLoad="{{iLoad}}" page="{{page}}" muts="{{muts}}"></catalog-1>
-            </section>
+                    <section>
+                        <catalog-1 iDB="{{iDB}}" iLoad="{{iLoad}}" page="{{page}}" muts="{{muts}}"></catalog-1>
+                    </section>
 
-            <section>
-                <catalog-2></catalog-2>
-            </section>
+                    <section>
+                        <catalog-2></catalog-2>
+                    </section>
 
-            <section>
-                <my-home selected="{{activePage}}" page={{page}} muts={{muts}}></my-home>
-            </section>
+                    <section>
+                        <my-home selected="{{activePage}}" page={{page}} muts={{muts}}></my-home>
+                    </section>
 
-        </core-animated-pages>
+                </core-animated-pages>
 
-    </core-header-panel>
+            </core-header-panel>
 
         </core-drawer-panel>
 

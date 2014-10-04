@@ -105,7 +105,7 @@
                 var req = tx.delete(k.id)
                 req.onsuccess = function(e) {
                     k.parentNode.removeChild(k)
-                    this.read(tx)
+                    this.iLoad = !this.iLoad
                 }.bind(this)
             },
 

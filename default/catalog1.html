@@ -96,8 +96,8 @@
 
         Polymer('catalog-1', {
 
+            iLoad:false,
             iDB:null,
-            iLoad:null,
             page:0,
 			
 			muts: null,
@@ -121,6 +121,8 @@
                 if (this.page === 0 && e.target.templateInstance.model.item) {
 					this.page = 1;
                     this.muts = e.target.templateInstance.model.item;
+                    var tx=this.iDB.result.transaction(["store"], "readwrite").objectStore("store")
+                    this.read(tx)
                 } else {
                     this.page = 0;
                 }
@@ -133,8 +135,7 @@
 			},
 
             add:function(e){
-                var fab= e.target
-                var key=fab.className
+                var key= e.target.className
                 var tx=this.iDB.result.transaction(["store"], "readwrite").objectStore("store");
                 var qty=1
                 var price=40
@@ -143,11 +144,7 @@
                     var value = e.target.result;
                     if (value) qty=value.qty+1
                     req = tx.put({muts: key, qty:qty, price: price})
-                    req.onsuccess = function (e) {
-                        this.iLoad = !this.iLoad
-                        fab.icon="done"
-                        fab.style.background='#259b24'
-                    }.bind(this)
+                    req.onsuccess = function(e){this.iLoad = !this.iLoad}.bind(this)
                 }.bind(this)
             },
 
@@ -158,6 +155,35 @@
                     {muts: "Special Sunrise", qty: "2", price:"40"}
                 ]
                 for (var i in customerData){tx.put(customerData[i])}
+            },
+
+            read:function(tx){
+                var f =function(e) {
+                    var cursor = e.currentTarget.result;
+                    if (cursor) {
+                        var cls='.'+cursor.key.replace(" ", ".");
+                        var fab = this.shadowRoot.querySelectorAll(cls)
+                        for (var i = 0; i < fab.length; ++i) {
+                            var f = fab[i]
+                            f.icon="done"
+                            f.style.background='#259b24'
+                        }
+                        cursor.continue()
+                    }
+                }.bind(this)
+                var req = tx.openCursor()
+                req.onsuccess = f
+            },
+
+            iLoadChanged:function(){
+                var fab = this.shadowRoot.querySelectorAll('paper-fab')
+                for (var i = 0; i < fab.length; ++i) {
+                    var f = fab[i]
+                    f.icon="add-shopping-cart"
+                    f.style.background='#38D3D8'
+                }
+                var tx=this.iDB.result.transaction(["store"], "readwrite").objectStore("store")
+                this.read(tx)
             }
 			
         });
