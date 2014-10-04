@@ -133,7 +133,8 @@
 			},
 
             add:function(e){
-                var key=e.target.className
+                var fab= e.target
+                var key=fab.className
                 var tx=this.iDB.result.transaction(["store"], "readwrite").objectStore("store");
                 var qty=1
                 var price=40
@@ -144,6 +145,8 @@
                     req = tx.put({muts: key, qty:qty, price: price})
                     req.onsuccess = function (e) {
                         this.iLoad = !this.iLoad
+                        fab.icon="done"
+                        fab.style.background='#259b24'
                     }.bind(this)
                 }.bind(this)
             },
