@@ -136,12 +136,12 @@
                 var key=e.target.className
                 var tx=this.iDB.result.transaction(["store"], "readwrite").objectStore("store");
                 var qty=1
+                var price=40
                 req = tx.get(key)
                 req.onsuccess = function(e) {
                     var value = e.target.result;
                     if (value) qty=value.qty+1
-                    console.debug(value,qty)
-                    req = tx.put({muts: key, qty:qty, price: "40"})
+                    req = tx.put({muts: key, qty:qty, price: price})
                     req.onsuccess = function (e) {
                         this.iLoad = !this.iLoad
                     }.bind(this)
