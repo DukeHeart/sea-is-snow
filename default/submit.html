@@ -39,8 +39,9 @@
     <body fullbleed vertical layout>
 
     <core-drawer-panel>
-        <my-form drawer></my-form>
-        <catalog-1 main page="{{page}}" muts="{{muts}}"></catalog-1>
+        <my-form drawer iDB="{{iDB}}" iLoad="{{iLoad}}"></my-form>
+        <catalog-1 main iDB="{{iDB}}" page="{{page}}" muts="{{muts}}"></catalog-1>
+        <my-database iDB="{{iDB}}" iLoad="{{iLoad}}"></my-database>
     </core-drawer-panel>
 
     </body>

@@ -1,18 +1,18 @@
-<polymer-element name="my-form">
+<polymer-element name="my-form" attributes="iDB iLoad">
     <template>
         <style>
             :host {font-family: 'RobotoDraft', sans-serif;}
             paper-input, h3, p, section {width:240px;}
             paper-fab {
                 color: #FFF;
-                background: #e09111;
+                background: #38D3D8;
                 margin-top: 10px;
             }
+
+            .item:hover{color:#38D3D8}
+
             #error:before {content:'* '}
-            #error {
-                width:240px;
-                text-align:justify;
-            }
+            #error {width:240px; text-align:justify;}
 
         </style>
         <section layout vertical center style="margin:0px auto">
@@ -31,13 +31,12 @@
                 When complete you can press the submit button.</div>
             <paper-fab icon="shopping-cart" on-tap="{{submit}}"></paper-fab>
         </section>
-        <my-database iLoad="{{load}}" iDB="{{db}}"></my-database>
     </template>
     <script>
         Polymer('my-form', {
 
-            load:false,
-            db:null,
+            iLoad:false,
+            iDB:null,
             out:null,
             email:null,
             phone:null,
@@ -60,7 +59,7 @@
             },
 
             back:function(e){
-                this.$.error.innerHTML="back to home page not done yet"
+                //this.$.error.innerHTML="Your order was already send."
                 console.debug("back")
             },
 
@@ -80,7 +79,7 @@
                         if (xhr.status == 200) {
                             var result=JSON.parse(xhr.responseText)
                             this.$.error.innerHTML="We wil contact you as soon as possible. Thank you!"
-                            this.shadowRoot.querySelector('my-database').iDrop()
+                            //this.shadowRoot.querySelector('my-database').iDrop()
                             fab.icon="done"
                             fab.style.background='#259b24'
                             this.submit=this.back
@@ -97,19 +96,9 @@
                 }.bind(this))
             },
 
-            loadChanged:function(){
-                var tx=this.db.result.transaction(["store"], "readwrite").objectStore("store");
-                this.write(tx)
+            iLoadChanged:function(){
+                var tx=this.iDB.result.transaction(["store"], "readwrite").objectStore("store")
                 this.read(tx)
-            },
-
-            write:function(tx){
-                var customerData = [
-                    {muts: "Classic Blue", qty: "1", price:"40"},
-                    {muts: "Classic Coral", qty: "1", price:"40"},
-                    {muts: "Special Sunrise", qty: "2", price:"40"}
-                ]
-                for (var i in customerData){tx.put(customerData[i])}
             },
 
             remove:function(tx, k){
@@ -130,8 +119,9 @@
                         var span=document.createElement('span')
                         span.innerHTML="- "+cursor.value.muts+" (x"+cursor.value.qty+")"  //"="+cursor.value.qty*cursor.value.price+")"
                         span.id=cursor.key
+                        span.className="item"
                         span.onclick=function(e){
-                            var x=this.db.result.transaction(["store"], "readwrite").objectStore("store")
+                            var x=this.iDB.result.transaction(["store"], "readwrite").objectStore("store")
                             this.remove(x, e.currentTarget)
                         }.bind(this)
                         this.out.appendChild(span)

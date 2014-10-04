@@ -1,4 +1,4 @@
-<polymer-element name="catalog-1" attributes="page muts">
+<polymer-element name="catalog-1" attributes="page muts iDB iLoad">
     <template>
 
         <style>
@@ -45,7 +45,7 @@
 
             paper-fab {
                 color: #FFF;
-                background: #e09111;
+                background: #38D3D8;
             }
         </style>
 
@@ -65,7 +65,7 @@
                                     <div class="chip-album-title">{{item.album}}</div>
                                     <div class="chip-artist">{{item.artist}}</div>
                                 </div>
-                                <paper-fab icon="add-shopping-cart" on-tap="{{add}}"></paper-fab>
+                                <paper-fab class="{{item.album}} {{item.artist}}" icon="add-shopping-cart" on-tap="{{add}}"></paper-fab>
                             </div>
                         </div>
                     </template>
@@ -82,7 +82,7 @@
                     <div class="card-right" flex layout vertical>
                         <div class="card-album-title">{{muts.album}}</div>
                         <div flex class="card-album-artist">{{muts.artist}}</div>
-                        <paper-fab self-end icon="add-shopping-cart" on-tap="{{add}}"></paper-fab>
+                        <paper-fab self-end class="{{muts.album}} {{muts.artist}}" icon="add-shopping-cart" on-tap="{{add}}"></paper-fab>
                     </div>
                 </div>
 					
@@ -95,8 +95,10 @@
     <script>
 
         Polymer('catalog-1', {
-			
-            page: 0,
+
+            iDB:null,
+            iLoad:null,
+            page:0,
 			
 			muts: null,
 
@@ -131,7 +133,19 @@
 			},
 
             add:function(e){
+                console.debug(e.target.className)
+                var tx=this.iDB.result.transaction(["store"], "readwrite").objectStore("store");
+                req = tx.put({muts: e.target.className, qty: "1", price:"40"})
+                req.onsuccess=function(e){this.iLoad=!this.iLoad}.bind(this)
+            },
 
+            write:function(tx){
+                var customerData = [
+                    {muts: "Classic Blue", qty: "1", price:"40"},
+                    {muts: "Classic Coral", qty: "1", price:"40"},
+                    {muts: "Special Sunrise", qty: "2", price:"40"}
+                ]
+                for (var i in customerData){tx.put(customerData[i])}
             }
 			
         });
