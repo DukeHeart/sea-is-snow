@@ -133,10 +133,19 @@
 			},
 
             add:function(e){
-                console.debug(e.target.className)
+                var key=e.target.className
                 var tx=this.iDB.result.transaction(["store"], "readwrite").objectStore("store");
-                req = tx.put({muts: e.target.className, qty: "1", price:"40"})
-                req.onsuccess=function(e){this.iLoad=!this.iLoad}.bind(this)
+                var qty=1
+                req = tx.get(key)
+                req.onsuccess = function(e) {
+                    var value = e.target.result;
+                    if (value) qty=value.qty+1
+                    console.debug(value,qty)
+                    req = tx.put({muts: key, qty:qty, price: "40"})
+                    req.onsuccess = function (e) {
+                        this.iLoad = !this.iLoad
+                    }.bind(this)
+                }.bind(this)
             },
 
             write:function(tx){
