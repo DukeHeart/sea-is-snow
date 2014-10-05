@@ -22,10 +22,10 @@
                 }
                 request.onsuccess = function(e) {
                     var db = e.currentTarget.result
-                    db.onversionchange = function(e) {
-                        db.close()
-                        console.log('db changed', 'v'+db.version, 'CLOSED')
-                    }
+                    //db.onversionchange = function(e) {
+                    //    db.close()
+                    //    console.log('db changed', 'v'+db.version, 'CLOSED')
+                    //}
                     console.log('db setup', 'v'+db.version, 'OK')
                     load()
                 }
