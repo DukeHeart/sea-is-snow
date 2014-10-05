@@ -72,6 +72,7 @@
                                     <div class="chip-album-title">{{item.album}}</div>
                                     <div class="chip-artist">{{item.artist}}</div>
                                 </div>
+                                <span data-qty="{{item.album}} {{item.artist}}"></span>
                                 <paper-fab data-fab="{{item.album}} {{item.artist}}" icon="add-shopping-cart" on-tap="{{add}}"></paper-fab>
                             </div>
                         </div>
@@ -89,6 +90,7 @@
                     <div class="card-right" flex layout vertical>
                         <div class="card-album-title">{{muts.album}}</div>
                         <div flex class="card-album-artist">{{muts.artist}}</div>
+                        <span data-qty="{{muts.album}} {{muts.artist}}"></span>
                         <paper-fab self-end data-fab="{{muts.album}} {{muts.artist}}" icon="add-shopping-cart" on-tap="{{add}}"></paper-fab>
                     </div>
                 </div>
@@ -158,11 +160,14 @@
                 var f =function(e) {
                     var cursor = e.currentTarget.result;
                     if (cursor) {
+                        var qty = this.shadowRoot.querySelectorAll('[data-qty="'+cursor.key+'"]')
                         var fab = this.shadowRoot.querySelectorAll('[data-fab="'+cursor.key+'"]')
                         for (var i = 0; i < fab.length; ++i) {
                             var f = fab[i]
                             f.icon="done"
                             f.style.background='#259b24'
+                            var q = qty[i]
+                            q.innerHTML="(x"+cursor.value.qty+")"
                         }
                         cursor.continue()
                     }
@@ -172,11 +177,14 @@
             },
 
             iLoadChanged:function(){
-                var fab = this.shadowRoot.querySelectorAll('paper-fab')
+                var qty = this.shadowRoot.querySelectorAll('[data-qty]')
+                var fab = this.shadowRoot.querySelectorAll('[data-fab]')
                 for (var i = 0; i < fab.length; ++i) {
                     var f = fab[i]
                     f.icon="add-shopping-cart"
                     f.style.background='#38D3D8'
+                    var q = qty[i]
+                    q.innerHTML=""
                 }
                 var tx=this.iDB.result.transaction(["store"], "readwrite").objectStore("store")
                 this.read(tx)
