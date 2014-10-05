@@ -75,7 +75,7 @@
                                 </div>
                                 <span class="price">{{item.price}}&#8364;</span>
                                 <span class="qty" data-qty="{{item.album}} {{item.artist}}"></span>
-                                <paper-fab data-fab="{{item.album}} {{item.artist}}" icon="add-shopping-cart" on-tap="{{add}}"></paper-fab>
+                                <paper-fab data-fab="{{item.album}} {{item.artist}}" data-price="{{item.price}}" icon="add-shopping-cart" on-tap="{{add}}"></paper-fab>
                             </div>
                         </div>
                     </template>
@@ -94,7 +94,7 @@
                         <div flex class="card-album-artist">{{muts.artist}}</div>
                         <span class="price">{{muts.price}}&#8364;</span>
                         <span data-qty="{{muts.album}} {{muts.artist}}"></span>
-                        <paper-fab self-end data-fab="{{muts.album}} {{muts.artist}}" icon="add-shopping-cart" on-tap="{{add}}"></paper-fab>
+                        <paper-fab self-end data-fab="{{muts.album}} {{muts.artist}}" data-price="{{muts.price}}" icon="add-shopping-cart" on-tap="{{add}}"></paper-fab>
                     </div>
                 </div>
 					
@@ -150,7 +150,7 @@
                 var key= e.target.dataset.fab
                 var tx=this.iDB.result.transaction(["store"], "readwrite").objectStore("store");
                 var qty=1
-                var price=40
+                var price=e.target.dataset.price
                 req = tx.get(key)
                 req.onsuccess = function(e) {
                     var value = e.target.result;
