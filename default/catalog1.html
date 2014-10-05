@@ -65,7 +65,7 @@
                                     <div class="chip-album-title">{{item.album}}</div>
                                     <div class="chip-artist">{{item.artist}}</div>
                                 </div>
-                                <paper-fab class="{{item.album}} {{item.artist}}" icon="add-shopping-cart" on-tap="{{add}}"></paper-fab>
+                                <paper-fab data-fab="{{item.album}} {{item.artist}}" icon="add-shopping-cart" on-tap="{{add}}"></paper-fab>
                             </div>
                         </div>
                     </template>
@@ -82,7 +82,7 @@
                     <div class="card-right" flex layout vertical>
                         <div class="card-album-title">{{muts.album}}</div>
                         <div flex class="card-album-artist">{{muts.artist}}</div>
-                        <paper-fab self-end class="{{muts.album}} {{muts.artist}}" icon="add-shopping-cart" on-tap="{{add}}"></paper-fab>
+                        <paper-fab self-end data-fab="{{muts.album}} {{muts.artist}}" icon="add-shopping-cart" on-tap="{{add}}"></paper-fab>
                     </div>
                 </div>
 					
@@ -121,8 +121,7 @@
                 if (this.page === 0 && e.target.templateInstance.model.item) {
 					this.page = 1;
                     this.muts = e.target.templateInstance.model.item;
-                    var tx=this.iDB.result.transaction(["store"], "readwrite").objectStore("store")
-                    this.read(tx)
+                    this.iLoad = !this.iLoad
                 } else {
                     this.page = 0;
                 }
@@ -135,7 +134,7 @@
 			},
 
             add:function(e){
-                var key= e.target.className
+                var key= e.target.dataset.fab
                 var tx=this.iDB.result.transaction(["store"], "readwrite").objectStore("store");
                 var qty=1
                 var price=40
@@ -148,21 +147,11 @@
                 }.bind(this)
             },
 
-            write:function(tx){
-                var customerData = [
-                    {muts: "Classic Blue", qty: "1", price:"40"},
-                    {muts: "Classic Coral", qty: "1", price:"40"},
-                    {muts: "Special Sunrise", qty: "2", price:"40"}
-                ]
-                for (var i in customerData){tx.put(customerData[i])}
-            },
-
             read:function(tx){
                 var f =function(e) {
                     var cursor = e.currentTarget.result;
                     if (cursor) {
-                        var cls='.'+cursor.key.replace(" ", ".");
-                        var fab = this.shadowRoot.querySelectorAll(cls)
+                        var fab = this.shadowRoot.querySelectorAll('[data-fab="'+cursor.key+'"]')
                         for (var i = 0; i < fab.length; ++i) {
                             var f = fab[i]
                             f.icon="done"
@@ -191,3 +180,17 @@
     </script>
 
 </polymer-element>
+
+        <!--
+
+        write:function(tx){
+            var customerData = [
+                {muts: "Classic Blue", qty: "1", price:"40"},
+                {muts: "Classic Coral", qty: "1", price:"40"},
+                {muts: "Special Sunrise", qty: "2", price:"40"}
+            ]
+            for (var i in customerData){tx.put(customerData[i])}
+        }
+
+        -->
+

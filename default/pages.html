@@ -6,6 +6,11 @@
 
         :host {font-family: 'RobotoDraft', sans-serif;}
 
+
+        @media (max-width: 640px) {
+            core-icon-button{display:none;}
+        }
+
         core-toolbar{
             /*background:white;*/
             background:white url('img/sis2.png') center no-repeat;
@@ -15,7 +20,6 @@
         }
 
         paper-tabs {
-            /*height:100%;*/
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
@@ -43,7 +47,7 @@
 
             <core-header-panel main fit mode="waterfall-tall">
 
-                <core-toolbar layout vertical class="animate" on-tap="{{home}}">
+                <core-toolbar layout horizontal class="animate" on-tap="{{home}}">
 
                     <core-icon-button icon="shopping-cart" on-tap="{{drawer}}"></core-icon-button>
 
