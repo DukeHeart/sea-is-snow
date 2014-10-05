@@ -1,4 +1,4 @@
-<polymer-element name="catalog-1" attributes="page muts iDB iLoad">
+<polymer-element name="catalog-1" attributes="page muts iDB iLoad cLink">
     <template>
 
         <style>
@@ -17,8 +17,6 @@
             @media (min-width: 641px) {
                 .info {display: none;}
             }
-
-            .info {line-height:30px;}
 
             .chip {
                 display: inline-block;
@@ -59,7 +57,7 @@
 		<!--core-animated-pages fit selected="{{page}}" transitions="hero-transition"-->
 
             <section style="text-align: center;">
-                <span class="info">* swipe from the left side to open your basket</span>
+                <p class="info">* swipe from the left side to open your basket</p>
                 <div hero-p on-tap="{{transition}}">
 
                     <template repeat="{{items as item}}">
@@ -108,6 +106,7 @@
             iLoad:false,
             iDB:null,
             page:0,
+            cLink:false,
 			
 			muts: null,
 
@@ -136,7 +135,7 @@
                 }
             },
 			
-			mutsChanged: function(e){
+			cLinkChanged: function(e){
 				if(document.body.clientWidth>430){return 0}
 				var x=this.shadowRoot.querySelector("#"+this.muts.id)
 				if (x){setTimeout(function(){x.scrollIntoView()},1000)}

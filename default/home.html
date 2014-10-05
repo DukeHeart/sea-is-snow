@@ -1,4 +1,4 @@
-<polymer-element name="my-home" attributes="selected page muts">
+<polymer-element name="my-home" attributes="selected page muts cLink">
 
     <template>
 
@@ -148,6 +148,7 @@
 			selected:0,
 			page:0,
 			muts:0,
+            cLink:false,
             /*
             created: function() {
                 var meta = document.createElement('core-meta');
@@ -169,6 +170,7 @@
 						this.page='1'
 						if(document.body.clientWidth<431){this.page='0'}
 						this.muts=this.items[s.id]
+                        this.cLink= !this.cLink
 				}
 			},
 			

@@ -6,7 +6,6 @@
 
         :host {font-family: 'RobotoDraft', sans-serif;}
 
-
         @media (max-width: 640px) {
             core-icon-button{display:none;}
         }
@@ -20,10 +19,6 @@
         }
 
         paper-tabs {
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
             text-transform: uppercase;
             background:white;
             color:black;
@@ -67,7 +62,7 @@
                     </section>
 
                     <section>
-                        <catalog-1 iDB="{{iDB}}" iLoad="{{iLoad}}" page="{{page}}" muts="{{muts}}"></catalog-1>
+                        <catalog-1 iDB="{{iDB}}" iLoad="{{iLoad}}" page="{{page}}" muts="{{muts}}" cLink="{{cLink}}"></catalog-1>
                     </section>
 
                     <section>
@@ -75,7 +70,7 @@
                     </section>
 
                     <section>
-                        <my-home selected="{{activePage}}" page={{page}} muts={{muts}}></my-home>
+                        <my-home selected="{{activePage}}" page={{page}} muts={{muts}} cLink="{{cLink}}"></my-home>
                     </section>
 
                 </core-animated-pages>
