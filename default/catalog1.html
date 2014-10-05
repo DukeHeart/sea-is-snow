@@ -27,7 +27,7 @@
             }
 
             .chip:hover {box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 1);}
-            .chip-bottom {padding: 8px; line-height: 1.5;}
+            .chip-bottom {padding: 8px; line-height: 1.5; position:relative;}
             .chip-album-title {font-weight: bold;}
 			
 			.big {width:300px;}
@@ -42,7 +42,7 @@
 
             .card:hover {box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 1);}
             .card-left {width: 300px;}
-            .card-right {padding: 24px;}
+            .card-right {padding: 24px;position:relative;}
             .card-album-title {font-size: 2em;}
 				
 			section {padding-top:5px;}
@@ -51,6 +51,9 @@
                 color: #FFF;
                 background: #38D3D8;
             }
+
+            .qty {position:absolute;right:65px;}
+
         </style>
 
         <core-pages fit selected="{{page}}">
@@ -70,7 +73,7 @@
                                     <div class="chip-album-title">{{item.album}}</div>
                                     <div class="chip-artist">{{item.artist}}</div>
                                 </div>
-                                <span data-qty="{{item.album}} {{item.artist}}"></span>
+                                <span class="qty" data-qty="{{item.album}} {{item.artist}}"></span>
                                 <paper-fab data-fab="{{item.album}} {{item.artist}}" icon="add-shopping-cart" on-tap="{{add}}"></paper-fab>
                             </div>
                         </div>
