@@ -7,13 +7,12 @@
         :host {font-family: 'RobotoDraft', sans-serif;}
 
         @media (max-width: 640px) {
-            core-icon-button{display:none;}
+            #drawerButton{display:none;}
         }
 
         core-toolbar{
             /*background:white;*/
-            background:white url('img/sis2.png') center no-repeat;
-            background-position:center 9px;
+            background: white url('img/sis2.png') no-repeat center 9px;
             border-bottom:5px solid white;
             box-sizing: border-box;
         }
@@ -44,7 +43,7 @@
 
                 <core-toolbar layout horizontal class="animate" on-tap="{{home}}">
 
-                    <core-icon-button icon="shopping-cart" on-tap="{{drawer}}"></core-icon-button>
+                    <core-icon-button id="drawerButton" icon="shopping-cart" on-tap="{{drawer}}"></core-icon-button>
 
                     <paper-tabs class="blue bottom fit" selected="{{activePage}}">
                         <paper-tab>about us</paper-tab>
