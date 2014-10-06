@@ -39,9 +39,10 @@
 
             <my-form drawer iDB="{{iDB}}" iLoad="{{iLoad}}"></my-form>
 
-            <core-header-panel main fit mode="waterfall-tall">
+            <core-scroll-header-panel main fit keepCondensedHeader condenses>
+            <!--core-header-panel main fit mode="waterfall-tall"-->
 
-                <core-toolbar layout horizontal class="animate" on-tap="{{home}}">
+                <core-toolbar layout horizontal class="tall" on-tap="{{home}}">
 
                     <core-icon-button id="drawerButton" icon="shopping-cart" on-tap="{{drawer}}"></core-icon-button>
 
@@ -53,7 +54,7 @@
 
                 </core-toolbar>
 
-                <core-animated-pages fit transitions="slide-from-right" selected="{{activePage}}">
+                <core-animated-pages content transitions="slide-from-right" selected="{{activePage}}">
 
                     <section>
                         <my-story></my-story>
@@ -74,7 +75,7 @@
 
                 </core-animated-pages>
 
-            </core-header-panel>
+            </core-scroll-header-panel>
 
         </core-drawer-panel>
 

@@ -21,6 +21,7 @@
     "paper-fab": "Polymer/paper-fab#~0.4.1",
     "core-drawer-panel": "Polymer/core-drawer-panel#~0.4.2",
     "core-pages": "Polymer/core-pages#~0.4.2",
-    "core-icon-button": "Polymer/core-icon-button#~0.4.2"
+    "core-icon-button": "Polymer/core-icon-button#~0.4.2",
+    "core-scroll-header-panel": "Polymer/core-scroll-header-panel#~0.4.2"
   }
 }
