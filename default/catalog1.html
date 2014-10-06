@@ -151,7 +151,7 @@
                 var tx=this.iDB.result.transaction(["store"], "readwrite").objectStore("store");
                 var qty=1
                 var price=e.target.dataset.price
-                req = tx.get(key)
+                var req = tx.get(key)
                 req.onsuccess = function(e) {
                     var value = e.target.result;
                     if (value) qty=value.qty+1
