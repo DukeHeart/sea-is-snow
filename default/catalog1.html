@@ -25,21 +25,20 @@
                 background-color: #fff;
 				box-sizing: border-box;
             }
-
             .chip:hover {box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 1);}
             .chip-bottom {padding: 8px; line-height: 1.5; position:relative;}
             .chip-album-title {font-weight: bold;}
 
             .card {
+                height:400px;
                 border-radius: 3px;
                 text-align: start;
                 background: #fff;
                 box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             }
-
             .card:hover {box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 1);}
-            .card-left {width: 300px; height:400px;}
-            .card-right {padding: 20px; position:relative;}
+            .card-left {height:400px; width: 300px;}
+            .card-right {height:360px; padding: 20px;}
             .card-album-title {font-size: 2em;}
 				
 			section {padding-top:5px;}
@@ -82,13 +81,13 @@
                 </div>
             </section>
 
-            <section layout vertical center center-justified>
+            <section layout vertical center center-justified style="min-height:450px">
 
-                <div layout horizontal class="card" hero-id="{{muts.artist}}-{{muts.album}}" hero on-tap="{{transition}}">
+                <div class="card" layout horizontal hero-id="{{muts.artist}}-{{muts.album}}" hero on-tap="{{transition}}">
                     <div class="card-left" hero-id="{{muts.artist}}-{{muts.album}}-art" hero>
                     	<img src="{{muts.bg}}">
                     </div>
-                    <div class="card-right" flex layout vertical>
+                    <div class="card-right" layout vertical>
                         <div class="card-album-title">{{muts.album}}</div>
                         <div flex class="card-album-artist">{{muts.artist}}</div>
                         <span>{{muts.price}}&#8364;</span>
