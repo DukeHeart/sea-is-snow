@@ -39,12 +39,12 @@
 
             <my-form drawer iDB="{{iDB}}" iLoad="{{iLoad}}"></my-form>
 
-            <core-scroll-header-panel main fit keepCondensedHeader condenses>
+            <core-scroll-header-panel main fit noDissolve keepCondensedHeader condenses>
             <!--core-header-panel main fit mode="waterfall-tall"-->
 
                 <core-toolbar layout horizontal class="tall" on-tap="{{home}}">
 
-                    <core-icon-button id="drawerButton" icon="shopping-cart" on-tap="{{drawer}}"></core-icon-button>
+                    <core-icon-button id="drawerButton" icon="shopping-cart" on-tap="{{cDrawerChanged}}"></core-icon-button>
 
                     <paper-tabs class="blue bottom fit" selected="{{activePage}}">
                         <paper-tab>about us</paper-tab>
@@ -62,7 +62,7 @@
                     </section>
 
                     <section>
-                        <catalog-1 iDB="{{iDB}}" iLoad="{{iLoad}}" page="{{page}}" muts="{{muts}}" cLink="{{cLink}}"></catalog-1>
+                        <catalog-1 iDB="{{iDB}}" iLoad="{{iLoad}}" page="{{page}}" muts="{{muts}}" cLink="{{cLink}}" cDrawer="{{cDrawer}}"></catalog-1>
                     </section>
 
                     <section>
@@ -87,12 +87,13 @@
 			activePage: 3,
 			page: 0,
 			muts: 0,
+            cDrawer:false,
 
             home: function(e) {
               if (e.target.localName === 'core-toolbar') {this.activePage = 3;}
             },
 
-            drawer: function(e) {
+            cDrawerChanged:function(){
                 this.shadowRoot.querySelector('core-drawer-panel').togglePanel()
             }
 

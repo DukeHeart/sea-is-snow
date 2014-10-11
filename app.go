@@ -18,7 +18,7 @@ func submit(w http.ResponseWriter, r *http.Request) {
     email := r.FormValue("email")
     message := "<html><body><h3>Contact:</h3><p>Phone: " + r.FormValue("phone") +"<br/>Message: "+ r.FormValue("message") +"</p><h3>Order:</h3><p>"+ r.FormValue("order") + "</p></body></html>"
     msg := &mail.Message{
-            Sender:  name + " <submit@sea-is-snow.appspotmail.com>",
+            Sender:  name + " <seaissnow.nl@sea-is-snow.appspotmail.com>",
             To:      []string{"gert.cuykens.2@gmail.com"},
             ReplyTo: email,
             Subject: "seaissnow.nl",

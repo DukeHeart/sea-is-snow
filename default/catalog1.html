@@ -1,4 +1,4 @@
-<polymer-element name="catalog-1" attributes="page muts iDB iLoad cLink">
+<polymer-element name="catalog-1" attributes="page muts iDB iLoad cLink cDrawer">
     <template>
 
         <style>
@@ -58,7 +58,7 @@
 		<!--core-animated-pages fit selected="{{page}}" transitions="hero-transition"-->
 
             <section style="text-align: center;">
-                <p class="info">* swipe from the left side to open your basket</p>
+                <p class="info" on-tap="{{drawer}}">* swipe from the left side or press here to open your <core-icon icon="shopping-cart"></core-icon></p>
                 <div hero-p on-tap="{{transition}}">
 
                     <template repeat="{{items as item}}">
@@ -73,7 +73,7 @@
                                 </div>
                                 <span class="price">{{item.price}}&#8364;</span>
                                 <span class="qty" data-qty="{{item.album}} {{item.artist}}"></span>
-                                <paper-fab data-fab="{{item.album}} {{item.artist}}" data-price="{{item.price}}" icon="add-shopping-cart" on-tap="{{add}}"></paper-fab>
+                                <paper-fab data-fab="{{item.album}} {{item.artist}}" data-price="{{item.price}}" on-tap="{{add}}"></paper-fab>
                             </div>
                         </div>
                     </template>
@@ -85,21 +85,31 @@
 
                 <div class="card" layout horizontal hero-id="{{muts.artist}}-{{muts.album}}" hero on-tap="{{transition}}">
                     <div class="card-left" hero-id="{{muts.artist}}-{{muts.album}}-art" hero>
-                    	<img src="{{muts.bg}}">
+                    	<!--img src="{{muts.bg}}"-->
+                        <img src="muts/Classic-Blue.png" hidden>
+                        <img src="muts/Classic-Coral.png" hidden>
+                        <img src="muts/Classic-Purple.png" hidden>
+                        <img src="muts/Original-Blue-Orange-Green.png" hidden>
+                        <img src="muts/Original-Brown-Pink-Orange.png" hidden>
+                        <img src="muts/Original-Sand-Blue.png" hidden>
+                        <img src="muts/Shell.png" hidden>
+                        <img src="muts/Stone.png" hidden>
+                        <img src="muts/Sunrise.png" hidden>
+                        <img src="muts/Sunset.png" hidden>
                     </div>
                     <div class="card-right" layout vertical>
                         <div class="card-album-title">{{muts.album}}</div>
                         <div flex class="card-album-artist">{{muts.artist}}</div>
                         <span>{{muts.price}}&#8364;</span>
                         <span data-qty="{{muts.album}} {{muts.artist}}"></span>
-                        <paper-fab self-end data-fab="{{muts.album}} {{muts.artist}}" data-price="{{muts.price}}" icon="add-shopping-cart" on-tap="{{add}}"></paper-fab>
+                        <paper-fab self-end data-fab="{{muts.album}} {{muts.artist}}" data-price="{{muts.price}}" on-tap="{{add}}"></paper-fab>
                     </div>
                 </div>
 					
             </section>
 
         </core-animated-pages>
-		
+
     </template>
 
     <script>
@@ -110,7 +120,7 @@
             iDB:null,
             page:0,
             cLink:false,
-			
+            cDrawer:false,
 			muts: null,
 
             items: [
@@ -133,6 +143,10 @@
                 if (this.page === 0 && e.target.templateInstance.model.item) {
 					this.page = 1;
                     this.muts = e.target.templateInstance.model.item;
+                    var hid=this.shadowRoot.querySelectorAll('.card-left img')
+                    for (var i = 0; i < hid.length; i++) {hid[i].hidden=true}
+                    var img = this.shadowRoot.querySelectorAll('img[src="' + this.muts.bg + '"]')
+                    img[1].hidden=false
                     this.iLoad = !this.iLoad
                 } else {
                     this.page = 0;
@@ -184,13 +198,19 @@
                 var fab = this.shadowRoot.querySelectorAll('[data-fab]')
                 for (var i = 0; i < fab.length; ++i) {
                     var f = fab[i]
-                    f.icon="add-shopping-cart"
+                    //f.icon="add-shopping-cart"
+                    f.icon="add"
                     f.style.background='#38D3D8'
                     var q = qty[i]
                     q.innerHTML=""
+                    console.log(f.icon)
                 }
                 var tx=this.iDB.result.transaction(["store"], "readwrite").objectStore("store")
                 this.read(tx)
+            },
+
+            drawer:function(e){
+                this.cDrawer=!this.cDrawer
             }
 			
         });
