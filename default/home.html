@@ -1,4 +1,4 @@
-<polymer-element name="my-home" attributes="selected page muts cLink">
+<polymer-element name="my-home" attributes="activePage subPage muts cMuts cStory">
 
     <template>
 
@@ -144,33 +144,29 @@
 
     <script>
         Polymer('my-home', {
-			
-			selected:0,
-			page:0,
+
+			activePage:0,
+			subPage:0,
 			muts:0,
-            cLink:false,
-            /*
-            created: function() {
-                var meta = document.createElement('core-meta');
-                meta.type = 'transition';
-                this.transition = meta.byId('my-hover');
-            },
-	        */
+            cMuts:false,
+			cStory:false,
+
 			link: function (e,d,s) {
+
 				switch (s.id){
-					case "h09": this.selected='0'; break;
-                    case "h12": this.selected='0'; break;
+					case "h09": this.activePage='0'; this.cStory= !this.cStory; break;
+                    case "h12": this.activePage='0'; this.cStory= !this.cStory; break;
 					case "h04": document.location = 'http://facebook.com/annelousl'; break;
 					case "h05": document.location = 'http://facebook.com/belleschipperkiteboarding'; break;
                     case "h11": document.location = 'http://instagram.com/seaissnow'; break;
                     case "h13": document.location = 'http://facebook.com/seaissnow'; break;
-                    case "h02": this.selected='2'; break;
+                    case "h02": this.activePage='2'; break;
 					default:
-						this.selected='1'
-						this.page='1'
-						if(document.body.clientWidth<431){this.page='0'}
+						this.activePage='1'
+						this.subPage='1'
+						if(document.body.clientWidth<431){this.subPage='0'}
 						this.muts=this.items[s.id]
-                        this.cLink= !this.cLink
+						this.cMuts= !this.cMuts
 				}
 			},
 			
@@ -193,6 +189,13 @@
 
 </polymer-element>
 
+<!--
+created: function() {
+var meta = document.createElement('core-meta');
+meta.type = 'transition';
+this.transition = meta.byId('my-hover');
+},
+-->
 				
 			
 			

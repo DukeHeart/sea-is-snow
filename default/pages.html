@@ -33,11 +33,11 @@
 
     </style>
 
-        <my-database iDB="{{iDB}}" iLoad="{{iLoad}}"></my-database>
+        <my-database iDB="{{iDB}}" cDb="{{cDb}}"></my-database>
 
         <core-drawer-panel responsiveWidth="5000px">
 
-            <my-form drawer iDB="{{iDB}}" iLoad="{{iLoad}}"></my-form>
+            <my-form drawer iDB="{{iDB}}" cDb="{{cDb}}"></my-form>
 
             <core-scroll-header-panel main fit noDissolve keepCondensedHeader condenses>
             <!--core-header-panel main fit mode="waterfall-tall"-->
@@ -57,12 +57,12 @@
                 <core-animated-pages fit content transitions="slide-from-right" selected="{{activePage}}" style="margin-top:192px;">
 
                     <section>
-                        <my-story></my-story>
+                        <my-story cStory="{{cStory}}"></my-story>
                         <my-footer></my-footer>
                     </section>
 
                     <section>
-                        <catalog-1 iDB="{{iDB}}" iLoad="{{iLoad}}" page="{{page}}" muts="{{muts}}" cLink="{{cLink}}" cDrawer="{{cDrawer}}"></catalog-1>
+                        <catalog-1 iDB="{{iDB}}" subPage="{{subPage}}" muts="{{muts}}" cMuts="{{cMuts}}" cDb="{{cDb}}" cDrawer="{{cDrawer}}"></catalog-1>
                     </section>
 
                     <section>
@@ -70,7 +70,7 @@
                     </section>
 
                     <section>
-                        <my-home selected="{{activePage}}" page={{page}} muts={{muts}} cLink="{{cLink}}"></my-home>
+                        <my-home activePage="{{activePage}}" subPage={{subPage}} muts={{muts}} cMuts="{{cMuts}}" cStory="{{cStory}}"></my-home>
                     </section>
 
                 </core-animated-pages>
@@ -85,8 +85,6 @@
         Polymer('my-pages', {
 
 			activePage: 3,
-			page: 0,
-			muts: 0,
             cDrawer:false,
 
             home: function(e) {

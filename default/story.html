@@ -1,4 +1,4 @@
-<polymer-element name="my-story">
+<polymer-element name="my-story" attributes="cStory">
 
     <template>
 
@@ -15,9 +15,8 @@
 			h1 {margin:10px 0px 0px 0px;}
 			
         </style>
-
+        <a id="top" style="position:absolute;top:-192px;"></a>
         <section vertical layout center center-justified>
-
 <h1>The Story</h1>
 
 <p>
@@ -60,7 +59,13 @@ Challenge your heartbeat!
     </template>
 
     <script>
-        Polymer('my-story', {});
+        Polymer('my-story', {
+            cStory:false,
+            cStoryChanged:function(e){
+                var x=this.shadowRoot.querySelector("#top")
+                if (x){setTimeout(function(){x.scrollIntoView()},1000)}
+            }
+        });
     </script>
 
 </polymer-element>

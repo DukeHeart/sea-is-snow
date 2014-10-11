@@ -1,4 +1,4 @@
-<polymer-element name="catalog-1" attributes="page muts iDB iLoad cLink cDrawer">
+<polymer-element name="catalog-1" attributes="subPage muts iDB cDb cMuts cDrawer">
     <template>
 
         <style>
@@ -54,7 +54,7 @@
 
         </style>
 
-        <core-animated-pages fit selected="{{page}}">
+        <core-animated-pages fit selected="{{subPage}}">
 		<!--core-animated-pages fit selected="{{page}}" transitions="hero-transition"-->
 
             <section style="text-align: center;">
@@ -116,11 +116,12 @@
 
         Polymer('catalog-1', {
 
-            iLoad:false,
-            iDB:null,
-            page:0,
-            cLink:false,
+            cMuts:false,
+            cDb:false,
             cDrawer:false,
+
+            iDB:null,
+            subPage:0,
 			muts: null,
 
             items: [
@@ -140,20 +141,20 @@
                 //console.log(e.target.templateInstance)
                 if (e.target.localName === 'paper-fab') {return 0}
                 if (document.body.clientWidth<431){return 0}
-                if (this.page === 0 && e.target.templateInstance.model.item) {
-					this.page = 1;
+                if (this.subPage === 0 && e.target.templateInstance.model.item) {
+					this.subPage = 1;
                     this.muts = e.target.templateInstance.model.item;
-                    this.iLoad = !this.iLoad
+                    this.cDb = !this.cDb
                     var hid=this.shadowRoot.querySelectorAll('.card-left img')
                     for (var i = 0; i < hid.length; i++) {hid[i].hidden=true}
                     var img = this.shadowRoot.querySelectorAll('img[src="' + this.muts.bg + '"]')
                     img[1].hidden=false
                 } else {
-                    this.page = 0;
+                    this.subPage = 0;
                 }
             },
 			
-			cLinkChanged: function(e){
+			cMutsChanged: function(e){
                 var hid=this.shadowRoot.querySelectorAll('.card-left img')
                 for (var i = 0; i < hid.length; i++) {hid[i].hidden=true}
                 var img = this.shadowRoot.querySelectorAll('img[src="' + this.muts.bg + '"]')
@@ -173,7 +174,7 @@
                     var value = e.target.result;
                     if (value) qty=value.qty+1
                     req = tx.put({muts: key, qty:qty, price: price})
-                    req.onsuccess = function(e){this.iLoad = !this.iLoad}.bind(this)
+                    req.onsuccess = function(e){this.cDb = !this.cDb}.bind(this)
                 }.bind(this)
             },
 
@@ -197,7 +198,7 @@
                 req.onsuccess = f
             },
 
-            iLoadChanged:function(){
+            cDbChanged:function(){
                 var qty = this.shadowRoot.querySelectorAll('[data-qty]')
                 var fab = this.shadowRoot.querySelectorAll('[data-fab]')
                 for (var i = 0; i < fab.length; ++i) {

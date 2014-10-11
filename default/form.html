@@ -1,4 +1,4 @@
-<polymer-element name="my-form" attributes="iDB iLoad">
+<polymer-element name="my-form" attributes="iDB cDb">
     <template>
         <style>
             :host {font-family: 'RobotoDraft', sans-serif; background:white; overflow: auto;}
@@ -35,7 +35,7 @@
     <script>
         Polymer('my-form', {
 
-            iLoad:false,
+            cDb:false,
             iDB:null,
             name:null,
             email:null,
@@ -105,7 +105,7 @@
                 }.bind(this))
             },
 
-            iLoadChanged:function(){
+            cDbChanged:function(){
                 var tx=this.iDB.result.transaction(["store"], "readwrite").objectStore("store")
                 this.read(tx)
             },
@@ -114,7 +114,7 @@
                 var req = tx.delete(k.id)
                 req.onsuccess = function(e) {
                     k.parentNode.removeChild(k)
-                    this.iLoad = !this.iLoad
+                    this.cDb = !this.cDb
                 }.bind(this)
             },
 

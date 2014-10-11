@@ -1,13 +1,10 @@
-<polymer-element name="my-database" attributes="iDB iLoad iDrop">
+<polymer-element name="my-database" attributes="iDB iDrop cDb">
     <script>
         Polymer('my-database', {
+            cDb:false,
             iDB:null,
-            iLoad:false,
             ready:function(){
-                var load=function(){
-                    this.iLoad=true
-                    console.log('iLoad',this.iLoad)
-                }.bind(this)
+                var iDone=function(){this.cDb=!this.cDb}.bind(this)
                 var request = indexedDB.open("my-database",1);
                 request.onupgradeneeded = function(e) {
                     var db = e.currentTarget.result
@@ -27,7 +24,7 @@
                     //    console.log('db changed', 'v'+db.version, 'CLOSED')
                     //}
                     console.log('db setup', 'v'+db.version, 'OK')
-                    load()
+                    iDone()
                 }
                 this.iDB=request
             },
