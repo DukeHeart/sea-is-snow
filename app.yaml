@@ -8,8 +8,8 @@ threadsafe: true
 handlers:
 
 - url: /
-  static_files: default/index.html
-  upload: default/index.html
+  static_files: default/build.html
+  upload: default/build.html
   #secure: always
   #login: admin
 
