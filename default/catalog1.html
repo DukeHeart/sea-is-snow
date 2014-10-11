@@ -143,17 +143,21 @@
                 if (this.page === 0 && e.target.templateInstance.model.item) {
 					this.page = 1;
                     this.muts = e.target.templateInstance.model.item;
+                    this.iLoad = !this.iLoad
                     var hid=this.shadowRoot.querySelectorAll('.card-left img')
                     for (var i = 0; i < hid.length; i++) {hid[i].hidden=true}
                     var img = this.shadowRoot.querySelectorAll('img[src="' + this.muts.bg + '"]')
                     img[1].hidden=false
-                    this.iLoad = !this.iLoad
                 } else {
                     this.page = 0;
                 }
             },
 			
 			cLinkChanged: function(e){
+                var hid=this.shadowRoot.querySelectorAll('.card-left img')
+                for (var i = 0; i < hid.length; i++) {hid[i].hidden=true}
+                var img = this.shadowRoot.querySelectorAll('img[src="' + this.muts.bg + '"]')
+                img[1].hidden=false
 				if(document.body.clientWidth>430){return 0}
 				var x=this.shadowRoot.querySelector("#"+this.muts.id)
 				if (x){setTimeout(function(){x.scrollIntoView()},1000)}
@@ -203,7 +207,6 @@
                     f.style.background='#38D3D8'
                     var q = qty[i]
                     q.innerHTML=""
-                    console.log(f.icon)
                 }
                 var tx=this.iDB.result.transaction(["store"], "readwrite").objectStore("store")
                 this.read(tx)
