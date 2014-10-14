@@ -6,39 +6,9 @@
         <meta name="mobile-web-app-capable" content="yes">
         <script src="bower_components/platform/platform.js"></script>
 
-        <link rel="icon" type="image/png" href="icon/favicon.png">
-
         <link rel="import" href="bower_components/polymer/polymer.html">
-        <link rel="import" href="bower_components/font-roboto/roboto.html">
-        <!--link rel="import" href="bower_components/core-icons/device-icons.html"-->
-        <!--link rel="import" href="bower_components/core-icons/maps-icons.html"-->
-        <!--link rel="import" href="bower_components/core-icons/hardware-icons.html"-->
-		<!--link rel="import" href="bower_components/core-icons/communication-icons.html"-->
-		<link rel="import" href="bower_components/core-icons/social-icons.html">
-		<link rel="import" href="bower_components/core-icons/core-icons.html">
-        <link rel="import" href="bower_components/core-icon-button/core-icon-button.html">
-        <!--link rel="import" href="bower_components/core-pages/core-pages.html"-->
-		<link rel="import" href="bower_components/core-animated-pages/core-animated-pages.html">
-        <link rel="import" href="bower_components/core-animated-pages/transitions/slide-from-right.html">
-        <!--link rel="import" href="bower_components/core-header-panel/core-header-panel.html"-->
-        <link rel="import" href="bower_components/core-scroll-header-panel/core-scroll-header-panel.html">
-        <link rel="import" href="bower_components/core-toolbar/core-toolbar.html">
-        <link rel="import" href="bower_components/core-drawer-panel/core-drawer-panel.html">
-        <!--link rel="import" href="bower_components/core-transition/core-transition-css.html"-->
-        <link rel="import" href="bower_components/paper-input/paper-input.html">
-        <link rel="import" href="bower_components/paper-fab/paper-fab.html">
-        <link rel="import" href="bower_components/paper-ripple/paper-ripple.html">
-        <link rel="import" href="bower_components/paper-tabs/paper-tabs.html">
-        <link rel="import" href="database.html">
-        <link rel="import" href="form.html">
-
-        <link rel="import" href="catalog2.html">
-        <link rel="import" href="story.html">
-        <link rel="import" href="home.html">
-        <link rel="import" href="footer.html">
-        <link rel="import" href="pages.html">
-
-        <link rel="import" href="testE.html">
+       	<link rel="import" href="bower_components/core-icons/core-icons.html">
+     	<link rel="import" href="bower_components/paper-fab/paper-fab.html">
 
     </head>
     <style>
@@ -51,9 +21,6 @@
         }
     </style>
     <body fullbleed vertical layout>
-        <template is="auto-binding">
-            <my-database iDB="{{iDB}}" cDb="{{cDb}}"></my-database>
-            <catalog-1 iDB="{{iDB}}" subPage="{{subPage}}" muts="{{muts}}" cMuts="{{cMuts}}" cDb="{{cDb}}" cDrawer="{{cDrawer}}"></catalog-1>
-        </template>
+        <paper-fab icon="add-shopping-cart"></paper-fab>
     </body>
 </html>
