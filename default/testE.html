@@ -1,0 +1,239 @@
+<polymer-element name="catalog-1" attributes="subPage muts iDB cDb cMuts cDrawer">
+    <template>
+
+        <style>
+            :host {font-family: 'RobotoDraft', sans-serif;}
+
+            @media (max-width: 430px) {
+                .chip img {width: 290px;}
+                .chip{box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 1); margin: 0px 2px 15px 2px;}
+            }
+
+            @media (min-width: 431px) {
+                .chip img {width: 230px;}
+                .chip{box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16); margin: 0px 2px 10px 2px;}
+            }
+
+            @media (min-width: 641px) {
+                .info {display: none;}
+            }
+
+            .chip {
+                display: inline-block;
+                border-radius: 3px;
+                text-align: start;
+                background-color: #fff;
+				box-sizing: border-box;
+            }
+            .chip:hover {box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 1);}
+            .chip-bottom {padding: 8px; line-height: 1.5; position:relative;}
+            .chip-album-title {font-weight: bold;}
+
+            .card {
+                height:400px;
+                border-radius: 3px;
+                text-align: start;
+                background: #fff;
+                box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            }
+            .card:hover {box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 1);}
+            .card-left {height:400px; width: 300px;}
+            .card-right {height:360px; padding: 20px;}
+            .card-album-title {font-size: 2em;}
+				
+			section {padding-top:5px;}
+
+            paper-fab {
+                color: #FFF;
+                background: #38D3D8;
+            }
+
+            .price {position:absolute;right:63px;top:6px}
+            .qty {position:absolute;right:60px;top:47px}
+            .info {margin-top:0px;}
+
+        </style>
+
+        <core-animated-pages fit selected="{{subPage}}">
+		<!--core-animated-pages fit selected="{{page}}" transitions="hero-transition"-->
+
+            <section style="text-align: center;">
+                <p class="info" on-tap="{{drawer}}">* swipe from the left side or press here to open your <core-icon icon="shopping-cart"></core-icon></p>
+                <div hero-p on-tap="{{transition}}">
+
+                    <template repeat="{{items as item}}">
+                        <div class="chip" hero-id="{{item.artist}}-{{item.album}}" hero?="{{muts === item }}" on-tap="{{open}}">
+                            <div class="chip-top" hero-id="{{item.artist}}-{{item.album}}-art" hero?="{{muts === item}}">
+                            	<img id="{{item.id}}" src="{{item.bg}}">
+                            </div>
+                            <div layout horizontal class="chip-bottom">
+                                <div flex>
+                                    <div class="chip-album-title">{{item.album}}</div>
+                                    <div class="chip-artist">{{item.artist}}</div>
+                                </div>
+                                <span class="price">{{item.price}}&#8364;</span>
+                                <span class="qty" data-qty="{{item.album}} {{item.artist}}"></span>
+                                <paper-fab data-fab="{{item.album}} {{item.artist}}" data-price="{{item.price}}" on-tap="{{add}}"></paper-fab>
+                            </div>
+                        </div>
+                    </template>
+
+                </div>
+            </section>
+
+            <section layout vertical center center-justified style="min-height:450px">
+
+                <div class="card" layout horizontal hero-id="{{muts.artist}}-{{muts.album}}" hero on-tap="{{transition}}">
+                    <div class="card-left" hero-id="{{muts.artist}}-{{muts.album}}-art" hero>
+                    	<!--img src="{{muts.bg}}"-->
+                        <img src="muts/Classic-Blue.png" hidden>
+                        <img src="muts/Classic-Coral.png" hidden>
+                        <img src="muts/Classic-Purple.png" hidden>
+                        <img src="muts/Original-Blue-Orange-Green.png" hidden>
+                        <img src="muts/Original-Brown-Pink-Orange.png" hidden>
+                        <img src="muts/Original-Sand-Blue.png" hidden>
+                        <img src="muts/Shell.png" hidden>
+                        <img src="muts/Stone.png" hidden>
+                        <img src="muts/Sunrise.png" hidden>
+                        <img src="muts/Sunset.png" hidden>
+                    </div>
+                    <div class="card-right" layout vertical>
+                        <div class="card-album-title">{{muts.album}}</div>
+                        <div flex class="card-album-artist">{{muts.artist}}</div>
+                        <span>{{muts.price}}&#8364;</span>
+                        <span data-qty="{{muts.album}} {{muts.artist}}"></span>
+                        <paper-fab self-end data-fab="{{muts.album}} {{muts.artist}}" data-price="{{muts.price}}" on-tap="{{add}}"></paper-fab>
+                    </div>
+                </div>
+					
+            </section>
+
+        </core-animated-pages>
+
+    </template>
+
+    <script>
+
+        Polymer('catalog-1', {
+
+            cMuts:false,
+            cDb:false,
+            cDrawer:false,
+
+            iDB:null,
+            subPage:0,
+			muts: null,
+
+            items: [
+                { id: 'm01', price: 40, album: 'Classic', artist: 'Blue', color: '#59D6F9', bg: 'muts/Classic-Blue.png' },
+                { id: 'm02', price: 40, album: 'Classic', artist: 'Coral', color: '#972ff8', bg: 'muts/Classic-Coral.png' },
+                { id: 'm03', price: 40, album: 'Classic', artist: 'Purple', color: '#7dd6fe', bg: 'muts/Classic-Purple.png' },
+                { id: 'm04', price: 40, album: 'Original', artist: 'Blue Orange Green', color: '#dc3c84', bg: 'muts/Original-Blue-Orange-Green.png' },
+                { id: 'm05', price: 40, album: 'Original', artist: 'Brown Pink Orange', color: '#f4db33', bg: 'muts/Original-Brown-Pink-Orange.png' },
+                { id: 'm06', price: 40, album: 'Original', artist: 'Sand Blue', color: '#972ff8', bg: 'muts/Original-Sand-Blue.png' },
+                { id: 'm07', price: 40, album: 'Special', artist: 'Sunrise', color: '#f4db33', bg: 'muts/Sunrise.png' },
+                { id: 'm08', price: 40, album: 'Special', artist: 'Sunset', color: '#972ff8', bg: 'muts/Sunset.png' },
+                { id: 'm09', price: 40, album: 'Limited edition', artist: 'Shell', color: '#7dd6fe', bg: 'muts/Shell.png' },
+                { id: 'm10', price: 40, album: 'Limited edition', artist: 'Stone', color: '#dc3c84', bg: 'muts/Stone.png' }
+            ],
+
+            transition: function(e) {
+                //console.log(e.target.templateInstance)
+                if (e.target.localName === 'paper-fab') {return 0}
+                if (document.body.clientWidth<431){return 0}
+                if (this.subPage === 0 && e.target.templateInstance.model.item) {
+					this.subPage = 1;
+                    this.muts = e.target.templateInstance.model.item;
+                    this.cDb = !this.cDb
+                    var hid=this.shadowRoot.querySelectorAll('.card-left img')
+                    for (var i = 0; i < hid.length; i++) {hid[i].hidden=true}
+                    var img = this.shadowRoot.querySelectorAll('img[src="' + this.muts.bg + '"]')
+                    img[1].hidden=false
+                } else {
+                    this.subPage = 0;
+                }
+            },
+			
+			cMutsChanged: function(e){
+                var hid=this.shadowRoot.querySelectorAll('.card-left img')
+                for (var i = 0; i < hid.length; i++) {hid[i].hidden=true}
+                var img = this.shadowRoot.querySelectorAll('img[src="' + this.muts.bg + '"]')
+                img[1].hidden=false
+				if(document.body.clientWidth>430){return 0}
+				var x=this.shadowRoot.querySelector("#"+this.muts.id)
+				if (x){setTimeout(function(){x.scrollIntoView()},1000)}
+			},
+
+            add:function(e){
+                var key= e.target.dataset.fab
+                var tx=this.iDB.result.transaction(["store"], "readwrite").objectStore("store");
+                var qty=1
+                var price=e.target.dataset.price
+                var req = tx.get(key)
+                req.onsuccess = function(e) {
+                    var value = e.target.result;
+                    if (value) qty=value.qty+1
+                    req = tx.put({muts: key, qty:qty, price: price})
+                    req.onsuccess = function(e){this.cDb = !this.cDb}.bind(this)
+                }.bind(this)
+            },
+
+            read:function(tx){
+                var f =function(e) {
+                    var cursor = e.currentTarget.result;
+                    if (cursor) {
+                        var qty = this.shadowRoot.querySelectorAll('[data-qty="'+cursor.key+'"]')
+                        var fab = this.shadowRoot.querySelectorAll('[data-fab="'+cursor.key+'"]')
+                        for (var i = 0; i < fab.length; ++i) {
+                            var f = fab[i]
+                            f.icon="done"
+                            f.style.background='#259b24'
+                            var q = qty[i]
+                            q.innerHTML="(x"+cursor.value.qty+")"
+                        }
+                        cursor.continue()
+                    }
+                }.bind(this)
+                var req = tx.openCursor()
+                req.onsuccess = f
+            },
+
+            cDbChanged:function(){
+                var qty = this.shadowRoot.querySelectorAll('[data-qty]')
+                var fab = this.shadowRoot.querySelectorAll('[data-fab]')
+                for (var i = 0; i < fab.length; ++i) {
+                    console.log(i)
+                    var f = fab[i]
+                    //f.icon="add-shopping-cart"
+                    f.icon="add-shopping-cart"
+                    f.style.background='#38D3D8'
+                    var q = qty[i]
+                    q.innerHTML=""
+                }
+                var tx=this.iDB.result.transaction(["store"], "readwrite").objectStore("store")
+                this.read(tx)
+            },
+
+            drawer:function(e){
+                this.cDrawer=!this.cDrawer
+            }
+			
+        });
+
+    </script>
+
+</polymer-element>
+
+        <!--
+
+        write:function(tx){
+            var customerData = [
+                {muts: "Classic Blue", qty: "1", price:"40"},
+                {muts: "Classic Coral", qty: "1", price:"40"},
+                {muts: "Special Sunrise", qty: "2", price:"40"}
+            ]
+            for (var i in customerData){tx.put(customerData[i])}
+        }
+
+        -->
+

@@ -42,6 +42,10 @@ gulp.task('build', shell.task([
   'vulcanize -o default/build.html default/index.html --inline --strip'
 ]));
 
+gulp.task('test', shell.task([
+  'vulcanize -o default/testB.html default/test.html --inline --strip'
+]));
+
 gulp.task('default', ['watch', 'appserver']);
 
 /*
