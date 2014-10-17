@@ -1,4 +1,4 @@
-<polymer-element name="my-form" attributes="items">
+<polymer-element name="my-form" attributes="iDB cDb">
     <template>
         <style>
             :host {font-family: 'RobotoDraft', sans-serif; background:white; overflow: auto;}
@@ -16,9 +16,7 @@
 
         </style>
         <section layout vertical center style="margin:0px auto">
-
             <h3 style="margin-bottom:0px;">Customer:</h3>
-
             <form>
                 <paper-input label="Name" value="{{name}}"></paper-input>
                 <paper-input label="Email" value="{{email}}" type="email" ></paper-input>
@@ -26,37 +24,24 @@
                 <paper-input label="Message" value="{{message}}" multiline></paper-input>
                 <input name="code" value="12345" hidden>
             </form>
-
-            <h3 style="margin-bottom:10px;">Order:</h3>
-
-            <div id="order">
-                <template repeat="{{items as item}}">
-                    <p class="item" style="margin:0px;" on-tap="{{remove}}" hidden?="{{item.qty == 0}}">
-                        <span class="">- {{item.album}} {{item.artist}}</span>
-                        <!--span class="price">{{item.price}}&#8364;</span-->
-                        <span class="qty">x{{item.qty}}</span>
-                    </p>
-                </template>
-                <p style="margin-top:10px">- Total {{total}}</p>
-            </div>
-
+            <h3 style="margin-bottom:0px;">Order:</h3>
+            <p style="margin-bottom:5px;"></p>
             <div id="error">This is  the list of items you have
                 selected. Click the item to remove it from your order.
                 When complete you can press the submit button.</div>
-
             <paper-fab icon="shopping-cart" on-tap="{{submit}}"></paper-fab>
-
         </section>
     </template>
     <script>
         Polymer('my-form', {
 
+            cDb:false,
+            iDB:null,
             name:null,
             email:null,
             phone:null,
             message:null,
-            order:null,
-            total:0,
+            out:null,
 
             validate:function() {
                 if (!this.name) return "Please fill in your name"
@@ -86,7 +71,7 @@
             ready:function(){
                 //CoreStyle.g.paperInput.focusedColor=
                 //CoreStyle.g.paperInput.invalidColor=
-                this.order=this.shadowRoot.querySelector('#order')
+                this.out=this.shadowRoot.querySelector('p')
                 var form = this.shadowRoot.querySelector('form')
                 form.addEventListener('submit', function(e) {
                     e.preventDefault()
@@ -95,7 +80,7 @@
                     data.append("email",this.email)
                     data.append("phone",this.phone)
                     data.append("message",this.message)
-                    data.append("order",this.order.innerHTML)
+                    data.append("order",this.out.innerHTML)
                     var xhr = new XMLHttpRequest();
                     xhr.open("POST", "submit.go", true);
                     xhr.onload = function(e) {
@@ -120,8 +105,47 @@
                 }.bind(this))
             },
 
-            remove:function(e){
-                console.log(e.currentTarget)
+            cDbChanged:function(){
+                var tx=this.iDB.result.transaction(["store"], "readwrite").objectStore("store")
+                this.read(tx)
+            },
+
+            remove:function(tx, k){
+                var req = tx.delete(k.id)
+                req.onsuccess = function(e) {
+                    k.parentNode.removeChild(k)
+                    this.cDb = !this.cDb
+                }.bind(this)
+            },
+
+            read:function(tx){
+                var total=0
+                var f =function(e) {
+                    var br=document.createElement('br')
+                    var cursor = e.currentTarget.result;
+                    if (cursor) {
+                        total=total+(cursor.value.qty*cursor.value.price)
+                        var span=document.createElement('span')
+                        span.innerHTML="- "+cursor.value.muts+" (x"+cursor.value.qty+")"  //"="+cursor.value.qty*cursor.value.price+")"
+                        span.id=cursor.key
+                        span.className="item"
+                        span.onclick=function(e){
+                            var x=this.iDB.result.transaction(["store"], "readwrite").objectStore("store")
+                            this.remove(x, e.currentTarget)
+                        }.bind(this)
+                        this.out.appendChild(span)
+                        this.out.appendChild(br)
+                        cursor.continue()
+                    }else{
+                        var span=document.createElement('span')
+                        span.style.lineHeight="30px"
+                        span.innerHTML="= total "+total+"&#8364;"
+                        this.out.appendChild(span)
+                    }
+                }.bind(this)
+                this.out.innerHTML=""
+                var req = tx.openCursor()
+                req.onsuccess = f
             }
 
         })

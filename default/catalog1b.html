@@ -1,4 +1,4 @@
-<polymer-element name="catalog-1" attributes="subPage muts items cMuts cDrawer">
+<polymer-element name="catalog-1" attributes="subPage muts iDB cDb cMuts cDrawer">
     <template>
 
         <style>
@@ -43,14 +43,9 @@
 				
 			section {padding-top:5px;}
 
-            .add {
+            paper-fab {
                 color: #FFF;
                 background: #38D3D8;
-            }
-
-            .done {
-                color: #FFF;
-                background: rgb(37, 155, 36);
             }
 
             .price {position:absolute;right:63px;top:6px}
@@ -69,7 +64,7 @@
                     <template repeat="{{items as item}}">
                         <div class="chip" hero-id="{{item.artist}}-{{item.album}}" hero?="{{muts === item }}" on-tap="{{open}}">
                             <div class="chip-top" hero-id="{{item.artist}}-{{item.album}}-art" hero?="{{muts === item}}">
-                            	<img id="m{{item.id}}" src="{{item.bg}}">
+                            	<img id="{{item.id}}" src="{{item.bg}}">
                             </div>
                             <div layout horizontal class="chip-bottom">
                                 <div flex>
@@ -77,8 +72,8 @@
                                     <div class="chip-artist">{{item.artist}}</div>
                                 </div>
                                 <span class="price">{{item.price}}&#8364;</span>
-                                <span class="qty" hidden?="{{item.qty == 0}}">x{{item.qty}}</span>
-                                <paper-fab class="{{ {add: item.qty==0, done: item.qty > 0} | tokenList }}" icon="{{ {add: item.qty==0, done: item.qty > 0} | tokenList }}"  data-id="{{item.id}}" data-fab="{{item.album}} {{item.artist}}" data-price="{{item.price}}" data-qty="{{item.qty}}" on-tap="{{add}}"></paper-fab>
+                                <span class="qty" data-qty="{{item.album}} {{item.artist}}"></span>
+                                <paper-fab data-fab="{{item.album}} {{item.artist}}" data-price="{{item.price}}" on-tap="{{add}}"></paper-fab>
                             </div>
                         </div>
                     </template>
@@ -106,8 +101,8 @@
                         <div class="card-album-title">{{muts.album}}</div>
                         <div flex class="card-album-artist">{{muts.artist}}</div>
                         <span>{{muts.price}}&#8364;</span>
-                        <span hidden?="{{muts.qty == 0}}">x{{muts.qty}}</span>
-                        <paper-fab self-end class="{{ {add: muts.qty==0, done: muts.qty > 0} | tokenList }}" icon="{{ {add: muts.qty==0, done: muts.qty > 0} | tokenList }}" data-id="{{muts.id}}" data-fab="{{muts.album}} {{muts.artist}}" data-price="{{muts.price}}" data-qty="{{muts.qty}}" on-tap="{{add}}"></paper-fab>
+                        <span data-qty="{{muts.album}} {{muts.artist}}"></span>
+                        <paper-fab self-end data-fab="{{muts.album}} {{muts.artist}}" data-price="{{muts.price}}" on-tap="{{add}}"></paper-fab>
                     </div>
                 </div>
 					
@@ -122,10 +117,25 @@
         Polymer('catalog-1', {
 
             cMuts:false,
+            cDb:false,
             cDrawer:false,
 
+            iDB:null,
             subPage:0,
 			muts: null,
+
+            items: [
+                { id: 'm01', price: 40, album: 'Classic', artist: 'Blue', color: '#59D6F9', bg: 'muts/Classic-Blue.png' },
+                { id: 'm02', price: 40, album: 'Classic', artist: 'Coral', color: '#972ff8', bg: 'muts/Classic-Coral.png' },
+                { id: 'm03', price: 40, album: 'Classic', artist: 'Purple', color: '#7dd6fe', bg: 'muts/Classic-Purple.png' },
+                { id: 'm04', price: 40, album: 'Original', artist: 'Blue Orange Green', color: '#dc3c84', bg: 'muts/Original-Blue-Orange-Green.png' },
+                { id: 'm05', price: 40, album: 'Original', artist: 'Brown Pink Orange', color: '#f4db33', bg: 'muts/Original-Brown-Pink-Orange.png' },
+                { id: 'm06', price: 40, album: 'Original', artist: 'Sand Blue', color: '#972ff8', bg: 'muts/Original-Sand-Blue.png' },
+                { id: 'm07', price: 40, album: 'Special', artist: 'Sunrise', color: '#f4db33', bg: 'muts/Sunrise.png' },
+                { id: 'm08', price: 40, album: 'Special', artist: 'Sunset', color: '#972ff8', bg: 'muts/Sunset.png' },
+                { id: 'm09', price: 40, album: 'Limited edition', artist: 'Shell', color: '#7dd6fe', bg: 'muts/Shell.png' },
+                { id: 'm10', price: 40, album: 'Limited edition', artist: 'Stone', color: '#dc3c84', bg: 'muts/Stone.png' }
+            ],
 
             transition: function(e) {
                 //console.log(e.target.templateInstance)
@@ -155,39 +165,52 @@
 			},
 
             add:function(e){
-                var d=e.target.dataset
-                d.qty=parseInt(d.qty)+1
-                this.items[d.id].qty= d.qty
-                //console.log(this.items)
-                //this.order[d.fab]= [d.price, d.qty]
-                //this.dos()
+                var key= e.target.dataset.fab
+                var tx=this.iDB.result.transaction(["store"], "readwrite").objectStore("store");
+                var qty=1
+                var price=e.target.dataset.price
+                var req = tx.get(key)
+                req.onsuccess = function(e) {
+                    var value = e.target.result;
+                    if (value) qty=value.qty+1
+                    req = tx.put({muts: key, qty:qty, price: price})
+                    req.onsuccess = function(e){this.cDb = !this.cDb}.bind(this)
+                }.bind(this)
             },
 
-            dos:function(){
-                var qty = this.shadowRoot.querySelectorAll('.qty')
-                for (var i = 0; i < qty.length; ++i) {
-                    var q = qty[i]
-                    //if (q.innerHTML=="0")
-                    q.innerHTML=5
-                    //console.log(q)
-                }
+            read:function(tx){
+                var f =function(e) {
+                    var cursor = e.currentTarget.result;
+                    if (cursor) {
+                        var qty = this.shadowRoot.querySelectorAll('[data-qty="'+cursor.key+'"]')
+                        var fab = this.shadowRoot.querySelectorAll('[data-fab="'+cursor.key+'"]')
+                        for (var i = 0; i < fab.length; ++i) {
+                            var f = fab[i]
+                            f.icon="done"
+                            f.style.background='#259b24'
+                            var q = qty[i]
+                            q.innerHTML="(x"+cursor.value.qty+")"
+                        }
+                        cursor.continue()
+                    }
+                }.bind(this)
+                var req = tx.openCursor()
+                req.onsuccess = f
+            },
 
-                /*var fab = this.shadowRoot.querySelectorAll('[data-fab]')
+            cDbChanged:function(){
+                var qty = this.shadowRoot.querySelectorAll('[data-qty]')
+                var fab = this.shadowRoot.querySelectorAll('[data-fab]')
                 for (var i = 0; i < fab.length; ++i) {
                     var f = fab[i]
                     //f.icon="add-shopping-cart"
                     f.icon="add"
                     f.style.background='#38D3D8'
-                }*/
-                /*var qty = this.shadowRoot.querySelectorAll('[data-qty="'+cursor.key+'"]')
-                var fab = this.shadowRoot.querySelectorAll('[data-fab="'+cursor.key+'"]')
-                for (var i = 0; i < fab.length; ++i) {
-                    var f = fab[i]
-                    f.icon="done"
-                    f.style.background='#259b24'
                     var q = qty[i]
-                    q.innerHTML="(x"+cursor.value.qty+")"
-                }*/
+                    q.innerHTML=""
+                }
+                var tx=this.iDB.result.transaction(["store"], "readwrite").objectStore("store")
+                this.read(tx)
             },
 
             drawer:function(e){
