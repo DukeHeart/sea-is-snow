@@ -1,4 +1,4 @@
-<polymer-element name="my-form" attributes="items">
+<polymer-element name="my-form" attributes="items cItems">
     <template>
         <style>
             :host {font-family: 'RobotoDraft', sans-serif; background:white; overflow: auto;}
@@ -31,13 +31,12 @@
 
             <div id="order">
                 <template repeat="{{items as item}}">
-                    <p class="item" style="margin:0px;" on-tap="{{remove}}" hidden?="{{item.qty == 0}}">
+                    <p data-id="{{item.id}}" data-name="{{item.album}} {{item.artist}}" data-qty="{{item.qty}}" data-price="{{item.price}}" class="item" style="margin:0px;" on-tap="{{remove}}" hidden?="{{item.qty == 0}}">
                         <span class="">- {{item.album}} {{item.artist}}</span>
-                        <!--span class="price">{{item.price}}&#8364;</span-->
-                        <span class="qty">x{{item.qty}}</span>
+                        <span class="qty" hidden?="{{item.qty <= 1}}"> x{{item.qty}}</span>
                     </p>
                 </template>
-                <p style="margin-top:10px">- Total {{total}}</p>
+                <p style="margin-top:10px">- Total {{total}}&#8364;</p>
             </div>
 
             <div id="error">This is  the list of items you have
@@ -51,12 +50,31 @@
     <script>
         Polymer('my-form', {
 
+            cItems:false,
+
             name:null,
             email:null,
             phone:null,
             message:null,
-            order:null,
+            order:"",
             total:0,
+
+            remove:function(e){
+                var d=e.currentTarget.dataset
+                d.qty=parseInt(d.qty)-1
+                this.items[d.id].qty= d.qty
+                this.cItems = !this.cItems
+            },
+
+            cItemsChanged:function(){
+                var t=0
+                for (var i = 0; i < this.items.length; ++i) {
+                    var q = this.items[i].qty
+                    var p = this.items[i].price
+                    t=t+(p*q)
+                }
+                this.total=t
+            },
 
             validate:function() {
                 if (!this.name) return "Please fill in your name"
@@ -73,6 +91,14 @@
                     this.$.error.innerHTML=error
                     return false
                 }
+                var p = this.shadowRoot.querySelectorAll('#order p')
+                for (var i = 0; i < p.length; ++i) {
+                    var d=p[i].dataset
+                    if (i<(p.length-1)){
+                        if (d.qty>0) this.order+="- "+d.name+" x"+ d.qty+"<br/>"
+                    }
+                    else {this.order+="<br/>"+p[i].innerHTML}
+                }
                 var event = new CustomEvent("submit", {"detail":{"code":200}});
                 var form = this.shadowRoot.querySelector('form')
                 form.dispatchEvent(event);
@@ -86,7 +112,6 @@
             ready:function(){
                 //CoreStyle.g.paperInput.focusedColor=
                 //CoreStyle.g.paperInput.invalidColor=
-                this.order=this.shadowRoot.querySelector('#order')
                 var form = this.shadowRoot.querySelector('form')
                 form.addEventListener('submit', function(e) {
                     e.preventDefault()
@@ -95,7 +120,7 @@
                     data.append("email",this.email)
                     data.append("phone",this.phone)
                     data.append("message",this.message)
-                    data.append("order",this.order.innerHTML)
+                    data.append("order",this.order)
                     var xhr = new XMLHttpRequest();
                     xhr.open("POST", "submit.go", true);
                     xhr.onload = function(e) {
@@ -103,29 +128,24 @@
                         if (xhr.status == 200) {
                             var result=JSON.parse(xhr.responseText)
                             this.$.error.innerHTML="We wil contact you as soon as possible. Thank you!"
-                            //this.shadowRoot.querySelector('my-database').iDrop()
                             fab.icon="done"
                             fab.style.background='#259b24'
                             this.submit=this.back
-                            console.debug(result)
                         } else {
                             fab.icon="close"
                             fab.style.background='#d30000'
                             var result=JSON.parse(xhr.responseText)
                             this.$.error.innerHTML=result.status
-                            console.debug(result)
                         }
                     }.bind(this);
                     xhr.send(data);
                 }.bind(this))
-            },
-
-            remove:function(e){
-                console.log(e.currentTarget)
             }
 
         })
     </script>
 </polymer-element>
+
+<!--span class="price">{{item.price}}&#8364;</span-->
 
 
