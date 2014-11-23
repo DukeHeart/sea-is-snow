@@ -8,37 +8,31 @@
             @media (max-width: 640px) {.size {width:100%;} .smb, .fb, .fb2, .instagram {font-size: 150%;} .fb2::before, .instagram::before{margin-top:5px;} }
             @media (min-width: 641px) {.size {width:50%;} .smb, .fb, .fb2, .instagram {font-size: 150%;} .fb2::before, .instagram::before{margin-top:-5px;} }
             @media (min-width: 1024px) {.smb, .fb, .fb2, .instagram {font-size: 200%;}}
-			
-            img {
-				width:100%;
-                box-sizing: border-box;
-                border-left: 5px solid #ffffff;
-            }
-			
-			/*.h:hover > img {opacity:0.1;}*/
-			/*.h:hover > div > div {box-sizing: border-box; border-left: 0px solid black;}*/
-			/*.h:hover > div {box-sizing: border-box; border: 5px solid black; border-right: 0px solid black; border-bottom: 0px solid black;}*/
-			/*.h > div {visibility: visible;}*/
 
 			.h:hover > div {cursor:pointer;}
 			.h > div > div {
 				box-sizing: border-box;
-				border-left: 5px solid #ffffff;
+				/*border-left: 5px solid #ffffff;*/
 				color:white;
 				text-shadow: black 0 0 5px, black 0 0 5px, black 0 0 5px , black 0 0 5px;
 				background: radial-gradient(white, transparent);
 				width:100%;
 			}
-
-			div{position:relative; float:left;}
-
-			.box {width:50%;}
-           
-            core-image {
-                box-sizing: border-box;
-                border-right: 5px solid #ffffff;
+			.h {
+				box-sizing: border-box;
+				border-left: 5px solid #ffffff;
+				border-bottom: 5px solid #ffffff;
 				/*padding:0px 15px;*/
-            }
+			}
+
+			div, core-image {position:relative; float:left;}
+
+            .box3 {width:33%;}
+			.box4 {width:50%;}
+
+			section {
+				border-right: 5px solid #ffffff;
+			}
 			
 			.text {
 				position:absolute;
@@ -61,114 +55,103 @@
 
         </style>
 
-        <core-image>
+        <section>
 			
-			<div class="size h" id="h09" on-tap="{{link}}">
-            	<img src="home/9.png">
+			<core-image class="size h" id="h09" on-tap="{{link}}" sizing="cover" src="home/9.png">
 				<div class="text" layout vertical center end-justified>
 					<div layout vertical center center-justified style="margin-bottom:5%">
 						<span class="smb">The Story</span>
 					</div>
 				</div>
-			</div>
+			</core-image>
 
 			<div class="size">
-				<div class="box h" id="8" on-tap="{{link}}">
-					<img src="home/6.png">
+				<core-image class="box4 h" id="m8" on-tap="{{link}}" sizing="cover" src="home/6.png">
 					<div class="text" layout vertical center end-justified>
 						<div layout vertical center center-justified style="margin-bottom:5%">
 							<span class="smb">Limited Edition</span>
 							<span class="sml">Shell</span>
 						</div>
 					</div>
-				</div>
-				<div class="box h" id="0" on-tap="{{link}}">
-					<img src="home/1.png">
+				</core-image>
+				<core-image class="box4 h" id="m0" on-tap="{{link}}" sizing="cover" src="home/1.png">
 					<div class="text" layout vertical center end-justified>
 						<div layout vertical center center-justified style="margin-bottom:5%">
 							<span class="smb">Classic</span>
 							<span class="sml">Blue</span>
 						</div>
 					</div>
-				</div>
-				<div class="box h" id="3" on-tap="{{link}}">
-					<img src="home/10.png">
+				</core-image>
+				<core-image class="box4 h" id="m3" on-tap="{{link}}" sizing="cover" src="home/10.png" style="clear:left">
 					<div class="text" layout vertical center end-justified>
 						<div layout vertical center center-justified style="margin-bottom:5%">
 							<span class="smb">Original</span>
 							<span class="sml">Blue Orange Green</span>
 						</div>
 					</div>
-				</div>
-				<div class="box h" id="7" on-tap="{{link}}">
-					<img src="home/7.png">
+				</core-image>
+				<core-image class="box4 h" id="m7" on-tap="{{link}}" sizing="cover" src="home/7.png">
 					<div class="text" layout vertical center end-justified>
 						<div layout vertical center center-justified style="margin-bottom:5%">
 							<span class="smb">Special</span>
 							<span class="sml">Sunset</span>
 						</div>
 					</div>
-				</div>
-			</div>
+				</core-image>
+            </div>
 			
-			<div layout horizontal class="size">
-				<div flex class="h" id="h05" on-tap="{{link}}">
-					<img src="home/5.png">
+			<div class="size" style="clear: left;">
+				<core-image class="box4 h" id="h05" on-tap="{{link}}" sizing="cover" src="home/5.png">
 					<div class="text" layout vertical center end-justified>
 						<div layout vertical center center-justified style="margin-bottom:5%">
 							<span class="fb">Isabelle</span>
 							<span class="sml">Schipper</span>
 						</div>
 					</div>
-            	</div>
-				<div flex class="h" id="h04" on-tap="{{link}}">
-					<img src="home/4.png">
+            	</core-image>
+				<core-image class="box4 h" id="h04" on-tap="{{link}}" sizing="cover" src="home/4.png">
 					<div class="text" layout vertical center end-justified>
 						<div layout vertical center center-justified style="margin-bottom:5%">
 							<span class="fb">Annelous</span>
 							<span class="sml">Lammerts</span>
 						</div>
 					</div>
-				</div>
+				</core-image>
 			</div>
 			
-			<div class="size h" id="h02" on-tap="{{link}}">
-				<img src="home/2.png">
+			<core-image class="size h" id="h02" on-tap="{{link}}" sizing="cover" src="home/2.png">
 				<div class="text" layout vertical center end-justified>
 					<div layout vertical center center-justified style="margin-bottom:5%">
 						<span class="smb">The People</span>
 					</div>
 				</div>
-			</div>
+			</core-image>
 
-            <div layout horizontal style="width:100%">
-                <div flex class="h" id="h11" on-tap="{{link}}">
-                    <img src="home/11.png">
+            <div style="width:100%; clear: left;">
+                <core-image class="box3 h" id="h11" on-tap="{{link}}" sizing="cover" src="home/11.png">
                     <div class="text" layout vertical center end-justified>
 						<div layout vertical center center-justified style="margin-bottom:5%">
 							<span class="instagram">Sea is Snow</span>
 						</div>
                     </div>
-                </div>
-                <div flex class="h" id="h12" on-tap="{{link}}">
-                    <img src="home/12.png">
+                </core-image>
+                <core-image class="box3 h" id="h12" on-tap="{{link}}" sizing="cover" src="home/12.png">
                     <div class="text" layout vertical center end-justified>
 						<div layout vertical center center-justified style="margin-bottom:5%">
 							<span class="smb">Our Logo</span>
 						</div>
                     </div>
-                </div>
-                <div flex class="h" id="h13" on-tap="{{link}}">
-                    <img src="home/13.png">
+                </core-image>
+                <core-image class="box3 h" id="h13" on-tap="{{link}}" sizing="cover" src="home/13.png">
                     <div class="text" layout vertical center end-justified>
 						<div layout vertical center center-justified style="margin-bottom:5%">
 							<span class="fb2">Sea is Snow</span>
 						</div>
                     </div>
-                </div>
+                </core-image>
             </div>
 			
-		</core-image>
+		</section>
 		
     </template>
 
@@ -180,6 +163,39 @@
 			muts:null,
             cMuts:false,
 			cStory:false,
+
+			ready: function () {
+				window.onresize=function(e){
+					var h09 = this.shadowRoot.querySelector('#h09')
+					if (h09.offsetWidth==0) {return}
+					h09.style.height=Math.round(h09.offsetWidth*0.75)+"px"
+					var m8 = this.shadowRoot.querySelector('#m8')
+					m8.style.height=Math.round(m8.offsetWidth*0.75)+"px"
+					var m0 = this.shadowRoot.querySelector('#m0')
+					m0.style.height=Math.round(m0.offsetWidth*0.75)+"px"
+					var m3=this.shadowRoot.querySelector('#m3')
+					m3.style.height=Math.round(m3.offsetWidth*0.75)+"px"
+					var m7=this.shadowRoot.querySelector('#m7')
+					m7.style.height=Math.round(m7.offsetWidth*0.75)+"px"
+					var h05=this.shadowRoot.querySelector('#h05')
+					h05.style.height=Math.round(h05.offsetWidth*1.5)+"px"
+					var h04=this.shadowRoot.querySelector('#h04')
+					h04.style.height=Math.round(h04.offsetWidth*1.5)+"px"
+					var h02=this.shadowRoot.querySelector('#h02')
+					h02.style.height=Math.round(h02.offsetWidth*0.75)+"px"
+					var h11=this.shadowRoot.querySelector('#h11')
+					h11.style.height=Math.round(h11.offsetWidth*1.33)+"px"
+					var h12=this.shadowRoot.querySelector('#h12')
+					h12.style.height=Math.round(h12.offsetWidth*1.33)+"px"
+					var h13=this.shadowRoot.querySelector('#h13')
+					h13.style.height=Math.round(h13.offsetWidth*1.33)+"px"
+				}.bind(this)
+				setTimeout(window.onresize,100)
+			},
+
+			activePageChanged: function () {
+				if (this.activePage==3) {setTimeout(window.onresize,100)}
+			},
 
 			link: function (e,d,s) {
 
@@ -195,7 +211,7 @@
 						this.activePage='1'
 						this.subPage='1'
 						if(document.body.clientWidth<431){this.subPage='0'}
-						this.muts=this.items[s.id]
+						this.muts=this.items[s.id.substr(1)]
 						this.cMuts= !this.cMuts
 				}
 			}
