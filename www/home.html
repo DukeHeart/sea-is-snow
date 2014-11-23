@@ -5,8 +5,8 @@
         <style>
             :host {font-family: 'RobotoDraft', sans-serif;}
 
-            @media (max-width: 640px) {.size {width:100%;} .smb, .fb, .fb2, .instagram {font-size: 150%;} .fb2::before, .instagram::before{margin-top:5px;} }
-            @media (min-width: 641px) {.size {width:50%;} .smb, .fb, .fb2, .instagram {font-size: 150%;} .fb2::before, .instagram::before{margin-top:-5px;} }
+            @media (max-width: 640px) {.smb, .fb, .fb2, .instagram {font-size: 150%;} .fb2::before, .instagram::before{margin-top:5px;} }
+            @media (min-width: 641px) {.smb, .fb, .fb2, .instagram {font-size: 150%;} .fb2::before, .instagram::before{margin-top:-5px;} }
             @media (min-width: 1024px) {.smb, .fb, .fb2, .instagram {font-size: 200%;}}
 
 			.h:hover > div {cursor:pointer;}
@@ -25,10 +25,7 @@
 				/*padding:0px 15px;*/
 			}
 
-			div, core-image {position:relative; float:left;}
-
-            .box3 {width:33%;}
-			.box4 {width:50%;}
+			div, core-image {position:relative;}
 
 			section {
 				border-right: 5px solid #ffffff;
@@ -40,7 +37,6 @@
 				left:0;
 				width:100%;
 				height:100%;
-				/*visibility: hidden;*/
 			}
 			
 			.smb {margin-left:57px;}
@@ -184,7 +180,7 @@
 					var h11=this.shadowRoot.querySelector('#h11')
 					h11.height=Math.round(h11.offsetWidth*1.33)+"px"
 				}.bind(this)
-				setTimeout(window.onresize,100)
+				window.onresize()
 			},
 
 			activePageChanged: function () {
