@@ -60,8 +60,9 @@
             .instagram::before{content:' '; background:url('icon/instagram.png') no-repeat; width:40px; height:40px; position:absolute; margin-left:-45px;}
 
         </style>
-
-        <core-image>
+        <p>This site is a polymer based website demonstrating webcomponents. Please visit <a href="www.seaissnow.nl">www.seaissnow.nl</a> for the official bootstrap site that is not implemented by me.</p>
+        
+		<section id="preload" hidden>
 			
 			<div class="size h" id="h09" on-tap="{{link}}">
             	<img src="home/9.png">
@@ -111,7 +112,7 @@
 				</div>
 			</div>
 			
-			<div layout horizontal class="size">
+			<div layout horizontal class="size" style="clear: left;">
 				<div flex class="h" id="h05" on-tap="{{link}}">
 					<img src="home/5.png">
 					<div class="text" layout vertical center end-justified>
@@ -168,7 +169,7 @@
                 </div>
             </div>
 			
-		</core-image>
+		</section>
 		
     </template>
 
@@ -180,6 +181,36 @@
 			muts:null,
             cMuts:false,
 			cStory:false,
+			
+			ready: function () {
+				image1= new Image()
+				image1.src = "home/1.png"
+				image2= new Image()
+				image2.src = "home/2.png"
+				image3= new Image()
+				image3.src = "home/3.png"
+				image4= new Image()
+				image4.src = "home/4.png"
+				image5= new Image()
+				image5.src = "home/5.png"
+				image6= new Image()
+				image6.src = "home/6.png"
+				image7= new Image()
+				image7.src = "home/7.png"
+				image8= new Image()
+				image8.src = "home/8.png"
+				image9= new Image()
+				image9.src = "home/9.png"
+				image10= new Image()
+				image10.src = "home/10.png"
+				image11= new Image()
+				image11.src = "home/11.png"
+				image12= new Image()
+				image12.src = "home/12.png"
+				image13= new Image()
+				image13.src = "home/13.png"
+				this.$.preload.hidden=false
+			},
 
 			link: function (e,d,s) {
 

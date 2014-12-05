@@ -8,7 +8,7 @@ threadsafe: true
 handlers:
 
 - url: /
-  static_files: ../www/build.html
+  static_files: default/build.html
   upload: default/build.html
   #secure: always
   #login: admin
@@ -20,19 +20,19 @@ handlers:
 
 - url: /(.*\.map)
   mime_type: application/javascript
-  static_files: ../www/\1
+  static_files: default/\1
   upload: default/(.*\.map)
 
 - url: /(.*\.(.+))
-  static_files: ../www/\1
+  static_files: default/\1
   upload: default/(.*\.(.+))
 
 - url: /(.+)/
-  static_files: ../www/\1/index.html
+  static_files: default/\1/index.html
   upload: default/(.+)/index.html
 
 - url: /(.+)
-  static_files: ../www/\1/index.html
+  static_files: default/\1/index.html
   upload: default/(.+)/index.html
 
 skip_files:

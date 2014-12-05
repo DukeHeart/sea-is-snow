@@ -1,49 +1,44 @@
 var gulp = require('gulp');
-
 var watch = require('gulp-watch');
 var livereload = require('gulp-livereload');
+var shell = require('gulp-shell')
+
 gulp.task('watch', function() {
   livereload.listen();
-  gulp.watch('../www/**.*').on('change', livereload.changed);
+  gulp.watch('default/**.*').on('change', livereload.changed);
 });
 
-var shell = require('gulp-shell')
 gulp.task('appserver', shell.task([
-  'dev_appserver.py app.yaml'
+  '~/appengine/dev_appserver.py app.yaml'
 ]));
 
-var shell = require('gulp-shell')
 gulp.task('update', shell.task([
-  'vulcanize -o www/build.html ../www/index.html --inline --strip',
-  'appcfg.py --oauth2 update app.yaml'
+  'vulcanize -o default/build.html default/index.html --inline --strip',
+  '~/appengine/appcfg.py --oauth2 update app.yaml'
 ]));
 
-var shell = require('gulp-shell')
 gulp.task('dispatch', shell.task([
-  'appcfg.py --oauth2 update_dispatch dispatch.yaml'
+  '~/appengine/appcfg.py --oauth2 update_dispatch dispatch.yaml'
 ]));
 
-var shell = require('gulp-shell')
 gulp.task('index', shell.task([
-  'appcfg.py --oauth2 update_indexes index.yaml'
+  '~/appengine/appcfg.py --oauth2 update_indexes index.yaml'
 ]));
 
-var shell = require('gulp-shell')
 gulp.task('vacuum', shell.task([
-  'appcfg.py --oauth2 vacuum_indexes index.yaml'
+  '~/appengine/appcfg.py --oauth2 vacuum_indexes index.yaml'
 ]));
 
-var shell = require('gulp-shell')
 gulp.task('rollback', shell.task([
-  'appcfg.py --oauth2 rollback app.yaml'
+  '~/appengine/appcfg.py --oauth2 rollback app.yaml'
 ]));
 
 gulp.task('build', shell.task([
-  'vulcanize -o ../www/build.html ../www/index.html --inline --strip'
+  'vulcanize -o default/build.html default/index.html --inline --strip'
 ]));
 
 gulp.task('test', shell.task([
-  'vulcanize -o ../www/testB.html ../www/test.html --inline --strip'
+  'vulcanize -o default/testB.html default/test.html --inline --strip'
 ]));
 
 gulp.task('default', ['watch', 'appserver']);
