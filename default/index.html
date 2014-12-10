@@ -23,8 +23,8 @@
         <!--link rel="import" href="bower_components/core-pages/core-pages.html"-->
         <link rel="import" href="bower_components/core-animated-pages/core-animated-pages.html">
         <link rel="import" href="bower_components/core-animated-pages/transitions/slide-from-right.html">
-        <!--link rel="import" href="bower_components/core-header-panel/core-header-panel.html"-->
-        <link rel="import" href="bower_components/core-scroll-header-panel/core-scroll-header-panel.html">
+        <link rel="import" href="bower_components/core-header-panel/core-header-panel.html">
+        <!--link rel="import" href="bower_components/core-scroll-header-panel/core-scroll-header-panel.html"-->
         <link rel="import" href="bower_components/core-toolbar/core-toolbar.html">
         <link rel="import" href="bower_components/core-drawer-panel/core-drawer-panel.html">
         <!--link rel="import" href="bower_components/core-image/core-image.html"-->
@@ -41,23 +41,107 @@
         <link rel="import" href="story.html">
         <link rel="import" href="home.html">
         <link rel="import" href="footer.html">
-        <link rel="import" href="pages.html">
 
-        <style>
+        <style shim-shadowdom>
             body{
                 -webkit-user-select: none;
                 -moz-user-select: none;
                 -ms-user-select: none;
                 user-select: none;
                 font-family: 'RobotoDraft', sans-serif;
+				/*background: white url('img/sis.png') no-repeat center 9px;*/
             }
+			
             p {padding:10px;}
             /*body {background: url('img/sis2.png') no-repeat center 15px;}*/
+			
+	        core-toolbar{
+	            background:transparent;
+	            /*border-bottom:5px solid white;*/
+	            box-sizing: border-box;
+	        }
+
+	        paper-tabs {
+	            text-transform: uppercase;
+	            background:white;
+	            color:black;
+	        }
+
+	        paper-tabs::shadow #selectionBar {
+	            background-color: #38d2d7;
+	        }
+
+	        paper-tab::shadow #ink {
+	            color: #38d2d7;
+	        }
         </style>
 
     </head>
-    <body fullbleed vertical layout>
-		<p>Loading...</p>
-        <my-pages unresolved></my-pages>
+    <body fullbleed layout vertical>
+		<template is="auto-binding">
+			<core-header-panel flex>
+			
+	 			<core-toolbar class="core-header">
+	                 <paper-tabs class="blue fit bottom" selected="{{activePage}}" noink>
+	                     <paper-tab>about us</paper-tab>
+	                     <paper-tab>the beanies</paper-tab>
+	                     <paper-tab>the people</paper-tab>
+	                 </paper-tabs>
+	 			</core-toolbar>
+				
+	            <core-animated-pages transitions="slide-from-right" selected="{{activePage}}" class="content" fit>
+	                <section>
+	                    <my-story></my-story>
+	                    <my-footer></my-footer>
+	                </section>
+	                <section>
+						<core-drawer-panel>
+						    <div drawer style="background:white; overflow:auto;">
+						    	<my-form items="{{items}}" style="margin-left:10px;"></my-form>
+						    </div>
+						    <div main>
+								<core-icon-button core-drawer-toggle icon="menu" on-tap="{{draw}}" style="background:white; position:absolute; top:16px; left:10px; z-index:1;"></core-icon-button>
+								<catalog-1 items="{{items}}" muts="{{muts}}"></catalog-1>
+							</div>
+						</core-drawer-panel>
+	                </section>
+	                <section>
+	                    <catalog-2></catalog-2>
+	                </section>
+	                <section>
+	                    <my-home items="{{items}}" activePage="{{activePage}}" muts={{muts}}></my-home>
+	                </section>
+	            </core-animated-pages>
+				
+			</core-header-panel>
+		
+	    </template>
+        <script>
+            var t = document.querySelector('template')	
+			t.activePage = 3
+            t.home = function(e) {
+                if (e.target.localName === 'core-toolbar') {this.activePage = 3;}
+            }
+            t.items = [
+                { id: '0', price: 40, album: 'Classic', artist: 'Blue', color: '#59D6F9', bg: 'muts/Classic-Blue.png', qty: 0 },
+                { id: '1', price: 40, album: 'Classic', artist: 'Coral', color: '#972ff8', bg: 'muts/Classic-Coral.png', qty: 0 },
+                { id: '2', price: 40, album: 'Classic', artist: 'Purple', color: '#7dd6fe', bg: 'muts/Classic-Purple.png', qty: 0 },
+                { id: '3', price: 40, album: 'Original', artist: 'Blue Orange Green', color: '#dc3c84', bg: 'muts/Original-Blue-Orange-Green.png', qty: 0 },
+                { id: '4', price: 40, album: 'Original', artist: 'Brown Pink Orange', color: '#f4db33', bg: 'muts/Original-Brown-Pink-Orange.png', qty: 0 },
+                { id: '5', price: 40, album: 'Original', artist: 'Sand Blue', color: '#972ff8', bg: 'muts/Original-Sand-Blue.png', qty: 0 },
+                { id: '6', price: 40, album: 'Special', artist: 'Sunrise', color: '#f4db33', bg: 'muts/Sunrise.png', qty: 0 },
+                { id: '7', price: 40, album: 'Special', artist: 'Sunset', color: '#972ff8', bg: 'muts/Sunset.png', qty: 0 },
+                { id: '8', price: 40, album: 'Limited edition', artist: 'Shell', color: '#7dd6fe', bg: 'muts/Shell.png', qty: 0 },
+                { id: '9', price: 40, album: 'Limited edition', artist: 'Stone', color: '#dc3c84', bg: 'muts/Stone.png', qty: 0 }
+            ]
+			t.addEventListener('template-bound', function() {
+				//document.querySelector('my-form').fab=document.querySelector('paper-fab')
+			})
+            /*t.draw = function(e) {
+				//document.querySelector('core-drawer-panel').openDrawer()
+				document.querySelector('core-drawer-panel').togglePanel()
+                //document.querySelector('my-form').submit()
+            }*/
+        </script>
     </body>
 </html>

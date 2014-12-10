@@ -1,68 +1,58 @@
-<polymer-element name="my-pages">
-
+<polymer-element name="my-pages" attributes="items">
     <template>
+	    <style>
+	        :host {font-family: 'RobotoDraft', sans-serif;}
 
-        <style>
+	        @media (max-width: 640px) {
+	            #drawerButton{display:none;}
+	        }
 
-        :host {font-family: 'RobotoDraft', sans-serif;}
+	        core-toolbar{
+	            /*background:white;*/
+	            background: white url('img/sis.png') no-repeat center 9px;
+	            border-bottom:5px solid white;
+	            box-sizing: border-box;
+	        }
 
-        @media (max-width: 640px) {
-            #drawerButton{display:none;}
-        }
+	        paper-tabs {
+	            text-transform: uppercase;
+	            background:white;
+	            color:black;
+	        }
 
-        core-toolbar{
-            /*background:white;*/
-            background: white url('img/sis.png') no-repeat center 9px;
-            border-bottom:5px solid white;
-            box-sizing: border-box;
-        }
+	        paper-tabs.blue::shadow #selectionBar {
+	            background-color: #38d2d7;
+	        }
 
-        paper-tabs {
-            text-transform: uppercase;
-            background:white;
-            color:black;
-        }
-
-        paper-tabs.blue::shadow #selectionBar {
-            background-color: #38d2d7;
-        }
-
-        .blue paper-tab::shadow #ink {
-            color: #38d2d7;
-        }
-
-    </style>
+	        .blue paper-tab::shadow #ink {
+	            color: #38d2d7;
+	        }
+	    </style>
 
         <!--core-localstorage name="iDB" value="{{order}}"></core-localstorage-->
-
-        <core-drawer-panel responsiveWidth="5000px">
-
-            <my-form drawer items="{{items}}" cItems="{{cItems}}"></my-form>
+		
+        <core-drawer-panel rightDrawer forceNarrow relative flex>
 
             <core-scroll-header-panel main fit noDissolve keepCondensedHeader condenses>
             <!--core-header-panel main fit mode="waterfall-tall"-->
 
                 <core-toolbar layout horizontal class="tall" on-tap="{{home}}">
-
-                    <core-icon-button id="drawerButton" icon="shopping-cart" on-tap="{{cDrawerChanged}}"></core-icon-button>
-
                     <paper-tabs class="blue bottom fit" selected="{{activePage}}">
                         <paper-tab>about us</paper-tab>
                         <paper-tab>the beanies</paper-tab>
                         <paper-tab>the people</paper-tab>
                     </paper-tabs>
-
                 </core-toolbar>
 
                 <core-animated-pages fit content transitions="slide-from-right" selected="{{activePage}}" style="margin-top:192px;">
 
                     <section>
-                        <my-story cStory="{{cStory}}"></my-story>
+                        <my-story></my-story>
                         <my-footer></my-footer>
                     </section>
 
                     <section>
-                        <catalog-1 items="{{items}}" cItems="{{cItems}}" subPage="{{subPage}}" muts="{{muts}}" cMuts="{{cMuts}}" cDrawer="{{cDrawer}}"></catalog-1>
+                        <catalog-1 items="{{items}}" muts="{{muts}}" cDrawer="{{cDrawer}}"></catalog-1>
                     </section>
 
                     <section>
@@ -70,7 +60,7 @@
                     </section>
 
                     <section>
-                        <my-home items="{{items}}" activePage="{{activePage}}" subPage={{subPage}} muts={{muts}} cMuts="{{cMuts}}" cStory="{{cStory}}"></my-home>
+                        <my-home items="{{items}}" activePage="{{activePage}}" muts={{muts}}></my-home>
                     </section>
 
                 </core-animated-pages>
@@ -78,41 +68,17 @@
             </core-scroll-header-panel>
 
         </core-drawer-panel>
-
+			
     </template>
 
     <script>
         Polymer('my-pages', {
 
 			activePage: 3,
-            cDrawer:false,
 
             home: function(e) {
                 if (e.target.localName === 'core-toolbar') {this.activePage = 3;}
             },
-
-            cDrawerChanged:function(){
-                this.shadowRoot.querySelector('core-drawer-panel').togglePanel()
-            },
-
-            //ready:function(e){
-            //    localStorage.clear();
-            //},
-
-            //order:{},
-
-            items: [
-                { id: '0', price: 40, album: 'Classic', artist: 'Blue', color: '#59D6F9', bg: 'muts/Classic-Blue.png', qty: 0 },
-                { id: '1', price: 40, album: 'Classic', artist: 'Coral', color: '#972ff8', bg: 'muts/Classic-Coral.png', qty: 0 },
-                { id: '2', price: 40, album: 'Classic', artist: 'Purple', color: '#7dd6fe', bg: 'muts/Classic-Purple.png', qty: 0 },
-                { id: '3', price: 40, album: 'Original', artist: 'Blue Orange Green', color: '#dc3c84', bg: 'muts/Original-Blue-Orange-Green.png', qty: 0 },
-                { id: '4', price: 40, album: 'Original', artist: 'Brown Pink Orange', color: '#f4db33', bg: 'muts/Original-Brown-Pink-Orange.png', qty: 0 },
-                { id: '5', price: 40, album: 'Original', artist: 'Sand Blue', color: '#972ff8', bg: 'muts/Original-Sand-Blue.png', qty: 0 },
-                { id: '6', price: 40, album: 'Special', artist: 'Sunrise', color: '#f4db33', bg: 'muts/Sunrise.png', qty: 0 },
-                { id: '7', price: 40, album: 'Special', artist: 'Sunset', color: '#972ff8', bg: 'muts/Sunset.png', qty: 0 },
-                { id: '8', price: 40, album: 'Limited edition', artist: 'Shell', color: '#7dd6fe', bg: 'muts/Shell.png', qty: 0 },
-                { id: '9', price: 40, album: 'Limited edition', artist: 'Stone', color: '#dc3c84', bg: 'muts/Stone.png', qty: 0 }
-            ]
 
         });
     </script>

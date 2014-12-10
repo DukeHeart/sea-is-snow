@@ -1,7 +1,5 @@
-<polymer-element name="my-home" attributes="activePage subPage items muts cMuts cStory">
-
+<polymer-element name="my-home" attributes="activePage items muts">
     <template>
-
         <style>
             :host {font-family: 'RobotoDraft', sans-serif;}
 
@@ -58,11 +56,11 @@
             .sml {margin-left:57px;}
             .instagram {margin-left:50px;}
             .instagram::before{content:' '; background:url('icon/instagram.png') no-repeat; width:40px; height:40px; position:absolute; margin-left:-45px;}
-
         </style>
+		
         <p>This site is a polymer based website demonstrating webcomponents. Please visit <a href="http://www.seaissnow.nl">www.seaissnow.nl</a> for the official bootstrap site that is not implemented by me.</p>
-        
-		<section id="preload" hidden>
+        <p id="preload1">Loading...</p>
+		<section id="preload2" hidden>
 			
 			<div class="size h" id="h09" on-tap="{{link}}">
             	<img src="home/9.png">
@@ -170,50 +168,70 @@
             </div>
 			
 		</section>
-		
     </template>
 
     <script>
         Polymer('my-home', {
 
 			activePage:0,
-			subPage:0,
 			muts:null,
-            cMuts:false,
-			cStory:false,
 			
 			ready: function () {
+				
+				var count = (function () {
+				    var counter = 0
+				    return function () {
+						//console.log(counter)
+						if (counter > 11) {
+							this.$.preload1.hidden=true
+							this.$.preload2.hidden=false
+						}
+						return counter += 1
+					}.bind(this)
+				}.bind(this))()
+				
 				image1= new Image()
+				image1.addEventListener("load", count, false)
 				image1.src = "home/1.png"
 				image2= new Image()
+				image2.addEventListener("load", count, false)
 				image2.src = "home/2.png"
 				image3= new Image()
+				image3.addEventListener("load", count, false)
 				image3.src = "home/3.png"
 				image4= new Image()
+				image4.addEventListener("load", count, false)
 				image4.src = "home/4.png"
 				image5= new Image()
+				image5.addEventListener("load", count, false)
 				image5.src = "home/5.png"
 				image6= new Image()
+				image6.addEventListener("load", count, false)
 				image6.src = "home/6.png"
 				image7= new Image()
+				image7.addEventListener("load", count, false)
 				image7.src = "home/7.png"
 				image8= new Image()
+				image8.addEventListener("load", count, false)
 				image8.src = "home/8.png"
 				image9= new Image()
+				image9.addEventListener("load", count, false)
 				image9.src = "home/9.png"
 				image10= new Image()
+				image10.addEventListener("load", count, false)
 				image10.src = "home/10.png"
 				image11= new Image()
+				image11.addEventListener("load", count, false)
 				image11.src = "home/11.png"
 				image12= new Image()
+				image12.addEventListener("load", count, false)
 				image12.src = "home/12.png"
 				image13= new Image()
+				image13.addEventListener("load", count, false)
 				image13.src = "home/13.png"
-				this.$.preload.hidden=false
 			},
 
 			link: function (e,d,s) {
-
 				switch (s.id){
 					case "h09": this.activePage='0'; this.cStory= !this.cStory; break;
                     case "h12": this.activePage='0'; this.cStory= !this.cStory; break;
@@ -224,10 +242,8 @@
                     case "h02": this.activePage='2'; break;
 					default:
 						this.activePage='1'
-						this.subPage='1'
 						if(document.body.clientWidth<431){this.subPage='0'}
 						this.muts=this.items[s.id]
-						this.cMuts= !this.cMuts
 				}
 			}
 

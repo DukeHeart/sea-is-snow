@@ -1,4 +1,4 @@
-<polymer-element name="my-story" attributes="cStory">
+<polymer-element name="my-story" noscript>
 
     <template>
 
@@ -15,8 +15,8 @@
 			h1 {margin:10px 0px 0px 0px;}
 			
         </style>
-        <a id="top" style="position:absolute;top:-192px;"></a>
-        <section vertical layout center center-justified>
+        <!--a id="story" style="position:absolute;top:-192px;"></a-->
+        <section vertical layout center center-justified style="margin-top:10px;">
 <h1>The Story</h1>
 
 <p>
@@ -64,7 +64,7 @@ Challenge your heartbeat!
 
     </template>
 
-    <script>
+    <!--script>
         Polymer('my-story', {
             cStory:false,
             cStoryChanged:function(e){
@@ -72,6 +72,6 @@ Challenge your heartbeat!
                 if (x){setTimeout(function(){x.scrollIntoView()},1000)}
             }
         });
-    </script>
+    </script-->
 
 </polymer-element>

@@ -1,6 +1,5 @@
-<polymer-element name="catalog-1" attributes="subPage muts items cItems cMuts cDrawer">
+<polymer-element name="catalog-1" attributes="muts items">
     <template>
-
         <style>
             :host {font-family: 'RobotoDraft', sans-serif;}
 
@@ -56,18 +55,16 @@
             .price {position:absolute;right:63px;top:6px}
             .qty {position:absolute;right:60px;top:47px}
             .info {margin-top:0px;}
-
         </style>
 
-        <core-animated-pages fit selected="{{subPage}}">
+        <core-animated-pages fit selected="{{subPage}}" style="overflow:auto;">
 		<!--core-animated-pages fit selected="{{page}}" transitions="hero-transition"-->
 
-            <section style="text-align: center;">
-                <p class="info" on-tap="{{drawer}}">* open drawer from the left side or press here <core-icon icon="shopping-cart"></core-icon></p>
+            <section style="text-align: center; margin-top:10px;">
+				
                 <div hero-p on-tap="{{transition}}">
-
                     <template repeat="{{items as item}}">
-                        <div class="chip" hero-id="{{item.artist}}-{{item.album}}" hero?="{{muts === item }}" on-tap="{{open}}">
+                        <div class="chip" hero-id="{{item.artist}}-{{item.album}}" hero?="{{muts === item }}">
                             <div class="chip-top" hero-id="{{item.artist}}-{{item.album}}-art" hero?="{{muts === item}}">
                             	<img id="m{{item.id}}" src="{{item.bg}}">
                             </div>
@@ -82,15 +79,14 @@
                             </div>
                         </div>
                     </template>
-
                 </div>
+				
             </section>
 
             <section layout vertical center center-justified style="min-height:450px">
 
                 <div class="card" layout horizontal hero-id="{{muts.artist}}-{{muts.album}}" hero on-tap="{{transition}}">
                     <div class="card-left" hero-id="{{muts.artist}}-{{muts.album}}-art" hero>
-                    	<!--img src="{{muts.bg}}"-->
                         <img src="muts/Classic-Blue.png" hidden>
                         <img src="muts/Classic-Coral.png" hidden>
                         <img src="muts/Classic-Purple.png" hidden>
@@ -121,10 +117,6 @@
 
         Polymer('catalog-1', {
 
-            cItems:false,
-            cMuts:false,
-            cDrawer:false,
-
             subPage:0,
 			muts: null,
 
@@ -133,55 +125,38 @@
                 if (e.target.localName === 'paper-fab') {return 0}
                 if (document.body.clientWidth<431){return 0}
                 if (this.subPage === 0 && e.target.templateInstance.model.item) {
-					this.subPage = 1;
                     this.muts = e.target.templateInstance.model.item;
-                    this.cDb = !this.cDb
-                    var hid=this.shadowRoot.querySelectorAll('.card-left img')
-                    for (var i = 0; i < hid.length; i++) {hid[i].hidden=true}
-                    var img = this.shadowRoot.querySelectorAll('img[src="' + this.muts.bg + '"]')
-                    img[1].hidden=false
                 } else {
-                    this.subPage = 0;
+					this.muts = null
                 }
             },
 			
-			cMutsChanged: function(e){
+			mutsChanged: function(e){
+				console.log(this.muts)
+				if (this.muts==null) {
+					this.subPage = 0;
+					return 0
+				}
+				var x=this.shadowRoot.querySelector("#m"+this.muts.id)
+				if(document.body.clientWidth<431){
+					if (x){setTimeout(function(){x.scrollIntoView()},1000)}
+					return 0
+				}
+				this.subPage = 1;
                 var hid=this.shadowRoot.querySelectorAll('.card-left img')
                 for (var i = 0; i < hid.length; i++) {hid[i].hidden=true}
                 var img = this.shadowRoot.querySelectorAll('img[src="' + this.muts.bg + '"]')
                 img[1].hidden=false
-				if(document.body.clientWidth>430){return 0}
-				var x=this.shadowRoot.querySelector("#"+this.muts.id)
-				if (x){setTimeout(function(){x.scrollIntoView()},1000)}
 			},
 
             add:function(e){
                 var d=e.target.dataset
                 d.qty=parseInt(d.qty)+1
                 this.items[d.id].qty= d.qty
-                this.cItems = !this.cItems
             },
 
-            drawer:function(e){
-                this.cDrawer=!this.cDrawer
-            }
-			
         });
 
     </script>
 
 </polymer-element>
-
-        <!--
-
-        write:function(tx){
-            var customerData = [
-                {muts: "Classic Blue", qty: "1", price:"40"},
-                {muts: "Classic Coral", qty: "1", price:"40"},
-                {muts: "Special Sunrise", qty: "2", price:"40"}
-            ]
-            for (var i in customerData){tx.put(customerData[i])}
-        }
-
-        -->
-

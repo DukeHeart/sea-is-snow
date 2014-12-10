@@ -1,23 +1,28 @@
-<polymer-element name="my-form" attributes="items cItems">
+<polymer-element name="my-form" attributes="items">
     <template>
         <style>
-            :host {font-family: 'RobotoDraft', sans-serif; background:white; overflow: auto;}
-            paper-input, h3, p, section {width:240px;}
-            paper-fab {
-                color: #FFF;
-                background: #38D3D8;
-                margin: 10px 0px;
-            }
-
+            :host {font-family: 'RobotoDraft', sans-serif;}
+            paper-input {width:240px;}
             .item:hover{color:#38D3D8}
-
             #error:before {content:'* '}
-            #error {width:240px; text-align:justify;}
-
+            #error {margin-top:10px; width:240px; text-align:justify;}
+	        paper-fab {
+				position: absolute;
+			    top:261px;
+				right:20px;
+	            color: #FFF;
+	            background: #38D3D8;
+	            margin: 10px 0px;
+				z-index:1;
+	        }
+			p{margin:0px;padding:0px;}
         </style>
-        <section layout vertical center style="margin:0px auto">
+		
+        <section layout vertical style="margin:0px auto; width:240px;">
+			
+			<paper-fab icon="shopping-cart" on-tap="{{submit}}"></paper-fab>
 
-            <h3 style="margin-bottom:0px;">Customer:</h3>
+            <h3 style="text-align:center; margin:8px 0px 0px 0px">Customer:</h3>
 
             <form>
                 <paper-input label="Name" value="{{name}}"></paper-input>
@@ -27,12 +32,12 @@
                 <input name="code" value="12345" hidden>
             </form>
 
-            <h3 style="margin-bottom:10px;">Order:</h3>
+            <h3 style="text-align:center;">Order:</h3>
 
-            <div id="order">
+            <div id="order" style="margin-top:10px">
                 <template repeat="{{items as item}}">
-                    <p data-id="{{item.id}}" data-name="{{item.album}} {{item.artist}}" data-qty="{{item.qty}}" data-price="{{item.price}}" class="item" style="margin:0px;" on-tap="{{remove}}" hidden?="{{item.qty == 0}}">
-                        <span class="">- {{item.album}} {{item.artist}}</span>
+                    <p data-id="{{item.id}}" data-name="{{item.album}} {{item.artist}}" data-qty="{{item.qty}}" data-price="{{item.price}}" class="item" on-tap="{{remove}}" hidden?="{{item.qty == 0}}">
+                        <span>- {{item.album}} {{item.artist}}</span>
                         <span class="qty" hidden?="{{item.qty <= 1}}"> x{{item.qty}}</span>
                     </p>
                 </template>
@@ -41,17 +46,13 @@
 
             <div id="error">This is  the list of items you have
                 selected. Click the item to remove it from your order.
-                When complete you can press the submit button.</div>
-
-            <paper-fab icon="shopping-cart" on-tap="{{submit}}"></paper-fab>
+                When complete you can press the submit button above.</div>
 
         </section>
     </template>
     <script>
         Polymer('my-form', {
-
-            cItems:false,
-
+			
             name:null,
             email:null,
             phone:null,
@@ -63,10 +64,9 @@
                 var d=e.currentTarget.dataset
                 d.qty=parseInt(d.qty)-1
                 this.items[d.id].qty= d.qty
-                this.cItems = !this.cItems
             },
 
-            cItemsChanged:function(){
+            itemsChanged:function(){
                 var t=0
                 for (var i = 0; i < this.items.length; ++i) {
                     var q = this.items[i].qty
@@ -105,12 +105,27 @@
                 form.dispatchEvent(event);
             },
 
-            back:function(e){
-                //this.$.error.innerHTML="Your order was already send."
-                console.debug("back")
-            },
-
             ready:function(){
+				this.fab=this.shadowRoot.querySelector('paper-fab')
+				
+	            var back = function(e){
+	                //this.$.error.innerHTML="Your order was already send."
+	            }.bind(this)
+				
+				var handler = function(e) {
+	                if (e.target.status == 200) {
+	                    this.fab.icon="done"
+	                    this.fab.style.background='#259b24'
+	                    this.submit=back
+						this.$.error.innerHTML="We wil contact you as soon as possible. Thank you! Refresh the page if you want to make a new order."
+	                } else {
+	                    this.fab.icon="close"
+	                    this.fab.style.background='#d30000'
+						var result=JSON.parse(e.target.responseText)
+	                    this.$.error.innerHTML=result.status
+	                }
+	            }.bind(this)
+				
                 //CoreStyle.g.paperInput.focusedColor=
                 //CoreStyle.g.paperInput.invalidColor=
                 var form = this.shadowRoot.querySelector('form')
@@ -124,21 +139,7 @@
                     data.append("order",this.order)
                     var xhr = new XMLHttpRequest();
                     xhr.open("POST", "submit.go", true);
-                    xhr.onload = function(e) {
-                        var fab=this.shadowRoot.querySelector('paper-fab')
-                        if (xhr.status == 200) {
-                            var result=JSON.parse(xhr.responseText)
-                            this.$.error.innerHTML="We wil contact you as soon as possible. Thank you!"
-                            fab.icon="done"
-                            fab.style.background='#259b24'
-                            this.submit=this.back
-                        } else {
-                            fab.icon="close"
-                            fab.style.background='#d30000'
-                            var result=JSON.parse(xhr.responseText)
-                            this.$.error.innerHTML=result.status
-                        }
-                    }.bind(this);
+                    xhr.onload = handler
                     xhr.send(data);
                 }.bind(this))
             }
