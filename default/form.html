@@ -1,4 +1,4 @@
-<polymer-element name="my-form" attributes="items">
+<polymer-element name="my-form" attributes="items added">
     <template>
         <style>
             :host {font-family: 'RobotoDraft', sans-serif;}
@@ -59,23 +59,20 @@
             message:null,
             order:"",
             total:0,
-
+			
+			addedChanged: function(){ //UGLY
+                var t=0
+				for (var i = 0; i < this.items.length; ++i) { t += (this.items[i].qty * this.items[i].price) }
+				this.total=t
+			},
+			
             remove:function(e){
                 var d=e.currentTarget.dataset
                 d.qty=parseInt(d.qty)-1
                 this.items[d.id].qty= d.qty
+				this.addedChanged()
             },
-
-            itemsChanged:function(){
-                var t=0
-                for (var i = 0; i < this.items.length; ++i) {
-                    var q = this.items[i].qty
-                    var p = this.items[i].price
-                    t=t+(p*q)
-                }
-                this.total=t
-            },
-
+			
             validate:function() {
                 if (!this.name) return "Please fill in your name"
                 var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -142,6 +139,18 @@
                     xhr.onload = handler
                     xhr.send(data);
                 }.bind(this))
+				
+				/*
+				computed: {
+				    total: 'items | sum'
+				},
+	            sum: function(items){
+					var t = 0;
+					items.forEach(function (i) { t += (i.qty * i.price) });
+					return t
+	            },
+				*/
+		
             }
 
         })

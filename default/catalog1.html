@@ -1,4 +1,4 @@
-<polymer-element name="catalog-1" attributes="muts items">
+<polymer-element name="catalog-1" attributes="muts items added">
     <template>
         <style>
             :host {font-family: 'RobotoDraft', sans-serif;}
@@ -119,6 +119,7 @@
 
             subPage:0,
 			muts: null,
+			added:false,
 
             transition: function(e) {
                 //console.log(e.target.templateInstance)
@@ -153,6 +154,7 @@
                 var d=e.target.dataset
                 d.qty=parseInt(d.qty)+1
                 this.items[d.id].qty= d.qty
+				this.added=!this.added //UGLY
             },
 
         });

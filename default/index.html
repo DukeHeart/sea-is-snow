@@ -97,11 +97,11 @@
 	                <section>
 						<core-drawer-panel>
 						    <div drawer style="background:white; overflow:auto;">
-						    	<my-form items="{{items}}" style="margin-left:10px;"></my-form>
+						    	<my-form items="{{items}}" added="{{added}}" style="margin-left:10px;"></my-form>
 						    </div>
 						    <div main>
 								<core-icon-button core-drawer-toggle icon="menu" on-tap="{{draw}}" style="background:white; position:absolute; top:16px; left:10px; z-index:1;"></core-icon-button>
-								<catalog-1 items="{{items}}" muts="{{muts}}"></catalog-1>
+								<catalog-1 items="{{items}}" muts="{{muts}}" added="{{added}}"></catalog-1>
 							</div>
 						</core-drawer-panel>
 	                </section>
@@ -117,7 +117,7 @@
 		
 	    </template>
         <script>
-            var t = document.querySelector('template')	
+            var t = document.querySelector('body > template')	
 			t.activePage = 3
             t.home = function(e) {
                 if (e.target.localName === 'core-toolbar') {this.activePage = 3;}
