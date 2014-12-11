@@ -8,6 +8,7 @@
         @media (max-width: 640px) {
 			.tile {width:100%; margin:0px 15px 15px 15px;} 
 			img{ width:100px; margin: 5px 0px 0px 5px; float:left;}
+			section {background-size:350px !important};
 		}
 		
         @media (min-width: 641px) {
@@ -32,11 +33,15 @@
             color:black;
         }
 
-		section {padding-top:5px;}
+		section {
+			border-right:0px solid white; 
+			padding-top:100px; 
+			background: white url('img/sis.png') no-repeat center 10px;
+		}
 
     	</style>
 
-        <section horizontal layout wrap around-justified style="border-right:0px solid white; margin-top:10px;">
+        <section horizontal layout wrap around-justified>
 
                 <div class="tile" hero-id="annelous" hero>
                     <img src="img/annelous.png">
