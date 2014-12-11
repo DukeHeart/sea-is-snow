@@ -1,8 +1,6 @@
-<polymer-element name="catalog-2">
+<polymer-element name="catalog-2" attributes="activePage">
 	<template>
-
     	<style>
-
         :host {font-family: 'RobotoDraft', sans-serif;}
 
         @media (max-width: 640px) {
@@ -38,10 +36,9 @@
 			padding-top:100px; 
 			background: white url('img/sis.png') no-repeat center 10px;
 		}
-
     	</style>
 
-        <section horizontal layout wrap around-justified>
+        <section horizontal layout wrap around-justified on-tap={{link}}>
 
                 <div class="tile" hero-id="annelous" hero>
                     <img src="img/annelous.png">
@@ -80,7 +77,11 @@
 	</template>
 	
 	<script>
-    	Polymer('catalog-2', {});
+    	Polymer('catalog-2', {
+			link:function(){
+				this.activePage=3
+			}
+    	})
 	</script>
 	
 </polymer-element>
