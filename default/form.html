@@ -2,11 +2,12 @@
     <template>
         <style>
             :host {font-family: 'RobotoDraft', sans-serif;}
-            paper-input {width:240px;}
+            paper-input {width:220px;}
             .item:hover{color:#38D3D8}
             #error:before {content:'* '}
-            #error {margin-top:10px; width:240px; text-align:justify;}
-	        paper-fab {
+            #error {margin-top:10px; width:220px; text-align:justify;}
+			p{margin:0px;padding:0px;}
+	        /*paper-fab {
 				position: absolute;
 			    top:261px;
 				right:20px;
@@ -14,16 +15,13 @@
 	            background: #38D3D8;
 	            margin: 10px 0px;
 				z-index:1;
-	        }
-			p{margin:0px;padding:0px;}
+	        }*/
         </style>
 		
-        <section layout vertical style="margin:0px auto; width:240px;">
+        <section layout vertical style="margin-left:10px; width:240px;">
 			
-			<paper-fab icon="shopping-cart" on-tap="{{submit}}"></paper-fab>
-
-            <h3 style="text-align:center; margin:8px 0px 0px 0px">Customer:</h3>
-
+			<!--paper-fab icon="shopping-cart" on-tap="{{submit}}"></paper-fab-->
+			
             <form>
                 <paper-input label="Name" value="{{name}}"></paper-input>
                 <paper-input label="Email" value="{{email}}" type="email" ></paper-input>
@@ -31,8 +29,6 @@
                 <paper-input label="Message" value="{{message}}" multiline></paper-input>
                 <input name="code" value="12345" hidden>
             </form>
-
-            <h3 style="text-align:center;">Order:</h3>
 
             <div id="order" style="margin-top:10px">
                 <template repeat="{{items as item}}">
@@ -103,7 +99,7 @@
             },
 
             ready:function(){
-				this.fab=this.shadowRoot.querySelector('paper-fab')
+				//this.fab=this.shadowRoot.querySelector('paper-fab')
 				
 	            var back = function(e){
 	                //this.$.error.innerHTML="Your order was already send."
@@ -112,12 +108,12 @@
 				var handler = function(e) {
 	                if (e.target.status == 200) {
 	                    this.fab.icon="done"
-	                    this.fab.style.background='#259b24'
+	                    //this.fab.style.background='#259b24'
 	                    this.submit=back
 						this.$.error.innerHTML="We wil contact you as soon as possible. Thank you! Refresh the page if you want to make a new order."
 	                } else {
 	                    this.fab.icon="close"
-	                    this.fab.style.background='#d30000'
+	                    //this.fab.style.background='#d30000'
 						var result=JSON.parse(e.target.responseText)
 	                    this.$.error.innerHTML=result.status
 	                }

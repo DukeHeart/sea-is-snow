@@ -74,46 +74,56 @@
 	        paper-tab::shadow #ink {
 	            color: #38d2d7;
 	        }
+	        /*paper-fab {
+	            color: #FFF;
+	            background: #38D3D8;
+	        }*/
         </style>
 
     </head>
     <body fullbleed layout vertical>
 		<template is="auto-binding">
-			<core-header-panel flex>
+			<core-drawer-panel>
 			
-	 			<core-toolbar class="core-header">
-	                 <paper-tabs class="blue fit bottom" selected="{{activePage}}" noink>
-	                     <paper-tab>about us</paper-tab>
-	                     <paper-tab>the beanies</paper-tab>
-	                     <paper-tab>the people</paper-tab>
-	                 </paper-tabs>
-	 			</core-toolbar>
+			    <core-header-panel drawer style="background:white; overflow:auto;">
+				    <core-toolbar>
+					  <span flex>Shopping Cart</span>
+					  <core-icon-button icon="shopping-cart" on-tap="{{submit}}"></core-icon-button>
+				    </core-toolbar>
+			    	<my-form fit items="{{items}}" added="{{added}}" style="margin-left:10px;" class="content"></my-form>
+			    </core-header-panel>
 				
-	            <core-animated-pages transitions="slide-from-right" selected="{{activePage}}" class="content" fit>
-	                <section>
-	                    <my-story></my-story>
-	                    <my-footer></my-footer>
-	                </section>
-	                <section>
-						<core-drawer-panel>
-						    <div drawer style="background:white; overflow:auto;">
-						    	<my-form items="{{items}}" added="{{added}}" style="margin-left:10px;"></my-form>
-						    </div>
-						    <div main>
-								<core-icon-button core-drawer-toggle icon="menu" on-tap="{{draw}}" style="background:white; position:absolute; top:16px; left:10px; z-index:1;"></core-icon-button>
-								<catalog-1 items="{{items}}" muts="{{muts}}" added="{{added}}"></catalog-1>
-							</div>
-						</core-drawer-panel>
-	                </section>
-	                <section>
-	                    <catalog-2 activePage="{{activePage}}"></catalog-2>
-	                </section>
-	                <section>
-	                    <my-home items="{{items}}" activePage="{{activePage}}" muts={{muts}}></my-home>
-	                </section>
-	            </core-animated-pages>
+				<core-header-panel main>
 				
-			</core-header-panel>
+		 			<core-toolbar class="core-header">
+					    <core-icon-button core-drawer-toggle icon="menu"></core-icon-button>
+		                <paper-tabs selected="{{activePage}}" noink flex>
+		                    <paper-tab>about us</paper-tab>
+		                    <paper-tab>the beanies</paper-tab>
+		                    <paper-tab>the people</paper-tab>
+		                </paper-tabs>
+						<core-icon-button icon="search"></core-icon-button>
+		 			</core-toolbar>
+			
+		            <core-animated-pages transitions="slide-from-right" selected="{{activePage}}" class="content" fit>
+		                <section>
+		                    <my-story></my-story>
+		                    <my-footer></my-footer>
+		                </section>
+		                <section>
+							<catalog-1 items="{{items}}" muts="{{muts}}" added="{{added}}"></catalog-1>
+		                </section>
+		                <section>
+		                    <catalog-2 activePage="{{activePage}}"></catalog-2>
+		                </section>
+		                <section>
+		                    <my-home items="{{items}}" activePage="{{activePage}}" muts={{muts}}></my-home>
+		                </section>
+		            </core-animated-pages>
+			
+				</core-header-panel>
+			
+			</core-drawer-panel>
 		
 	    </template>
         <script>
@@ -135,13 +145,16 @@
                 { id: '9', price: 40, album: 'Limited edition', artist: 'Stone', color: '#dc3c84', bg: 'muts/Stone.png', qty: 0 }
             ]
 			t.addEventListener('template-bound', function() {
-				//document.querySelector('my-form').fab=document.querySelector('paper-fab')
+				document.querySelector('my-form').fab=document.querySelector('core-icon-button')
 			})
-            /*t.draw = function(e) {
+			t.submit = function(e) {
+				document.querySelector('my-form').submit()
+			}
+            //t.draw = function(e) {
 				//document.querySelector('core-drawer-panel').openDrawer()
-				document.querySelector('core-drawer-panel').togglePanel()
-                //document.querySelector('my-form').submit()
-            }*/
+				//document.querySelector('core-drawer-panel').togglePanel()
+				//style="background:white; position:absolute; top:-16px; left:10px; z-index:1;"
+			//}
         </script>
     </body>
 </html>
