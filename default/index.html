@@ -86,7 +86,8 @@
 
     </head>
     <body fullbleed layout vertical>
-		<template is="auto-binding">
+		<p>Loading...</p>
+		<template is="auto-binding" unresolved>
 			<core-drawer-panel>
 			
 			    <core-header-panel drawer style="background:white; overflow:auto;">
@@ -150,15 +151,20 @@
             ]
 			t.addEventListener('template-bound', function() {
 				document.querySelector('my-form').fab=document.querySelector('core-icon-button')
+				document.querySelector('body > p').hidden=true
 			})
 			t.submit = function(e) {
 				document.querySelector('my-form').submit()
 			}
-            //t.draw = function(e) {
-				//document.querySelector('core-drawer-panel').openDrawer()
-				//document.querySelector('core-drawer-panel').togglePanel()
-				//style="background:white; position:absolute; top:-16px; left:10px; z-index:1;"
-			//}
+            /*t.draw = function(e) {
+				document.querySelector('core-drawer-panel').openDrawer()
+				document.querySelector('core-drawer-panel').togglePanel()
+				style="background:white; position:absolute; top:-16px; left:10px; z-index:1;"
+			}*/
+			/*window.addEventListener('polymer-ready', function(e) {
+			      var loading = document.querySelector('body > p')
+			      loading.hidden = true
+			});*/
         </script>
     </body>
 </html>
