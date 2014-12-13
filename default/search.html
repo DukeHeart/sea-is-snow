@@ -1,0 +1,81 @@
+<polymer-element name="site-search">
+  <template>
+
+    <style>
+      :host {
+        /*display: inline-block;*/
+		font-family: 'RobotoDraft', sans-serif;
+		font-size: 14px;
+      }
+      /*#button, #button[disabled] {
+        color: #000;
+        padding: 0;
+      }*/
+      /*#button /deep/ core-icon {
+        height: 1.6em;
+        width: 1.6em;
+      }*/
+      .condensed  input, .condensed /deep/ .underline {
+        display: none;
+      }
+    </style>
+    
+	<section horizontal layout>
+        <core-icon-button
+          id="button"
+          icon="search"
+          title="search"
+          aria-label="search"
+          disabled?="{{!canBeCondensed}}"
+          on-tap="{{toggleSearch}}">
+        </core-icon-button>
+		
+	    <paper-input-decorator flex
+	      label="{{label}}"
+	      floatingLabel="{{floatingLabel}}"
+	      value="{{value}}"
+	      disabled?="{{disabled || condensed}}"
+	      class="{{ {condensed: condensed} | tokenList }}">
+	        <input
+			  id="search"
+			  on-blur="{{onBlur}}"
+	          type="search"
+	          value="{{value}}"
+	          committedValue="{{committedValue}}"
+	          on-keyup="{{onKeyUp}}"
+	          disabled?="{{disabled}}">
+	    </paper-input-decorator>
+    </section>
+
+  </template>
+
+  <script>
+    Polymer({
+      publish: {
+        label: '',
+        floatingLabel: false,
+        disabled: {value: false, reflect: true},
+        canBeCondensed: false,
+        condensed: false,
+        site: window.location.hostname
+      },
+      toggleSearch: function() {
+        if (!this.canBeCondensed) return;
+		this.$.search.focus()
+        this.condensed = !this.condensed;
+		this.$.button.hidden=true
+      },
+      onKeyUp: function(e) {
+        if (e.keyCode == 13) {  // Enter.
+          var q = encodeURIComponent('site:' + this.site + ' ' + this.value);
+          window.open('https://www.google.com/search?q=' + q);
+        }
+      },
+	  onBlur:function(e) {
+		this.condensed = !this.condensed;
+        this.$.button.hidden=false
+      },
+    });
+  </script>
+
+</polymer-element>
