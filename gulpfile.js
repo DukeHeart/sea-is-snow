@@ -13,7 +13,7 @@ gulp.task('appserver', shell.task([
 ]));
 
 gulp.task('update', shell.task([
-  'vulcanize -o default/build.html default/index.html --inline --strip',
+  'vulcanize -o default/build.html default/index.html --inline --csp --strip',
   '~/appengine/appcfg.py --oauth2 update app.yaml'
 ]));
 
@@ -34,26 +34,21 @@ gulp.task('rollback', shell.task([
 ]));
 
 gulp.task('build', shell.task([
-  'vulcanize -o default/build.html default/index.html --inline --strip'
-]));
-
-gulp.task('test', shell.task([
-  'vulcanize -o default/testB.html default/test.html --inline --strip'
+  'vulcanize -o default/build.html default/index.html --inline --csp --strip'
 ]));
 
 gulp.task('default', ['watch', 'appserver']);
 
 /*
 var vulcanize = require('gulp-vulcanize');
+var webserver = require('gulp-webserver');
+
 gulp.task('build', function() {
   return gulp.src('../www/index.html')
     .pipe(vulcanize({dest: './', inline: true, strip: true }))
     .pipe(gulp.dest('./'));
  });
-*/
 
-/*
-var webserver = require('gulp-webserver');
 gulp.task('webserver', function() {
   gulp.src('../www')
     .pipe(webserver({
